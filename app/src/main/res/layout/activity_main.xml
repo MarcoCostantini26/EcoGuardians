@@ -15,7 +15,8 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="#8BC34A" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -28,6 +29,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:contentDescription="@string/list_of_animals"
+        app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
