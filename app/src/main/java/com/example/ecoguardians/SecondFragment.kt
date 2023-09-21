@@ -1,11 +1,12 @@
 package com.example.ecoguardians
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecoguardians.databinding.FragmentSecondBinding
@@ -58,9 +59,10 @@ class SecondFragment : Fragment() {
         animalAdapter = AnimalAdapter(animalList)
         recycleView.adapter = animalAdapter
 
-        //binding.buttonSecond.setOnClickListener {
-        //    findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        //}
+        animalAdapter = AnimalAdapter(animalList)
+        recycleView.adapter = animalAdapter
+
+
     }
 
     override fun onDestroyView() {

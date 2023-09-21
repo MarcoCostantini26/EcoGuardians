@@ -5,11 +5,13 @@
 
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="first_fragment_label">Home pene</string>
+    <string name="second_fragment_label">List of animals morti uccisi godo</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
 
     <string name="list_of_animals">List_of_animals</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
