@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.ecoguardians.databinding.FragmentSecondBinding
 
 /**
@@ -14,6 +16,11 @@ import com.example.ecoguardians.databinding.FragmentSecondBinding
 class SecondFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
+
+    private lateinit var recycleView: RecyclerView
+    private lateinit var animalList: ArrayList<Animal>
+    private lateinit var animalAdapter: AnimalAdapter
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -32,9 +39,28 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
+        recycleView = view.findViewById(R.id.recycleView)
+        recycleView.setHasFixedSize(true)
+        recycleView.layoutManager = LinearLayoutManager(this.context)
+
+        animalList =ArrayList()
+
+        animalList.add(Animal(R.drawable.eco__1_, "Pene1"))
+        animalList.add(Animal(R.drawable.eco__1_, "Pene2"))
+        animalList.add(Animal(R.drawable.eco__1_, "Pene3"))
+        animalList.add(Animal(R.drawable.eco__1_, "Pene4"))
+        animalList.add(Animal(R.drawable.eco__1_, "Pene5"))
+        animalList.add(Animal(R.drawable.eco__1_, "Pene6"))
+        animalList.add(Animal(R.drawable.eco__1_, "Pene7"))
+        animalList.add(Animal(R.drawable.eco__1_, "Pene8"))
+        animalList.add(Animal(R.drawable.eco__1_, "Pene9"))
+
+        animalAdapter = AnimalAdapter(animalList)
+        recycleView.adapter = animalAdapter
+
+        //binding.buttonSecond.setOnClickListener {
+        //    findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        //}
     }
 
     override fun onDestroyView() {
