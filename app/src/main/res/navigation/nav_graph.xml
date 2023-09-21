@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/signinFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.example.ecoguardians.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
-
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
@@ -19,10 +18,14 @@
         android:id="@+id/SecondFragment"
         android:name="com.example.ecoguardians.SecondFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
+        tools:layout="@layout/fragment_second"/>
+    <fragment
+        android:id="@+id/signinFragment"
+        android:name="com.example.ecoguardians.ui.login.SigninFragment"
+        android:label="fragment_signin"
+        tools:layout="@layout/fragment_signin" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            android:id="@+id/action_signinFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>
