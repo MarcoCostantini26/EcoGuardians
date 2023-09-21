@@ -5,8 +5,10 @@
 
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">Home pene</string>
-    <string name="second_fragment_label">List of animals morti uccisi godo</string>
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="log_in">Log in</string>
+    <string name="sign_in">Sign in</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 

@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#8BC34A" />
+            android:background="@color/green" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
-            android:background="#8BC34A"
+            android:background="@color/green"
             app:menu="@menu/bottom_menu" />
     </com.google.android.material.bottomappbar.BottomAppBar>
 
@@ -44,6 +44,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/list_of_animals"
         android:src="@drawable/list"
+        android:backgroundTint="@color/listOfAnimalColor"
         app:layout_anchor="@+id/bottom_menu" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
