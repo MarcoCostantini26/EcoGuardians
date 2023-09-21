@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 class AnimalAdapter(private val animalList:ArrayList<Animal>)
     : RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder>(){
 
+    var onItemClick : ((Animal) -> Unit)? = null
+
     class AnimalViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView){
         val imageView : ImageView = itemView.findViewById(R.id.imageView)
         val textView : TextView = itemView.findViewById(R.id.textView)
@@ -28,5 +30,9 @@ class AnimalAdapter(private val animalList:ArrayList<Animal>)
         val animal = animalList[position]
         holder.imageView.setImageResource(animal.image)
         holder.textView.text = animal.name
+
+        holder.itemView.setOnClickListener{
+            onItemClick?.invoke(animal)
+        }
     }
 }
