@@ -1,24 +1,20 @@
 package com.example.ecoguardians
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.ecoguardians.adapters.ViewPagerAdapter
 import com.example.ecoguardians.databinding.ActivityMainBinding
-
+import com.google.android.material.bottomappbar.BottomAppBar
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private lateinit var signInButton: Button
-    private lateinit var logInButton: Button
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +32,20 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
+        //findViewById<BottomAppBar>(R.id.bottomNavigation)[R.id.user].setOnClickListener{
+        //    navController.navigate(R.id.action_FirstFragment_to_userProfile)
+        //}
+        //setUpTabs()
 
+    }
+
+    private fun setUpTabs() {
+        val adapter = ViewPagerAdapter(supportFragmentManager)
+        adapter.addFragment(UserProfile(), "Profilo")
+        binding.viewPager.adapter = adapter
+        binding.tabs.setupWithViewPager(binding.viewPager)
+
+        binding.tabs.getTabAt(3)!!.setIcon(R.drawable.user)
     }
 
     override fun onSupportNavigateUp(): Boolean {

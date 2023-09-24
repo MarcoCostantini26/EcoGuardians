@@ -119,10 +119,6 @@ class SigninFragment : Fragment() {
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome) + model.displayName
         // TODO : initiate successful logged in experience
-        //accessButton.setOnClickListener {
-        //    accessButton.findNavController().navigate(R.id.action_signinFragment_to_FirstFragment)
-        //}
-        //----
         accessButton.findNavController().navigate(R.id.action_signinFragment_to_FirstFragment)
 
         val appContext = context?.applicationContext ?: return
