@@ -36,7 +36,21 @@
             android:layout_marginEnd="16dp"
             android:background="@color/green"
             app:menu="@menu/bottom_menu" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabInlineLabel="true"
+            app:tabMode="fixed"/>
+
     </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

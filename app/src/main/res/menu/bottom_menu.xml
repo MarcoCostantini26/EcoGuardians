@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/home"
-        android:title="Home"
+        android:title="@string/home"
         android:icon="@drawable/homepage" />
 
     <item android:id="@+id/search"
-        android:title="Search"
+        android:title="@string/search"
         android:icon="@drawable/search" />
 
     <item android:id="@+id/settings"
-        android:title="Settings"
+        android:title="@string/settings"
         android:icon="@drawable/settings" />
 
     <item android:id="@+id/user"
-        android:title="User"
+        android:title="@string/user"
         android:icon="@drawable/user" />
 </menu>
