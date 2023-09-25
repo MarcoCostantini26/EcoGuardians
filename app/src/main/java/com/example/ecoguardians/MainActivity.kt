@@ -27,5 +27,17 @@ class MainActivity : AppCompatActivity() {
             transaction2.commit()
         }
 
+        // Transaction to the user profile
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.user -> { val fragmentList = UserProfile()
+                                val transaction2 : FragmentTransaction = supportFragmentManager.beginTransaction()
+                                transaction2.replace(R.id.main_container, fragmentList)
+                                transaction2.commit() }
+            }
+            true
+        }
+
     }
 }
