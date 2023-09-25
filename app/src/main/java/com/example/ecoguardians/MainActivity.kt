@@ -40,6 +40,14 @@ class MainActivity : AppCompatActivity() {
                                 val transaction2 : FragmentTransaction = supportFragmentManager.beginTransaction()
                                 transaction2.replace(R.id.main_container, fragmentList)
                                 transaction2.commit() }
+                R.id.settings -> { val fragmentList = Settings()
+                                val transaction2 : FragmentTransaction = supportFragmentManager.beginTransaction()
+                                transaction2.replace(R.id.main_container, fragmentList)
+                                transaction2.commit() }
+                R.id.search -> { val fragmentList = Search()
+                                val transaction2 : FragmentTransaction = supportFragmentManager.beginTransaction()
+                                transaction2.replace(R.id.main_container, fragmentList)
+                                transaction2.commit() }
             }
             true
         }
