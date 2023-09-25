@@ -1,6 +1,7 @@
 package com.example.ecoguardians
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.example.ecoguardians.ui.login.SigninFragment
@@ -27,11 +28,15 @@ class MainActivity : AppCompatActivity() {
             transaction2.commit()
         }
 
-        // Transaction to the user profile
+        // Transaction to the user profile/home/settings/search
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.user -> { val fragmentList = UserProfile()
+                                val transaction2 : FragmentTransaction = supportFragmentManager.beginTransaction()
+                                transaction2.replace(R.id.main_container, fragmentList)
+                                transaction2.commit() }
+                R.id.home -> { val fragmentList = Home()
                                 val transaction2 : FragmentTransaction = supportFragmentManager.beginTransaction()
                                 transaction2.replace(R.id.main_container, fragmentList)
                                 transaction2.commit() }
