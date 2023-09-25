@@ -7,8 +7,12 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <FrameLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
@@ -18,10 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/green" />
-
     </com.google.android.material.appbar.AppBarLayout>
-
-
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_menu"
@@ -29,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:backgroundTint="@android:color/transparent">
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
             android:layout_width="wrap_content"
@@ -37,7 +37,6 @@
             android:layout_marginEnd="16dp"
             android:background="@color/green"
             app:menu="@menu/bottom_menu" />
-
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -48,10 +47,5 @@
         android:src="@drawable/list"
         android:backgroundTint="@color/listOfAnimalColor"
         app:layout_anchor="@+id/bottom_menu" />
-
-    <FrameLayout
-        android:id="@+id/main_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
