@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"   xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/detailedActivityIV"
+        android:layout_width="wrap_content"
+        android:layout_height="299dp"
+        android:contentDescription="Rappresentation"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/detailedActivityTV"
+        android:layout_width="132dp"
+        android:layout_height="66dp"
+        android:text="TextView"
+        android:contentDescription="Description"
+        android:translationY="300dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
