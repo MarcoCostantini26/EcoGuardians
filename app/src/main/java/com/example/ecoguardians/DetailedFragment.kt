@@ -14,6 +14,9 @@ import android.widget.TextView
  * Use the [DetailedFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+const val ARG_PARAM1 = "param1"
+const val ARG_PARAM2 = "param2"
 class DetailedFragment : Fragment() {
 
     override fun onCreateView(

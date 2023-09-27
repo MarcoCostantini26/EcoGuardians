@@ -27,11 +27,14 @@
 
     <!-- Stringhe relative alle icone del menu -->
     <string name="user">User</string>
-    <string name="settings">Setting</string>
+    <string name="settings">Settings</string>
     <string name="search">Search</string>
     <string name="home">Home</string>
 
     <!-- Stringhe relative al profilo dell'utente-->
     <string name="user_image">User image</string>
+
+    <!-- Stringhe relative al settings-->
+    <string name="darkLight">Select dark/light mode:</string>
 
 </resources>
