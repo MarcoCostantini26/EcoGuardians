@@ -1,4 +1,4 @@
-package com.example.ecoguardians
+/*package com.example.ecoguardians
 
 import androidx.annotation.WorkerThread
 import com.example.ecoguardians.data.AnimalDAO
@@ -26,3 +26,4 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
         animalDAO.deleteAll()
     }
 }
+*/

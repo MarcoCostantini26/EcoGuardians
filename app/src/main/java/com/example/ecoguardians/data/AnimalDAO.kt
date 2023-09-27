@@ -1,4 +1,4 @@
-package com.example.ecoguardians.data
+/*package com.example.ecoguardians.data
 
 import androidx.room.*
 
@@ -19,3 +19,4 @@ interface AnimalDAO {
     @Query("DELETE FROM list_animals")
     suspend fun deleteAll()
 }
+*/

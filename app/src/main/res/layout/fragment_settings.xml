@@ -7,15 +7,16 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="81dp"
         android:text="@string/darkLight"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:translationY="60dp" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switchMode"
-        android:contentDescription="switchMode"
         android:layout_width="match_parent"
-        android:layout_height="355dp"
+        android:layout_height="168dp"
+        android:contentDescription="switchMode"
         android:thumb="@drawable/thumb"
         android:track="@drawable/track" />
 

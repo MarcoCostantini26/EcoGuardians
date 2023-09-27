@@ -16,10 +16,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // SignIn fragment
-        val fragmentLogIn = SigninFragment()
+        /*val fragmentLogIn = SigninFragment()
         val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_container, fragmentLogIn)
         transaction.commit()
+        
+         */
 
         // Transaction to the list of animals
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener(){

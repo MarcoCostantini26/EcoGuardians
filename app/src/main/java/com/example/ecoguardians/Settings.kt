@@ -10,30 +10,42 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.NightMode
 import androidx.appcompat.widget.SwitchCompat
+import androidx.fragment.app.FragmentTransaction
+import com.example.ecoguardians.ui.login.SigninFragment
+import kotlin.properties.Delegates
 
 class Settings : Fragment() {
 
+    private lateinit var switchMode : SwitchCompat
     private lateinit var  editor : SharedPreferences.Editor
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_settings, container, false)
-        val isNightMode = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+        return inflater.inflate(R.layout.fragment_settings, container, false)
 
-        val switchMode : SwitchCompat = view.findViewById(R.id.switchMode)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        switchMode = view.findViewById(R.id.switchMode)
+        sharedPreferences = requireContext().getSharedPreferences("MODE", Context.MODE_PRIVATE)
+        val isNightMode = sharedPreferences.getBoolean("night_mode", false)
         switchMode.isChecked = isNightMode
-
-        switchMode.setOnCheckedChangeListener{_, isChecked ->
-            AppCompatDelegate.setDefaultNightMode(
-                if(isChecked) AppCompatDelegate.MODE_NIGHT_YES
-                else AppCompatDelegate.MODE_NIGHT_NO
-            )
+        switchMode.setOnCheckedChangeListener{_,isChecked ->
+            if(isChecked){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+            editor = sharedPreferences.edit()
+            editor.putBoolean("night_mode", isChecked)
+            editor.apply()
 
         }
-
-        return view
     }
+
 
 }
