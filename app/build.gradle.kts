@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    //id("com.google.devtools.ksp")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -31,23 +31,24 @@ android {
         viewBinding = true
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         viewBinding = true
     }
 }
 
+val room_version = "2.5.1"
+
 dependencies {
     // variables for storage data in a local database
-    //val room_version = "2.5.2"
-    //implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-runtime:$room_version")
     //annotationProcessor("androidx.room:room-compiler:$room_version")
-    //ksp("androidx.room:room-compiler:2.5.2")
+    ksp("androidx.room:room-compiler:$room_version")
 
     // dependencies for the profile user image
     implementation ("androidx.recyclerview:recyclerview:1.3.1")
