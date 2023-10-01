@@ -1,4 +1,4 @@
-/*package com.example.ecoguardians.viewModel
+package com.example.ecoguardians.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
 
-    val allItems = repository.allAnimals
+    /*val allItems = repository.allAnimals
 
     fun addItem(item: ListAnimal) = viewModelScope.launch {
         repository.insertAnimal(item)
@@ -32,5 +32,5 @@ class ItemsViewModelFactory(private val repository: AnimalRepository) : ViewMode
             return AnimalViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}*/
+    }*/
+}

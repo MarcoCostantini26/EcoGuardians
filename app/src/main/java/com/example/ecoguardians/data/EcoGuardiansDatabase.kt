@@ -1,4 +1,4 @@
-/*package com.example.ecoguardians.data
+package com.example.ecoguardians.data
 
 import android.content.Context
 import androidx.room.Database
@@ -28,4 +28,4 @@ abstract class EcoGuardiansDatabase : RoomDatabase() {
         }
     }
 
-}*/
+}

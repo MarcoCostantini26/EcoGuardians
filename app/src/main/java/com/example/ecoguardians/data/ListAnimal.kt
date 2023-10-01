@@ -1,4 +1,4 @@
-/*package com.example.ecoguardians.data
+package com.example.ecoguardians.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -10,4 +10,4 @@ data class ListAnimal (
     @ColumnInfo(name = "animal")
     var animal: String,
     var description: String
-)*/
+)

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item android:id="@+id/home"
         android:title="@string/home"
         android:icon="@drawable/homepage" />
 
     <item android:id="@+id/search"
         android:title="@string/search"
-        android:icon="@drawable/search" />
+        android:icon="@drawable/search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     <item android:id="@+id/settings"
         android:title="@string/settings"
