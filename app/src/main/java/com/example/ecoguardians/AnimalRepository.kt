@@ -1,4 +1,4 @@
-/*package com.example.ecoguardians
+package com.example.ecoguardians
 
 import androidx.annotation.WorkerThread
 import com.example.ecoguardians.data.AnimalDAO
@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 class AnimalRepository (private val animalDAO:AnimalDAO) {
 
-    val allAnimals: List<ListAnimal> = animalDAO.getAllAnimals()
+    /*val allAnimals: List<ListAnimal> = animalDAO.getAllAnimals()
 
     //@WorkerThread Denotes that the annotated method should only be called on a worker thread.
     //By default Room runs suspend queries off the main thread
@@ -24,6 +24,5 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
     @WorkerThread
     suspend fun deleteAllAnimals() {
         animalDAO.deleteAll()
-    }
+    }*/
 }
-*/
