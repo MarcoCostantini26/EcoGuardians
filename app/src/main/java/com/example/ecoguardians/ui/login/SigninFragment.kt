@@ -14,9 +14,12 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import androidx.navigation.findNavController
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
+import com.example.ecoguardians.Home
 import com.example.ecoguardians.databinding.FragmentSigninBinding
 
 import com.example.ecoguardians.R
+import com.example.ecoguardians.isLogged
 
 class SigninFragment : Fragment() {
 
@@ -114,13 +117,16 @@ class SigninFragment : Fragment() {
             )
         }
         accessButton = loginButton
+
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome) + model.displayName
-        // TODO : initiate successful logged in experience
-        accessButton.findNavController().navigate(R.id.action_signinFragment_to_FirstFragment)
-
+        val fragmentHome = Home()
+        val transaction3 : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction3.replace(R.id.main_container, fragmentHome)
+        transaction3.commit()
+        isLogged = true
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
     }

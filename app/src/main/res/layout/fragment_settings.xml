@@ -14,10 +14,12 @@
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switchMode"
-        android:layout_width="match_parent"
-        android:layout_height="168dp"
+        android:layout_width="wrap_content"
+        android:layout_height="67dp"
+        android:layout_gravity="right"
         android:contentDescription="switchMode"
         android:thumb="@drawable/thumb"
-        android:track="@drawable/track" />
+        android:track="@drawable/track"
+        android:translationY="50dp" />
 
 </FrameLayout>

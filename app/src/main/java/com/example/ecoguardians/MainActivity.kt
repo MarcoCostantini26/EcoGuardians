@@ -8,20 +8,23 @@ import com.example.ecoguardians.ui.login.SigninFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+var isLogged : Boolean = false
 
 class MainActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // SignIn fragment
-        /*val fragmentLogIn = SigninFragment()
-        val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.main_container, fragmentLogIn)
-        transaction.commit()
-        
-         */
+        if(!isLogged){
+            val fragmentLogIn = SigninFragment()
+            val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.main_container, fragmentLogIn)
+            transaction.commit()
+        }
+
 
         // Transaction to the list of animals
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener(){
