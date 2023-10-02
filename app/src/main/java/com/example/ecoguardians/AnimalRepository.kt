@@ -1,9 +1,6 @@
 package com.example.ecoguardians
 
-import androidx.annotation.WorkerThread
 import com.example.ecoguardians.data.AnimalDAO
-import com.example.ecoguardians.data.ListAnimal
-import kotlinx.coroutines.flow.Flow
 
 class AnimalRepository (private val animalDAO:AnimalDAO) {
 
