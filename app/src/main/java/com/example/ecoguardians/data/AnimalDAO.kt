@@ -4,8 +4,8 @@ import androidx.room.*
 
 @Dao
 interface AnimalDAO {
-    /*@Query("SELECT * FROM list_animals WHERE animal IN (:animal)")
-    fun getAnimal(animal: String): Stringé*/
+    //@Query("SELECT * FROM list_animals WHERE animal IN (:animal)")
+    //fun getAnimal(animal: String): String
 
 /*    @Query("SELECT * FROM list_animals")
     fun getAllAnimals(): List<ListAnimal>*/
