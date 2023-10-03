@@ -2,9 +2,14 @@ package com.example.ecoguardians
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.example.ecoguardians.ui.login.SigninFragment
+import com.example.ecoguardians.viewModel.AnimalViewModel
+import com.example.ecoguardians.viewModel.AnimalViewModelFactory
+import com.example.ecoguardians.viewModel.UserViewModel
+import com.example.ecoguardians.viewModel.UserViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -16,6 +21,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val userViewModel by viewModels<UserViewModel> {
+            UserViewModelFactory(repository = (application as EcoGuardiansApplication).userRepository)
+        }
+
+        val animalViewModel by viewModels<AnimalViewModel> {
+            AnimalViewModelFactory(repository = (application as EcoGuardiansApplication).animalRepository)
+        }
 
         // SignIn fragment
         if(!isLogged){

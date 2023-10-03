@@ -17,7 +17,7 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
 
 }
 
-class ItemsViewModelFactory(private val repository: AnimalRepository) : ViewModelProvider.Factory {
+class AnimalViewModelFactory(private val repository: AnimalRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AnimalViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
