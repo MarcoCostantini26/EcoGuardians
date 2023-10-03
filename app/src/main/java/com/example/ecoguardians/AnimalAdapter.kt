@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class AnimalAdapter(private val animalList:ArrayList<Animal>, private val itemClick : ItemClickListener)
+class AnimalAdapter(private val animalShowcaseList:ArrayList<AnimalShowcase>, private val itemClick : ItemClickListener)
     : RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder>(){
 
 
@@ -22,19 +22,19 @@ class AnimalAdapter(private val animalList:ArrayList<Animal>, private val itemCl
     }
 
     override fun getItemCount(): Int {
-        return animalList.size
+        return animalShowcaseList.size
     }
 
     override fun onBindViewHolder(holder: AnimalViewHolder, position: Int) {
-        val animal = animalList[position]
+        val animal = animalShowcaseList[position]
         holder.imageView.setImageResource(animal.image)
         holder.textView.text = animal.name
 
         holder.itemView.setOnClickListener{
-            itemClick.onItemClick(animalList[position])
+            itemClick.onItemClick(animalShowcaseList[position])
         }
     }
     interface ItemClickListener {
-        fun onItemClick(animal : Animal)
+        fun onItemClick(animalShowcase : AnimalShowcase)
     }
 }

@@ -80,26 +80,26 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
     private lateinit var editTextSearch: EditText
     private lateinit var recyclerView: RecyclerView
     private lateinit var itemAdapter: AnimalAdapter
-    private lateinit var animalList: ArrayList<Animal>
-    private lateinit var filteredItems: ArrayList<Animal>
+    private lateinit var animalShowcaseList: ArrayList<AnimalShowcase>
+    private lateinit var filteredItems: ArrayList<AnimalShowcase>
 
         override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
-        animalList = ArrayList()
-        animalList.add(Animal(R.drawable.eco__1_, "Animale1"))
-        animalList.add(Animal(R.drawable.eco__1_, "Animale2"))
-        animalList.add(Animal(R.drawable.eco__1_, "Animale3"))
-        animalList.add(Animal(R.drawable.eco__1_, "Animale4"))
-        animalList.add(Animal(R.drawable.eco__1_, "Animale5"))
-        animalList.add(Animal(R.drawable.eco__1_, "Animale6"))
+        animalShowcaseList = ArrayList()
+        animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale1"))
+        animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale2"))
+        animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale3"))
+        animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale4"))
+        animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale5"))
+        animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale6"))
 
         editTextSearch = view.findViewById(R.id.editTextSearch)
         recyclerView = view.findViewById(R.id.recyclerView)
 
-        itemAdapter = AnimalAdapter(animalList, this)
+        itemAdapter = AnimalAdapter(animalShowcaseList, this)
         recyclerView.adapter = itemAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -108,7 +108,7 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
             override fun afterTextChanged(s: Editable?) {
                 // Filtra gli elementi in base al testo inserito
                 val searchText = s.toString().toLowerCase()
-                filteredItems = animalList.filter { it.name.toLowerCase().contains(searchText) } as ArrayList<Animal>
+                filteredItems = animalShowcaseList.filter { it.name.toLowerCase().contains(searchText) } as ArrayList<AnimalShowcase>
                 itemAdapter = AnimalAdapter(filteredItems, this@Search)
                 recyclerView.adapter = itemAdapter
             }
@@ -123,8 +123,8 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
         return view
     }
 
-    override fun onItemClick(animal: Animal) {
-        val fragmentDetailed = DetailedFragment.newInstance(animal.image, animal.name)
+    override fun onItemClick(animalShowcase: AnimalShowcase) {
+        val fragmentDetailed = DetailedFragment.newInstance(animalShowcase.image, animalShowcase.name)
         val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_container, fragmentDetailed)
         transaction.commit()
