@@ -1,5 +1,6 @@
 package com.example.ecoguardians.data
 
+import android.graphics.drawable.Drawable
 import androidx.room.*
 
 @Dao

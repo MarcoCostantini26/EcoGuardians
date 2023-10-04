@@ -75,7 +75,7 @@ dependencies {
 
     //
     implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.room:room-ktx:2.5.1")
+    implementation("androidx.room:room-ktx:$room_version")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
