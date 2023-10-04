@@ -41,6 +41,24 @@ android {
         viewBinding = true
     }
 }
+
+ksp {
+    arg(RoomSchemaArgProvider(File(projectDir, "schemas")))
+}
+
+class RoomSchemaArgProvider(
+    @get:InputDirectory
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    val schemaDir: File
+) : CommandLineArgumentProvider {
+
+    override fun asArguments(): Iterable<String> {
+        // Note: If you're using KSP, change the line below to return
+        // listOf("room.schemaLocation=${schemaDir.path}").
+        return listOf("room.schemaLocation=${schemaDir.path}")
+    }
+}
+
 val room_version = "2.5.1"
 dependencies {
     // variables for storage data in a local database
@@ -57,6 +75,7 @@ dependencies {
 
     //
     implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.room:room-ktx:2.5.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
