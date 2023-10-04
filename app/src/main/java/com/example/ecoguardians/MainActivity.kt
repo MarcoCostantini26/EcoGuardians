@@ -1,10 +1,10 @@
 package com.example.ecoguardians
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
+import com.example.ecoguardians.data.Animal
 import com.example.ecoguardians.ui.login.SigninFragment
 import com.example.ecoguardians.viewModel.AnimalViewModel
 import com.example.ecoguardians.viewModel.AnimalViewModelFactory
@@ -12,6 +12,8 @@ import com.example.ecoguardians.viewModel.UserViewModel
 import com.example.ecoguardians.viewModel.UserViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.json.JSONObject
+import com.example.ecoguardians.JsonAnimal
 
 var isLogged : Boolean = false
 
@@ -29,6 +31,14 @@ class MainActivity : AppCompatActivity() {
         val animalViewModel by viewModels<AnimalViewModel> {
             AnimalViewModelFactory(repository = (application as EcoGuardiansApplication).animalRepository)
         }
+
+        //animal db popolation
+        val json = JSONObject(JsonAnimal().animal1)
+
+        animalViewModel.addAnimal(Animal(json.getString("name"), R.drawable.eco__1_, json.getString("position"),
+            json.getString("numberSpecies"), json.getString("classification"), json.getString("averageLife"),
+            json.getString("animalDescription"), json.getString("threats"), json.getString("whatYouCanDo"),
+            json.getString("seriousLink"), false))
 
         // SignIn fragment
         if(!isLogged){

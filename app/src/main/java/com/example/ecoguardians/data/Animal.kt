@@ -1,5 +1,6 @@
 package com.example.ecoguardians.data
 
+import android.graphics.drawable.Drawable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -8,9 +9,9 @@ data class Animal (
     @PrimaryKey val animal: String,
     val image: Int,
     val position: String,
-    val numberSpecies: Int,
+    val numberSpecies: String,
     val classification: String,
-    val averageLife: Int,
+    val averageLife: String,
     val animalDescription: String,
     val threats: String,
     val whatYouCanDo: String,
