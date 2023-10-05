@@ -5,7 +5,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.ecoguardians.AnimalRepository
 import com.example.ecoguardians.data.Animal
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
 
@@ -15,6 +19,11 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
         repository.insertAnimal(item)
     }
 
+    suspend fun getName() : List<String> {
+        return withContext(Dispatchers.IO) {
+            repository.getName()
+        }
+    }
 }
 
 class AnimalViewModelFactory(private val repository: AnimalRepository) : ViewModelProvider.Factory {

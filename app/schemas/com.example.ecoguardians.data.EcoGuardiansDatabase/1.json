@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ff3a5654c248e5140688701353b9f2c4",
+    "identityHash": "be66bcf0725be7d9878c6721f2acee78",
     "entities": [
       {
         "tableName": "Animal",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`animal` TEXT NOT NULL, `image` INTEGER NOT NULL, `position` TEXT NOT NULL, `numberSpecies` INTEGER NOT NULL, `classification` TEXT NOT NULL, `averageLife` INTEGER NOT NULL, `animalDescription` TEXT NOT NULL, `threats` TEXT NOT NULL, `whatYouCanDo` TEXT NOT NULL, `seriousLink` TEXT NOT NULL, `favorite` INTEGER NOT NULL, PRIMARY KEY(`animal`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`animal` TEXT NOT NULL, `image` INTEGER NOT NULL, `position` TEXT NOT NULL, `numberSpecies` TEXT NOT NULL, `classification` TEXT NOT NULL, `averageLife` TEXT NOT NULL, `animalDescription` TEXT NOT NULL, `threats` TEXT NOT NULL, `whatYouCanDo` TEXT NOT NULL, `seriousLink` TEXT NOT NULL, `favorite` INTEGER NOT NULL, PRIMARY KEY(`animal`))",
         "fields": [
           {
             "fieldPath": "animal",
@@ -29,7 +29,7 @@
           {
             "fieldPath": "numberSpecies",
             "columnName": "numberSpecies",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -41,7 +41,7 @@
           {
             "fieldPath": "averageLife",
             "columnName": "averageLife",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -132,7 +132,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ff3a5654c248e5140688701353b9f2c4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'be66bcf0725be7d9878c6721f2acee78')"
     ]
   }
 }

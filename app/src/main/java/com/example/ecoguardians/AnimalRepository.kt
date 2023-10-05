@@ -21,8 +21,8 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
     }
 
     @WorkerThread
-    suspend fun getName() {
-        animalDAO.getName()
+    suspend fun getName() : List<String>{
+        return animalDAO.getName()
     }
 
     @WorkerThread

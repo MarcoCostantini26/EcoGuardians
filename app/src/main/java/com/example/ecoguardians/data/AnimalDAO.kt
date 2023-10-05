@@ -24,7 +24,7 @@ interface AnimalDAO {
     fun getImage(name : String): Int
 
     @Query("SELECT animal FROM Animal")
-    fun getName(): String
+    suspend fun getName(): List<String>
 
     @Query("SELECT animal FROM Animal WHERE favorite = 1")
     fun getFavoritesNames(): List<String>
