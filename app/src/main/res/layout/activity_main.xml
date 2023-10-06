@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    app:layout_behavior="com.example.ecoguardians.CustomCoordinatorLayoutBehavior"
     tools:context=".MainActivity">
 
     <FrameLayout
@@ -23,6 +24,13 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/green" />
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_menu"

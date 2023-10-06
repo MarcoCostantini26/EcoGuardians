@@ -1,83 +1,29 @@
 package com.example.ecoguardians
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class Search : Fragment(), AnimalAdapter.ItemClickListener {
-    /*private lateinit var animalsLt: ListView
-    // creating array adapter for listview
-    lateinit var listAdapter: ArrayAdapter<String>
-    // creating array list for listview
-    lateinit var animalsList: ArrayList<String>;
-    // creating variable for search-view
-    private lateinit var searchView: SearchView
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_search, container, false)
-        // initializing variables of list view with their ids.
-        animalsLt = view.findViewById(R.id.list_of_animals_view)
-        searchView = view.findViewById(R.id.search_animal)
-        // initializing list and adding data to list
-        animalsList = ArrayList()
-        animalsList.add("Koala")
-        animalsList.add("Leone")
-        animalsList.add("Lince")
-        animalsList.add("Ghepardo")
-        // initializing list adapter and setting layout
-        // for each list view item and adding array list to it.
-        val context = requireContext()
-        listAdapter = ArrayAdapter<String>(
-            context,
-            android.R.layout.simple_list_item_1,
-            animalsList
-        )
-        // on below line setting list
-        // adapter to our list view.
-        animalsLt.adapter = listAdapter
-        // on below line we are adding on query
-        // listener for our search view.
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                // on below line we are checking
-                // if query exist or not.
-                if (animalsList.contains(query)) {
-                    // if query exist within list we
-                    // are filtering our list adapter.
-                    listAdapter.filter.filter(query)
-                } else {
-                    // if query is not present we are displaying
-                    // a toast message as no  data found..
-                    Toast.makeText(context, "No Language found..", Toast.LENGTH_LONG)
-                        .show()
-                }
-                return false
-            }
-            override fun onQueryTextChange(newText: String?): Boolean {
-                // if query text is change in that case we
-                // are filtering our adapter with
-                // new text on below line.
-                listAdapter.filter.filter(newText)
-                return false
-            }
-        })
-        return view
-    }*/
-    private lateinit var editTextSearch: EditText
+    lateinit var editTextSearch: EditText
     private lateinit var recyclerView: RecyclerView
     private lateinit var itemAdapter: AnimalAdapter
     private lateinit var animalShowcaseList: ArrayList<AnimalShowcase>
@@ -107,8 +53,8 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
         editTextSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 // Filtra gli elementi in base al testo inserito
-                val searchText = s.toString().toLowerCase()
-                filteredItems = animalShowcaseList.filter { it.name.toLowerCase().contains(searchText) } as ArrayList<AnimalShowcase>
+                val searchText = s.toString().lowercase()
+                filteredItems = animalShowcaseList.filter { it.name.lowercase().contains(searchText) } as ArrayList<AnimalShowcase>
                 itemAdapter = AnimalAdapter(filteredItems, this@Search)
                 recyclerView.adapter = itemAdapter
             }
@@ -120,7 +66,21 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
             }
         })
 
+         // Aggiungi un listener per il cambio di stato della tastiera
+        editTextSearch.setOnFocusChangeListener { _, hasFocus ->
+            updateBottomAppBarAndFabVisibility(hasFocus)
+        }
+
         return view
+    }
+
+    // Quando esce la tastiera per la ricerca "nascondo" la bottomAppBar e il floatingActionBar
+    private fun updateBottomAppBarAndFabVisibility(isKeyboardOpen: Boolean) {
+        val bottomAppBar = requireActivity().findViewById<BottomAppBar>(R.id.bottom_menu)
+        val fab = requireActivity().findViewById<FloatingActionButton>(R.id.fab)
+
+        bottomAppBar.visibility = if (isKeyboardOpen) View.GONE else View.VISIBLE
+        fab.visibility = if (isKeyboardOpen) View.GONE else View.VISIBLE
     }
 
     override fun onItemClick(animalShowcase: AnimalShowcase) {
