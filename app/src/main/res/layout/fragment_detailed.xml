@@ -23,6 +23,7 @@
         android:textSize="34sp"
         android:textStyle="bold"
         android:translationY="50dp" />
+
     
     <ImageView
         android:id="@+id/expanded_image"
@@ -30,4 +31,47 @@
         android:layout_height="match_parent"
         android:visibility="invisible"/>
 
+    <TextView
+        android:id="@+id/numberSpecies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="numberSpecies"
+        android:text="number species"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:translationX="250dp"
+        android:translationY="110dp" />
+
+    <TextView
+        android:id="@+id/classification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="classification"
+        android:text="classification"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:translationX="250dp"
+        android:translationY="140dp" />
+
+    <TextView
+        android:id="@+id/averageLife"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="averageLife"
+        android:text="averageLife"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:translationX="250dp"
+        android:translationY="170dp" />
+
+    <TextView
+        android:id="@+id/position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="position"
+        android:text="position"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:translationX="250dp"
+        android:translationY="200dp" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

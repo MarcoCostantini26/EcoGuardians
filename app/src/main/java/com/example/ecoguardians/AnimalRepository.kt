@@ -29,5 +29,26 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
     suspend fun insertAnimal(item : Animal){
         animalDAO.insert(item)
     }
+    @WorkerThread
+    suspend fun getImage(name : String) : Int{
+        return animalDAO.getImage(name)
+    }
+
+    @WorkerThread
+    suspend fun getNumberSpecies(name : String) : String{
+        return animalDAO.getNumberSpecies(name)
+    }
+    @WorkerThread
+    suspend fun getClassification(name : String) : String{
+        return animalDAO.getClassification(name)
+    }
+    @WorkerThread
+    suspend fun getAverageLife(name : String) : String{
+        return animalDAO.getAverageLife(name)
+    }
+    @WorkerThread
+    suspend fun getPosition(name : String) : String{
+        return animalDAO.getPosition(name)
+    }
 
 }

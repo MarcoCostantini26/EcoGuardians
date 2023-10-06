@@ -23,7 +23,8 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class Search : Fragment(), AnimalAdapter.ItemClickListener {
-    lateinit var editTextSearch: EditText
+
+    private lateinit var editTextSearch: EditText
     private lateinit var recyclerView: RecyclerView
     private lateinit var itemAdapter: AnimalAdapter
     private lateinit var animalShowcaseList: ArrayList<AnimalShowcase>
@@ -34,7 +35,7 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
-        animalShowcaseList = ArrayList()
+        /*animalShowcaseList = ArrayList()
         animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale1"))
         animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale2"))
         animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale3"))
@@ -84,9 +85,12 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
     }
 
     override fun onItemClick(animalShowcase: AnimalShowcase) {
+        /*
         val fragmentDetailed = DetailedFragment.newInstance(animalShowcase.image, animalShowcase.name)
         val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_container, fragmentDetailed)
         transaction.commit()
+
+         */
     }
 }
