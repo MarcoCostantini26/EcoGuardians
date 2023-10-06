@@ -24,6 +24,36 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
             repository.getName()
         }
     }
+
+    suspend fun getImage(name : String) : Int{
+        return withContext(Dispatchers.IO){
+            repository.getImage(name)
+        }
+    }
+
+    suspend fun getNumberSpecies(name : String) : String{
+        return withContext(Dispatchers.IO){
+            repository.getNumberSpecies(name)
+        }
+    }
+
+    suspend fun getClassification(name : String) : String{
+        return withContext(Dispatchers.IO){
+            repository.getClassification(name)
+        }
+    }
+
+    suspend fun getAverageLife(name : String) : String{
+        return withContext(Dispatchers.IO){
+            repository.getAverageLife(name)
+        }
+    }
+
+    suspend fun getPosition(name : String) : String{
+        return withContext(Dispatchers.IO){
+            repository.getPosition(name)
+        }
+    }
 }
 
 class AnimalViewModelFactory(private val repository: AnimalRepository) : ViewModelProvider.Factory {

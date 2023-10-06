@@ -25,6 +25,10 @@ import android.widget.TextView
 
 const val ARG_PARAM1 = "param1"
 const val ARG_PARAM2 = "param2"
+const val ARG_PARAM3 = "param3"
+const val ARG_PARAM4 = "param4"
+const val ARG_PARAM5 = "param5"
+const val ARG_PARAM6 = "param6"
 class DetailedFragment : Fragment() {
 
     private var currentAnimator: Animator? = null
@@ -40,12 +44,20 @@ class DetailedFragment : Fragment() {
 
         val textView : TextView = view.findViewById(R.id.detailedActivityTV)
         val imageView : ImageView = view.findViewById(R.id.detailedActivityIV)
+        val numberSpeciesTV : TextView = view.findViewById(R.id.numberSpecies)
+        val classificationTV : TextView = view.findViewById(R.id.classification)
+        val averageLifeTV : TextView = view.findViewById(R.id.averageLife)
+        val positionTV : TextView = view.findViewById(R.id.position)
 
         textView.text = arguments?.getString(ARG_PARAM2)
         arguments?.let { imageView.setImageResource(it.getInt(ARG_PARAM1)) }
+        numberSpeciesTV.text = arguments?.getString(ARG_PARAM3)
+        classificationTV.text = arguments?.getString(ARG_PARAM4)
+        averageLifeTV.text = arguments?.getString(ARG_PARAM6)
+        positionTV.text = arguments?.getString(ARG_PARAM5)
 
         imageView.setOnClickListener{
-            zoomImageFromThumb(imageView, R.drawable.eco__1_)
+            zoomImageFromThumb(imageView, imageView.id)
         }
 
         // Retrieve and cache the system's default "short" animation time.
@@ -55,20 +67,17 @@ class DetailedFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailedFragment.
-         */
         @JvmStatic
-        fun newInstance(image : Int, name: String) =
+        fun newInstance(image : Int, name: String, numberSpecies: String, classification: String,
+                        position: String, averageLife: String) =
             DetailedFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_PARAM1, image)
                     putString(ARG_PARAM2, name)
+                    putString(ARG_PARAM3, numberSpecies)
+                    putString(ARG_PARAM4, classification)
+                    putString(ARG_PARAM5, position)
+                    putString(ARG_PARAM6, averageLife)
                 }
             }
     }

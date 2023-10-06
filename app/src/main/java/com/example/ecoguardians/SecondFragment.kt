@@ -46,10 +46,13 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
                 }
                 withContext(Dispatchers.Main) {
                     if (view != null && isAdded) {
-                        handleAnimalNames(animalNames)
+                        handleAnimalNames(animalViewModel.getImage(animalNames[0]),animalNames,
+                            animalViewModel.getNumberSpecies(animalNames[0]), animalViewModel.getClassification(animalNames[0]),
+                                animalViewModel.getPosition(animalNames[0]), animalViewModel.getAverageLife(animalNames[0]))
                     }
                 }
             } catch (e: Exception) {
+
             }
         }
 
@@ -59,11 +62,10 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
 
     }
 
-    private fun handleAnimalNames(names: List<String>) {
+    private fun handleAnimalNames(image: Int, names: List<String>, numberSpecies: String, classification: String,
+                                  position: String, averageLife: String) {
         if (names.isNotEmpty()) {
-            animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, names[0]))
-        }else{
-            animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Nessun animale disponibile"))
+            animalShowcaseList.add(AnimalShowcase(image, names[0], numberSpecies, classification, position, averageLife))
         }
         animalAdapter.notifyDataSetChanged()
     }
@@ -78,7 +80,8 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
     }
 
     override fun onItemClick(animalShowcase: AnimalShowcase) {
-        val fragmentDetailed = DetailedFragment.newInstance(animalShowcase.image, animalShowcase.name)
+        val fragmentDetailed = DetailedFragment.newInstance(animalShowcase.image, animalShowcase.name, animalShowcase.numberSpecies,
+            animalShowcase.classification, animalShowcase.averageLife, animalShowcase.position)
         val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_container, fragmentDetailed)
         transaction.commit()
