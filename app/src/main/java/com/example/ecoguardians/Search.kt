@@ -35,7 +35,7 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
-        /*animalShowcaseList = ArrayList()
+        animalShowcaseList = ArrayList()
         animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale1"))
         animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale2"))
         animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale3"))
