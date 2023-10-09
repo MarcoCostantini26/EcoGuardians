@@ -1,16 +1,26 @@
 package com.example.ecoguardians
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class Search : Fragment(), AnimalAdapter.ItemClickListener {
 
@@ -44,8 +54,8 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
         editTextSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 // Filtra gli elementi in base al testo inserito
-                val searchText = s.toString().toLowerCase()
-                filteredItems = animalShowcaseList.filter { it.name.toLowerCase().contains(searchText) } as ArrayList<AnimalShowcase>
+                val searchText = s.toString().lowercase()
+                filteredItems = animalShowcaseList.filter { it.name.lowercase().contains(searchText) } as ArrayList<AnimalShowcase>
                 itemAdapter = AnimalAdapter(filteredItems, this@Search)
                 recyclerView.adapter = itemAdapter
             }
@@ -56,8 +66,22 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
-*/
+
+         // Aggiungi un listener per il cambio di stato della tastiera
+        editTextSearch.setOnFocusChangeListener { _, hasFocus ->
+            updateBottomAppBarAndFabVisibility(hasFocus)
+        }
+
         return view
+    }
+
+    // Quando esce la tastiera per la ricerca "nascondo" la bottomAppBar e il floatingActionBar
+    private fun updateBottomAppBarAndFabVisibility(isKeyboardOpen: Boolean) {
+        val bottomAppBar = requireActivity().findViewById<BottomAppBar>(R.id.bottom_menu)
+        val fab = requireActivity().findViewById<FloatingActionButton>(R.id.fab)
+
+        bottomAppBar.visibility = if (isKeyboardOpen) View.GONE else View.VISIBLE
+        fab.visibility = if (isKeyboardOpen) View.GONE else View.VISIBLE
     }
 
     override fun onItemClick(animalShowcase: AnimalShowcase) {
@@ -69,6 +93,4 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
 
          */
     }
-
-
 }

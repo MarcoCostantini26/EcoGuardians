@@ -1,9 +1,13 @@
 package com.example.ecoguardians
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.ecoguardians.data.Animal
 import com.example.ecoguardians.ui.login.SigninFragment
@@ -15,11 +19,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.json.JSONObject
 import com.example.ecoguardians.JsonAnimal
+import com.google.android.material.bottomappbar.BottomAppBar
 
 var isLogged : Boolean = false
 
 class MainActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         //animal db popolation
         val json = JSONObject(JsonAnimal().animal1)
-        animalViewModel.addAnimal(Animal(json.getString("name"), R.drawable.koala, json.getString("position"),
+        animalViewModel.addAnimal(Animal(json.getString("name"), R.drawable.eco__1_, json.getString("position"),
             json.getString("numberSpecies"), json.getString("classification"), json.getString("averageLife"),
             json.getString("animalDescription"), json.getString("threats"), json.getString("whatYouCanDo"),
             json.getString("seriousLink"), false))
@@ -73,9 +77,9 @@ class MainActivity : AppCompatActivity() {
                                 val transaction2 : FragmentTransaction = supportFragmentManager.beginTransaction()
                                 transaction2.replace(R.id.main_container, fragmentList)
                                 transaction2.commit() }
-                R.id.search -> { val fragmentList = Search()
+                R.id.search -> { val searchFragment = Search()
                                 val transaction2 : FragmentTransaction = supportFragmentManager.beginTransaction()
-                                transaction2.replace(R.id.main_container, fragmentList)
+                                transaction2.replace(R.id.main_container, searchFragment)
                                 transaction2.commit() }
             }
             true
