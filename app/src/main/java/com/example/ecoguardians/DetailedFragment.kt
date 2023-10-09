@@ -57,7 +57,7 @@ class DetailedFragment : Fragment() {
         positionTV.text = arguments?.getString(ARG_PARAM5)
 
         imageView.setOnClickListener{
-            zoomImageFromThumb(imageView, imageView.id)
+            zoomImageFromThumb(imageView, arguments?.getInt(ARG_PARAM1, 0) ?: 0)
         }
 
         // Retrieve and cache the system's default "short" animation time.

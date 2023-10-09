@@ -39,7 +39,18 @@
         android:text="number species"
         android:textAlignment="textStart"
         android:textSize="16sp"
-        android:translationX="250dp"
+        android:translationX="308dp"
+        android:translationY="110dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="numberSpecies:"
+        android:text="N.species: "
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:translationX="230dp"
         android:translationY="110dp" />
 
     <TextView
@@ -50,7 +61,18 @@
         android:text="classification"
         android:textAlignment="textStart"
         android:textSize="16sp"
-        android:translationX="250dp"
+        android:translationX="308dp"
+        android:translationY="140dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="type"
+        android:text="Type:"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:translationX="230dp"
         android:translationY="140dp" />
 
     <TextView
@@ -61,7 +83,18 @@
         android:text="averageLife"
         android:textAlignment="textStart"
         android:textSize="16sp"
-        android:translationX="250dp"
+        android:translationX="308dp"
+        android:translationY="170dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="averageLife:"
+        android:text="Avg. life:"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:translationX="230dp"
         android:translationY="170dp" />
 
     <TextView
@@ -72,6 +105,17 @@
         android:text="position"
         android:textAlignment="textStart"
         android:textSize="16sp"
-        android:translationX="250dp"
+        android:translationX="308dp"
+        android:translationY="200dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="position"
+        android:text="Position:"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:translationX="230dp"
         android:translationY="200dp" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
