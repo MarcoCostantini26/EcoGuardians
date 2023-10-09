@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecoguardians.viewModel.AnimalViewModel
 import com.example.ecoguardians.viewModel.AnimalViewModelFactory
+import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -36,6 +37,15 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
         val animalViewModel by viewModels<AnimalViewModel> {
             AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
         }
+
+        // Accedi all'attività
+        val activity = activity as? MainActivity
+
+        // Applica lo stile al titolo della Toolbar
+        activity?.findViewById<MaterialToolbar>(R.id.toolbar)?.setTitleTextAppearance(requireContext(), R.style.ToolbarTitle)
+
+        // Aggiorna il titolo della Toolbar
+        activity?.findViewById<MaterialToolbar>(R.id.toolbar)?.title = "List of animals"
 
         animalShowcaseList =ArrayList()
 

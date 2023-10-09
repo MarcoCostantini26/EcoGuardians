@@ -5,5 +5,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="ToolbarTitle">
+        <item name="fontFamily">@font/customfont</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="Theme.EcoGuardians" parent="Base.Theme.EcoGuardians" />
 </resources>

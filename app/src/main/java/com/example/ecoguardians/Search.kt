@@ -26,6 +26,7 @@ import com.example.ecoguardians.viewModel.AnimalViewModel
 import com.example.ecoguardians.viewModel.AnimalViewModelFactory
 import com.example.ecoguardians.viewModel.UserViewModel
 import com.example.ecoguardians.viewModel.UserViewModelFactory
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
@@ -101,12 +102,10 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
     }
 
     override fun onItemClick(animalShowcase: AnimalShowcase) {
-        /*
-        val fragmentDetailed = DetailedFragment.newInstance(animalShowcase.image, animalShowcase.name)
+        val fragmentDetailed = DetailedFragment.newInstance(animalShowcase.image, animalShowcase.name, animalShowcase.numberSpecies,
+            animalShowcase.classification, animalShowcase.averageLife, animalShowcase.position)
         val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_container, fragmentDetailed)
         transaction.commit()
-
-         */
     }
 }

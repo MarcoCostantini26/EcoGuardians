@@ -10,6 +10,7 @@ import com.example.ecoguardians.viewModel.AnimalViewModel
 import com.example.ecoguardians.viewModel.AnimalViewModelFactory
 import com.example.ecoguardians.viewModel.UserViewModel
 import com.example.ecoguardians.viewModel.UserViewModelFactory
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.json.JSONObject
@@ -22,6 +23,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Applica lo stile al titolo della Toolbar
+        findViewById<MaterialToolbar>(R.id.toolbar)?.setTitleTextAppearance(application, R.style.ToolbarTitle)
+
+        // Aggiorna il titolo della Toolbar
+        findViewById<MaterialToolbar>(R.id.toolbar)?.title = "Home"
+
         val userViewModel by viewModels<UserViewModel> {
             UserViewModelFactory(repository = (application as EcoGuardiansApplication).userRepository)
         }
@@ -30,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             AnimalViewModelFactory(repository = (application as EcoGuardiansApplication).animalRepository)
         }
 
-        //animal db popolation
+        //animal db population
         val json = JSONObject(JsonAnimal().animal1)
         animalViewModel.addAnimal(Animal(json.getString("name"), R.drawable.eco__1_, json.getString("position"),
             json.getString("numberSpecies"), json.getString("classification"), json.getString("averageLife"),
@@ -58,19 +65,23 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.user -> { val fragmentList = UserProfile()
+                R.id.user -> { findViewById<MaterialToolbar>(R.id.toolbar)?.title = "User profile"
+                                val fragmentList = UserProfile()
                                 val transaction2 : FragmentTransaction = supportFragmentManager.beginTransaction()
                                 transaction2.replace(R.id.main_container, fragmentList)
                                 transaction2.commit() }
-                R.id.home -> { val fragmentList = Home()
+                R.id.home -> { findViewById<MaterialToolbar>(R.id.toolbar)?.title = "Home"
+                                val fragmentList = Home()
                                 val transaction2 : FragmentTransaction = supportFragmentManager.beginTransaction()
                                 transaction2.replace(R.id.main_container, fragmentList)
                                 transaction2.commit() }
-                R.id.settings -> { val fragmentList = Settings()
+                R.id.settings -> { findViewById<MaterialToolbar>(R.id.toolbar)?.title = "Settings"
+                                val fragmentList = Settings()
                                 val transaction2 : FragmentTransaction = supportFragmentManager.beginTransaction()
                                 transaction2.replace(R.id.main_container, fragmentList)
                                 transaction2.commit() }
-                R.id.search -> { val searchFragment = Search()
+                R.id.search -> { findViewById<MaterialToolbar>(R.id.toolbar)?.title = "Searching.."
+                                val searchFragment = Search()
                                 val transaction2 : FragmentTransaction = supportFragmentManager.beginTransaction()
                                 transaction2.replace(R.id.main_container, searchFragment)
                                 transaction2.commit() }
