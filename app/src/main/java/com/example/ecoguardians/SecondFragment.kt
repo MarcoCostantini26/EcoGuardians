@@ -49,7 +49,9 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
                     if (view != null && isAdded) {
                         handleAnimalNames(animalViewModel.getImage(animalNames[0]),animalNames,
                             animalViewModel.getNumberSpecies(animalNames[0]), animalViewModel.getClassification(animalNames[0]),
-                                animalViewModel.getPosition(animalNames[0]), animalViewModel.getAverageLife(animalNames[0]))
+                                animalViewModel.getPosition(animalNames[0]), animalViewModel.getAverageLife(animalNames[0]),
+                                animalViewModel.getDescription(animalNames[0]), animalViewModel.getThreats(animalNames[0]),
+                                animalViewModel.getWhatYouCanDo(animalNames[0]), animalViewModel.getSeriousLink(animalNames[0]))
                     }
                 }
             } catch (e: Exception) {
@@ -63,9 +65,11 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
     }
 
     private fun handleAnimalNames(image: Int, names: List<String>, numberSpecies: String, classification: String,
-                                  position: String, averageLife: String) {
+                                  position: String, averageLife: String, description: String, threats: String,
+                                  whatYouCanDo: String, seriousLink: String) {
         if (names.isNotEmpty()) {
-            animalShowcaseList.add(AnimalShowcase(image, names[0], numberSpecies, classification, position, averageLife))
+            animalShowcaseList.add(AnimalShowcase(image, names[0], numberSpecies, classification, position, averageLife, description,
+                threats, whatYouCanDo, seriousLink))
         }
         animalAdapter.notifyDataSetChanged()
     }
@@ -81,7 +85,8 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
 
     override fun onItemClick(animalShowcase: AnimalShowcase) {
         val fragmentDetailed = DetailedFragment.newInstance(animalShowcase.image, animalShowcase.name, animalShowcase.numberSpecies,
-            animalShowcase.classification, animalShowcase.averageLife, animalShowcase.position)
+            animalShowcase.classification, animalShowcase.averageLife, animalShowcase.position, animalShowcase.description,
+            animalShowcase.threats, animalShowcase.whatYouCanDo, animalShowcase.seriousLink)
         val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_container, fragmentDetailed)
         transaction.commit()

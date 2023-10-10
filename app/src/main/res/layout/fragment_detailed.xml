@@ -6,16 +6,22 @@
 
     <ImageView
         android:id="@+id/detailedActivityIV"
-        android:layout_width="213dp"
-        android:layout_height="152dp"
+        android:layout_width="163dp"
+        android:layout_height="110dp"
         android:contentDescription="Rappresentation"
         android:translationX="10dp"
-        android:translationY="100dp"
+        android:translationY="110dp"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <ImageView
+        android:id="@+id/expanded_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/detailedActivityTV"
-        android:layout_width="429dp"
+        android:layout_width="409dp"
         android:layout_height="66dp"
         android:contentDescription="Description"
         android:text="TextView"
@@ -24,12 +30,6 @@
         android:textStyle="bold"
         android:translationY="50dp" />
 
-    
-    <ImageView
-        android:id="@+id/expanded_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/numberSpecies"
@@ -39,40 +39,40 @@
         android:text="number species"
         android:textAlignment="textStart"
         android:textSize="16sp"
-        android:translationX="308dp"
+        android:translationX="265dp"
         android:translationY="110dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="numberSpecies:"
-        android:text="N.species: "
+        android:text="N.specie: "
         android:textAlignment="textStart"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:translationX="230dp"
+        android:translationX="180dp"
         android:translationY="110dp" />
 
     <TextView
         android:id="@+id/classification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="classification"
+        android:contentDescription="classificazione"
         android:text="classification"
         android:textAlignment="textStart"
         android:textSize="16sp"
-        android:translationX="308dp"
+        android:translationX="265dp"
         android:translationY="140dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="type"
-        android:text="Type:"
+        android:contentDescription="tipo"
+        android:text="Tipo:"
         android:textAlignment="textStart"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:translationX="230dp"
+        android:translationX="180dp"
         android:translationY="140dp" />
 
     <TextView
@@ -83,18 +83,18 @@
         android:text="averageLife"
         android:textAlignment="textStart"
         android:textSize="16sp"
-        android:translationX="308dp"
+        android:translationX="265dp"
         android:translationY="170dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="averageLife:"
-        android:text="Avg. life:"
+        android:text="Vita media:"
         android:textAlignment="textStart"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:translationX="230dp"
+        android:translationX="180dp"
         android:translationY="170dp" />
 
     <TextView
@@ -105,17 +105,116 @@
         android:text="position"
         android:textAlignment="textStart"
         android:textSize="16sp"
-        android:translationX="308dp"
+        android:translationX="265dp"
         android:translationY="200dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="position"
-        android:text="Position:"
+        android:text="Posizione:"
         android:textAlignment="textStart"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:translationX="230dp"
+        android:translationX="180dp"
         android:translationY="200dp" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="461dp"
+        android:translationY="240dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Indice: "
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/section1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-Descrizione" />
+
+            <TextView
+                android:id="@+id/section2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-Minacce" />
+
+            <TextView
+                android:id="@+id/section3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-Cosa puoi fare" />
+
+            <TextView
+                android:id="@+id/section4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-Link per aiuto\n" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descrizione"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/content1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Minacce"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/content2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cosa puoi fare"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/content3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Link per aiuto"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/content4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

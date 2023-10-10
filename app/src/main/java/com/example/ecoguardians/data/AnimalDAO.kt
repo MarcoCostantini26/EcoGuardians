@@ -35,6 +35,18 @@ interface AnimalDAO {
     @Query("SELECT position FROM Animal WHERE :name = animal")
     fun getPosition(name : String): String
 
+    @Query("SELECT animalDescription FROM Animal WHERE :name = animal")
+    fun getDescription(name : String): String
+
+    @Query("SELECT threats FROM Animal WHERE :name = animal")
+    fun getThreats(name : String): String
+
+    @Query("SELECT whatYouCanDo FROM Animal WHERE :name = animal")
+    fun getWhatYouCanDo(name : String): String
+
+    @Query("SELECT seriousLink FROM Animal WHERE :name = animal")
+    fun getSeriousLink(name : String): String
+
     @Query("SELECT animal FROM Animal")
     suspend fun getName(): List<String>
 

@@ -54,6 +54,30 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
             repository.getPosition(name)
         }
     }
+
+    suspend fun getDescription(name : String) : String{
+        return withContext(Dispatchers.IO){
+            repository.getDescription(name)
+        }
+    }
+
+    suspend fun getThreats(name : String) : String{
+        return withContext(Dispatchers.IO){
+            repository.getThreats(name)
+        }
+    }
+
+    suspend fun getWhatYouCanDo(name : String) : String{
+        return withContext(Dispatchers.IO){
+            repository.getWhatYouCanDo(name)
+        }
+    }
+
+    suspend fun getSeriousLink(name : String) : String{
+        return withContext(Dispatchers.IO){
+            repository.getSeriousLink(name)
+        }
+    }
 }
 
 class AnimalViewModelFactory(private val repository: AnimalRepository) : ViewModelProvider.Factory {

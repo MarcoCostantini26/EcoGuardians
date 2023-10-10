@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.TextView
 
 
@@ -29,6 +30,10 @@ const val ARG_PARAM3 = "param3"
 const val ARG_PARAM4 = "param4"
 const val ARG_PARAM5 = "param5"
 const val ARG_PARAM6 = "param6"
+const val ARG_PARAM7 = "param7"
+const val ARG_PARAM8 = "param8"
+const val ARG_PARAM9 = "param9"
+const val ARG_PARAM10 = "param10"
 class DetailedFragment : Fragment() {
 
     private var currentAnimator: Animator? = null
@@ -41,6 +46,12 @@ class DetailedFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_detailed, container, false)
+
+        val scrollView = view.findViewById<ScrollView>(R.id.scrollView)
+        val section1 = view.findViewById<TextView>(R.id.section1)
+        val section2 = view.findViewById<TextView>(R.id.section2)
+        val section3 = view.findViewById<TextView>(R.id.section3)
+        val section4 = view.findViewById<TextView>(R.id.section4)
 
         val textView : TextView = view.findViewById(R.id.detailedActivityTV)
         val imageView : ImageView = view.findViewById(R.id.detailedActivityIV)
@@ -56,8 +67,33 @@ class DetailedFragment : Fragment() {
         averageLifeTV.text = arguments?.getString(ARG_PARAM6)
         positionTV.text = arguments?.getString(ARG_PARAM5)
 
+
+        val descriptionTV: TextView = view.findViewById(R.id.content1)
+        descriptionTV.text = arguments?.getString(ARG_PARAM7)
+        val threatsTV: TextView = view.findViewById(R.id.content2)
+        threatsTV.text = arguments?.getString(ARG_PARAM8)
+        val whatYouCanDoTV: TextView = view.findViewById(R.id.content3)
+        whatYouCanDoTV.text = arguments?.getString(ARG_PARAM9)
+        val seriousLinkTV: TextView = view.findViewById(R.id.content4)
+        seriousLinkTV.text = arguments?.getString(ARG_PARAM10)
+
         imageView.setOnClickListener{
             zoomImageFromThumb(imageView, arguments?.getInt(ARG_PARAM1, 0) ?: 0)
+        }
+
+        section1.setOnClickListener {
+            scrollView.scrollTo(0, view.findViewById<View>(R.id.content1).top)
+        }
+
+        section2.setOnClickListener {
+            scrollView.scrollTo(0, view.findViewById<View>(R.id.content2).top)
+        }
+        section3.setOnClickListener {
+            scrollView.scrollTo(0, view.findViewById<View>(R.id.content3).top)
+        }
+
+        section4.setOnClickListener {
+            scrollView.scrollTo(0, view.findViewById<View>(R.id.content4).top)
         }
 
         // Retrieve and cache the system's default "short" animation time.
@@ -69,7 +105,8 @@ class DetailedFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(image : Int, name: String, numberSpecies: String, classification: String,
-                        position: String, averageLife: String) =
+                        position: String, averageLife: String, description: String, threats: String,
+                        whatYouCanDo: String, seriousLink: String) =
             DetailedFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_PARAM1, image)
@@ -78,6 +115,10 @@ class DetailedFragment : Fragment() {
                     putString(ARG_PARAM4, classification)
                     putString(ARG_PARAM5, position)
                     putString(ARG_PARAM6, averageLife)
+                    putString(ARG_PARAM7, description)
+                    putString(ARG_PARAM8, threats)
+                    putString(ARG_PARAM9, whatYouCanDo)
+                    putString(ARG_PARAM10, seriousLink)
                 }
             }
     }

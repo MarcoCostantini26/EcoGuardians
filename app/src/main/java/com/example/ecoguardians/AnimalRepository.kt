@@ -50,5 +50,21 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
     suspend fun getPosition(name : String) : String{
         return animalDAO.getPosition(name)
     }
+    @WorkerThread
+    suspend fun getDescription(name: String): String{
+        return animalDAO.getDescription(name)
+    }
+    @WorkerThread
+    suspend fun getThreats(name: String): String{
+        return animalDAO.getThreats(name)
+    }
+    @WorkerThread
+    suspend fun getWhatYouCanDo(name: String): String{
+        return animalDAO.getWhatYouCanDo(name)
+    }
+    @WorkerThread
+    suspend fun getSeriousLink(name: String): String{
+        return animalDAO.getSeriousLink(name)
+    }
 
 }

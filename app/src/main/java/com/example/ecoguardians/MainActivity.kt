@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         //animal db popolation
         val json = JSONObject(JsonAnimal().animal1)
-        animalViewModel.addAnimal(Animal(json.getString("name"), R.drawable.eco__1_, json.getString("position"),
+        animalViewModel.addAnimal(Animal(json.getString("name"), R.drawable.koala, json.getString("position"),
             json.getString("numberSpecies"), json.getString("classification"), json.getString("averageLife"),
             json.getString("animalDescription"), json.getString("threats"), json.getString("whatYouCanDo"),
             json.getString("seriousLink"), false))
