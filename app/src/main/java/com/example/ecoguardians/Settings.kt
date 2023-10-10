@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatDelegate.NightMode
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.ecoguardians.ui.login.SigninFragment
+import com.google.android.material.appbar.MaterialToolbar
 import kotlin.properties.Delegates
 
 class Settings : Fragment() {
@@ -33,6 +34,7 @@ class Settings : Fragment() {
         switchMode = view.findViewById(R.id.switchMode)
         sharedPreferences = requireContext().getSharedPreferences("MODE", Context.MODE_PRIVATE)
         val isNightMode = sharedPreferences.getBoolean("night_mode", false)
+
         switchMode.isChecked = isNightMode
         switchMode.setOnCheckedChangeListener{_,isChecked ->
             if(isChecked){

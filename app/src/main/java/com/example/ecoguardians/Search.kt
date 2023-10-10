@@ -1,5 +1,6 @@
 package com.example.ecoguardians
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -13,14 +14,24 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.activity.viewModels
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ecoguardians.viewModel.AnimalViewModel
+import com.example.ecoguardians.viewModel.AnimalViewModelFactory
+import com.example.ecoguardians.viewModel.UserViewModel
+import com.example.ecoguardians.viewModel.UserViewModelFactory
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class Search : Fragment(), AnimalAdapter.ItemClickListener {
 
@@ -30,18 +41,24 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
     private lateinit var animalShowcaseList: ArrayList<AnimalShowcase>
     private lateinit var filteredItems: ArrayList<AnimalShowcase>
 
+        @SuppressLint("NotifyDataSetChanged")
         override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
+        val animalViewModel by viewModels<AnimalViewModel> {
+            AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
+        }
+
         animalShowcaseList = ArrayList()
-        animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale1"))
-        animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale2"))
-        animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale3"))
-        animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale4"))
-        animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale5"))
-        animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, "Animale6"))
+
+        // Creo una coroutine per richiamare le query suspend getName
+        CoroutineScope(Dispatchers.Main).launch {
+            val name = animalViewModel.getName()[0]
+            animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, name))
+            itemAdapter.notifyDataSetChanged()
+        }
 
         editTextSearch = view.findViewById(R.id.editTextSearch)
         recyclerView = view.findViewById(R.id.recyclerView)
@@ -85,12 +102,10 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
     }
 
     override fun onItemClick(animalShowcase: AnimalShowcase) {
-        /*
-        val fragmentDetailed = DetailedFragment.newInstance(animalShowcase.image, animalShowcase.name)
+        val fragmentDetailed = DetailedFragment.newInstance(animalShowcase.image, animalShowcase.name, animalShowcase.numberSpecies,
+            animalShowcase.classification, animalShowcase.averageLife, animalShowcase.position)
         val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_container, fragmentDetailed)
         transaction.commit()
-
-         */
     }
 }
