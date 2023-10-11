@@ -37,4 +37,7 @@
     <!-- Stringhe relative al settings-->
     <string name="darkLight">Select dark/light mode:</string>
 
+    <!-- Stringhe relative al riquadro dell'animale -->
+    <string name="favorite">Favorite</string>
+
 </resources>

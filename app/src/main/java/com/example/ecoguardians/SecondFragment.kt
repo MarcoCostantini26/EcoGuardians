@@ -1,11 +1,13 @@
 package com.example.ecoguardians
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -62,7 +64,7 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
                                 animalViewModel.getPosition(animalNames[0]), animalViewModel.getAverageLife(animalNames[0]))
                     }
                 }
-            } catch (e: Exception) {
+            } catch (_: Exception) {
 
             }
         }
@@ -72,6 +74,7 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun handleAnimalNames(image: Int, names: List<String>, numberSpecies: String, classification: String,
                                   position: String, averageLife: String) {
         if (names.isNotEmpty()) {
