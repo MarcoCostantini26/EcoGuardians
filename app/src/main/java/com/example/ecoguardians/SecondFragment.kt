@@ -56,12 +56,7 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
                 }
                 withContext(Dispatchers.Main) {
                     if (view != null && isAdded) {
-                        handleAnimalNames(animalViewModel.getImage(animalNames[0]),animalNames,
-                            animalViewModel.getNumberSpecies(animalNames[0]), animalViewModel.getClassification(animalNames[0]),
-                                animalViewModel.getPosition(animalNames[0]), animalViewModel.getAverageLife(animalNames[0]),
-                                animalViewModel.getDescription(animalNames[0]), animalViewModel.getThreats(animalNames[0]),
-                                animalViewModel.getWhatYouCanDo(animalNames[0]), animalViewModel.getSeriousLink(animalNames[0]),
-                                animalViewModel.getLatitude(animalNames[0]), animalViewModel.getLongitude(animalNames[0]))
+                        handleAnimalNames(animalNames, animalViewModel)
                     }
                 }
             } catch (_: Exception) {
@@ -75,12 +70,22 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun handleAnimalNames(image: Int, names: List<String>, numberSpecies: String, classification: String,
-                                  position: String, averageLife: String, description: String, threats: String,
-                                  whatYouCanDo: String, seriousLink: String, latitude: Double, longitude: Double) {
+    //provare a mettere qua le query
+    private suspend fun handleAnimalNames(names: List<String>, animalViewModel : AnimalViewModel) {
         if (names.isNotEmpty()) {
-            animalShowcaseList.add(AnimalShowcase(image, names[0], numberSpecies, classification, position, averageLife, description,
-                threats, whatYouCanDo, seriousLink, latitude, longitude))
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(names[0]),names[0],
+                animalViewModel.getNumberSpecies(names[0]), animalViewModel.getClassification(names[0]),
+                animalViewModel.getPosition(names[0]), animalViewModel.getAverageLife(names[0]),
+                animalViewModel.getDescription(names[0]), animalViewModel.getThreats(names[0]),
+                animalViewModel.getWhatYouCanDo(names[0]), animalViewModel.getSeriousLink(names[0]),
+                animalViewModel.getLatitude(names[0]), animalViewModel.getLongitude(names[0])))
+
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(names[1]),names[1],
+                animalViewModel.getNumberSpecies(names[1]), animalViewModel.getClassification(names[1]),
+                animalViewModel.getPosition(names[1]), animalViewModel.getAverageLife(names[1]),
+                animalViewModel.getDescription(names[1]), animalViewModel.getThreats(names[1]),
+                animalViewModel.getWhatYouCanDo(names[1]), animalViewModel.getSeriousLink(names[1]),
+                animalViewModel.getLatitude(names[1]), animalViewModel.getLongitude(names[1])))
         }
         animalAdapter.notifyDataSetChanged()
     }

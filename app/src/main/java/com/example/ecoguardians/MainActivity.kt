@@ -55,6 +55,11 @@ class MainActivity : AppCompatActivity() {
             json.getString("animalDescription"), json.getString("threats"), json.getString("whatYouCanDo"),
             json.getString("seriousLink"), json.getDouble("latitude"), json.getDouble("longitude"),false))
 
+        val json2 = JSONObject(JsonAnimal().animal2)
+        animalViewModel.addAnimal(Animal(json2.getString("name"), R.drawable.orsopolare, json2.getString("position"),
+            json2.getString("numberSpecies"), json2.getString("classification"), json2.getString("averageLife"),
+            json2.getString("animalDescription"), json2.getString("threats"), json2.getString("whatYouCanDo"),
+            json2.getString("seriousLink"), json2.getDouble("latitude"), json2.getDouble("longitude"),false))
         // SignIn fragment
         if(!isLogged){
             val fragmentLogIn = SigninFragment()

@@ -74,6 +74,8 @@ dependencies {
     annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
 
     //
+    implementation ("com.google.android.gms:play-services-maps:18.1.0")
+    implementation("com.karumi:dexter:6.2.2")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.room:room-ktx:$room_version")
     implementation("androidx.appcompat:appcompat:1.6.1")

@@ -14,8 +14,24 @@ class JsonAnimal {
             "threats": "n sacc",
             "whatYouCanDo": "n sacc",
             "seriousLink": "n sacc",
-            "latitude": 1000,
-            "longitude": 1000
+            "latitude": -34.0833333 ,
+            "longitude": 151.0833333
+        }
+    """
+
+    val animal2 = """
+        {
+            "name": "Orso Polare",
+            "position": "Polo Nord",
+            "numberSpecies": "30.000",
+            "classification": "Mammifero",
+            "averageLife": "30",
+            "animalDescription": "orso description",
+            "threats": "n sacc",
+            "whatYouCanDo": "n sacc",
+            "seriousLink": "n sacc",
+            "latitude": 58.76841 ,
+            "longitude": -94.164963
         }
     """
 
