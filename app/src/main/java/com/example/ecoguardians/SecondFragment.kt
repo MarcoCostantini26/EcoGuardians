@@ -18,9 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
 
     private lateinit var animalShowcaseList: ArrayList<AnimalShowcase>
@@ -61,7 +58,8 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
                             animalViewModel.getNumberSpecies(animalNames[0]), animalViewModel.getClassification(animalNames[0]),
                                 animalViewModel.getPosition(animalNames[0]), animalViewModel.getAverageLife(animalNames[0]),
                                 animalViewModel.getDescription(animalNames[0]), animalViewModel.getThreats(animalNames[0]),
-                                animalViewModel.getWhatYouCanDo(animalNames[0]), animalViewModel.getSeriousLink(animalNames[0]))
+                                animalViewModel.getWhatYouCanDo(animalNames[0]), animalViewModel.getSeriousLink(animalNames[0]),
+                                animalViewModel.getLatitude(animalNames[0]), animalViewModel.getLongitude(animalNames[0]))
                     }
                 }
             } catch (e: Exception) {
@@ -76,10 +74,10 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
 
     private fun handleAnimalNames(image: Int, names: List<String>, numberSpecies: String, classification: String,
                                   position: String, averageLife: String, description: String, threats: String,
-                                  whatYouCanDo: String, seriousLink: String) {
+                                  whatYouCanDo: String, seriousLink: String, latitude: Double, longitude: Double) {
         if (names.isNotEmpty()) {
             animalShowcaseList.add(AnimalShowcase(image, names[0], numberSpecies, classification, position, averageLife, description,
-                threats, whatYouCanDo, seriousLink))
+                threats, whatYouCanDo, seriousLink, latitude, longitude))
         }
         animalAdapter.notifyDataSetChanged()
     }
@@ -95,8 +93,8 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
 
     override fun onItemClick(animalShowcase: AnimalShowcase) {
         val fragmentDetailed = DetailedFragment.newInstance(animalShowcase.image, animalShowcase.name, animalShowcase.numberSpecies,
-            animalShowcase.classification, animalShowcase.averageLife, animalShowcase.position, animalShowcase.description,
-            animalShowcase.threats, animalShowcase.whatYouCanDo, animalShowcase.seriousLink)
+            animalShowcase.classification, animalShowcase.position, animalShowcase.averageLife, animalShowcase.description,
+            animalShowcase.threats, animalShowcase.whatYouCanDo, animalShowcase.seriousLink, animalShowcase.latitude, animalShowcase.longitude)
         val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_container, fragmentDetailed)
         transaction.commit()

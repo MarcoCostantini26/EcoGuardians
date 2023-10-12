@@ -78,6 +78,18 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
             repository.getSeriousLink(name)
         }
     }
+
+    suspend fun getLatitude(name : String) : Double{
+        return withContext(Dispatchers.IO){
+            repository.getLatitude(name)
+        }
+    }
+
+    suspend fun getLongitude(name : String) : Double{
+        return withContext(Dispatchers.IO){
+            repository.getLongitude(name)
+        }
+    }
 }
 
 class AnimalViewModelFactory(private val repository: AnimalRepository) : ViewModelProvider.Factory {

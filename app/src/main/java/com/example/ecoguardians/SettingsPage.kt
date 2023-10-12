@@ -8,14 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.NightMode
 import androidx.appcompat.widget.SwitchCompat
-import androidx.fragment.app.FragmentTransaction
-import com.example.ecoguardians.ui.login.SigninFragment
-import com.google.android.material.appbar.MaterialToolbar
-import kotlin.properties.Delegates
 
-class Settings : Fragment() {
+class SettingsPage : Fragment() {
 
     private lateinit var switchMode : SwitchCompat
     private lateinit var  editor : SharedPreferences.Editor

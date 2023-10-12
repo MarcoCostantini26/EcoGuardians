@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "be66bcf0725be7d9878c6721f2acee78",
+    "identityHash": "bd67951dfa1a34d78eb39ad40e176e8c",
     "entities": [
       {
         "tableName": "Animal",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`animal` TEXT NOT NULL, `image` INTEGER NOT NULL, `position` TEXT NOT NULL, `numberSpecies` TEXT NOT NULL, `classification` TEXT NOT NULL, `averageLife` TEXT NOT NULL, `animalDescription` TEXT NOT NULL, `threats` TEXT NOT NULL, `whatYouCanDo` TEXT NOT NULL, `seriousLink` TEXT NOT NULL, `favorite` INTEGER NOT NULL, PRIMARY KEY(`animal`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`animal` TEXT NOT NULL, `image` INTEGER NOT NULL, `position` TEXT NOT NULL, `numberSpecies` TEXT NOT NULL, `classification` TEXT NOT NULL, `averageLife` TEXT NOT NULL, `animalDescription` TEXT NOT NULL, `threats` TEXT NOT NULL, `whatYouCanDo` TEXT NOT NULL, `seriousLink` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `favorite` INTEGER NOT NULL, PRIMARY KEY(`animal`))",
         "fields": [
           {
             "fieldPath": "animal",
@@ -66,6 +66,18 @@
             "fieldPath": "seriousLink",
             "columnName": "seriousLink",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -132,7 +144,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'be66bcf0725be7d9878c6721f2acee78')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bd67951dfa1a34d78eb39ad40e176e8c')"
     ]
   }
 }

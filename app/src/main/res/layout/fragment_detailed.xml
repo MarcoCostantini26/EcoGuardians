@@ -119,10 +119,21 @@
         android:translationX="180dp"
         android:translationY="200dp" />
 
+    <ImageButton
+        android:id="@+id/positionButton"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="#80C0C0C0"
+        android:contentDescription="PosizioneAnimale"
+        android:src="@drawable/animal_location"
+        android:translationX="360dp"
+        android:translationY="199dp" />
+
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="match_parent"
+        android:layout_width="397dp"
         android:layout_height="461dp"
+        android:translationX="7dp"
         android:translationY="240dp">
 
         <LinearLayout

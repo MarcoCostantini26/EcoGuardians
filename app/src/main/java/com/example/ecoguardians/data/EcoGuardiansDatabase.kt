@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Animal::class, User::class], version = 1, exportSchema = true)
+@Database(entities = [Animal::class, User::class], version = 2, exportSchema = true)
 abstract class EcoGuardiansDatabase : RoomDatabase() {
 
     abstract fun AnimalDAO(): AnimalDAO
@@ -21,7 +21,7 @@ abstract class EcoGuardiansDatabase : RoomDatabase() {
                     context.applicationContext,
                     EcoGuardiansDatabase::class.java,
                     "eco_guardians_database"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
 
                 instance

@@ -18,5 +18,7 @@ data class Animal (
     val threats: String,
     val whatYouCanDo: String,
     val seriousLink: String,
+    val latitude : Double,
+    val longitude : Double,
     val favorite: Boolean
 )

@@ -13,9 +13,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction
 
 
 /**
@@ -34,6 +36,8 @@ const val ARG_PARAM7 = "param7"
 const val ARG_PARAM8 = "param8"
 const val ARG_PARAM9 = "param9"
 const val ARG_PARAM10 = "param10"
+const val ARG_PARAM11 = "param11"
+const val ARG_PARAM12 = "param12"
 class DetailedFragment : Fragment() {
 
     private var currentAnimator: Animator? = null
@@ -99,6 +103,18 @@ class DetailedFragment : Fragment() {
         // Retrieve and cache the system's default "short" animation time.
         shortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
 
+        val animalPositionButton : ImageButton = view.findViewById(R.id.positionButton)
+
+        animalPositionButton.setOnClickListener{
+            val mapFragment = Map.newInstance(arguments?.getDouble(ARG_PARAM11)!!,
+                arguments?.getDouble(ARG_PARAM12)!!)
+            val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            if (mapFragment != null) {
+                transaction.replace(R.id.main_container, mapFragment)
+            }
+            transaction.commit()
+        }
+
         return view
     }
 
@@ -106,7 +122,7 @@ class DetailedFragment : Fragment() {
         @JvmStatic
         fun newInstance(image : Int, name: String, numberSpecies: String, classification: String,
                         position: String, averageLife: String, description: String, threats: String,
-                        whatYouCanDo: String, seriousLink: String) =
+                        whatYouCanDo: String, seriousLink: String, latitude: Double, longitude: Double) =
             DetailedFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_PARAM1, image)
@@ -119,6 +135,8 @@ class DetailedFragment : Fragment() {
                     putString(ARG_PARAM8, threats)
                     putString(ARG_PARAM9, whatYouCanDo)
                     putString(ARG_PARAM10, seriousLink)
+                    putDouble(ARG_PARAM11, latitude)
+                    putDouble(ARG_PARAM12, longitude)
                 }
             }
     }

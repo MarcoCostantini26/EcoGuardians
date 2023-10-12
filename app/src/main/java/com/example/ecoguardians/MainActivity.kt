@@ -1,6 +1,10 @@
 package com.example.ecoguardians
 
+import android.Manifest
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
@@ -13,7 +17,14 @@ import com.example.ecoguardians.viewModel.UserViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.single.PermissionListener
 import org.json.JSONObject
+import android.provider.Settings
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
 
 var isLogged : Boolean = false
 
@@ -42,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         animalViewModel.addAnimal(Animal(json.getString("name"), R.drawable.koala, json.getString("position"),
             json.getString("numberSpecies"), json.getString("classification"), json.getString("averageLife"),
             json.getString("animalDescription"), json.getString("threats"), json.getString("whatYouCanDo"),
-            json.getString("seriousLink"), false))
+            json.getString("seriousLink"), json.getDouble("latitude"), json.getDouble("longitude"),false))
 
         // SignIn fragment
         if(!isLogged){
@@ -76,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                                 transaction2.replace(R.id.main_container, fragmentList)
                                 transaction2.commit() }
                 R.id.settings -> { findViewById<MaterialToolbar>(R.id.toolbar)?.title = "Settings"
-                                val fragmentList = Settings()
+                                val fragmentList = SettingsPage()
                                 val transaction2 : FragmentTransaction = supportFragmentManager.beginTransaction()
                                 transaction2.replace(R.id.main_container, fragmentList)
                                 transaction2.commit() }
@@ -90,4 +101,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 }
+

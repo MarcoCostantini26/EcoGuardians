@@ -47,6 +47,12 @@ interface AnimalDAO {
     @Query("SELECT seriousLink FROM Animal WHERE :name = animal")
     fun getSeriousLink(name : String): String
 
+    @Query("SELECT latitude FROM Animal WHERE :name = animal")
+    fun getLatitude(name : String): Double
+
+    @Query("SELECT longitude FROM Animal WHERE :name = animal")
+    fun getLongitude(name : String): Double
+
     @Query("SELECT animal FROM Animal")
     suspend fun getName(): List<String>
 

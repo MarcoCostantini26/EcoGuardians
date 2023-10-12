@@ -66,5 +66,13 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
     suspend fun getSeriousLink(name: String): String{
         return animalDAO.getSeriousLink(name)
     }
+    @WorkerThread
+    suspend fun getLatitude(name: String): Double{
+        return animalDAO.getLatitude(name)
+    }
+    @WorkerThread
+    suspend fun getLongitude(name: String): Double{
+        return animalDAO.getLongitude(name)
+    }
 
 }
