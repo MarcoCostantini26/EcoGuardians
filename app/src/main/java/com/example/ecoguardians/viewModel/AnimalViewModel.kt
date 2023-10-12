@@ -55,6 +55,18 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
         }
     }
 
+    suspend fun getFavoritesNames() {
+        return withContext(Dispatchers.IO){
+            repository.getFavoritesNames()
+        }
+    }
+
+    suspend fun getFavoritesImage() {
+        return withContext(Dispatchers.IO){
+            repository.getFavoritesImage()
+        }
+    }
+    
     suspend fun getDescription(name : String) : String{
         return withContext(Dispatchers.IO){
             repository.getDescription(name)
