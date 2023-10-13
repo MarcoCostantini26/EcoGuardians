@@ -3,7 +3,7 @@ package com.example.ecoguardians
 data class AnimalShowcase(val image:Int, val name: String, val numberSpecies: String,
     val classification: String, val position: String, val averageLife: String,
     val description: String, val threats: String, val whatYouCanDo: String, val seriousLink: String,
-    val latitude: Double, val longitude: Double) {
+    val favorite: Boolean, val latitude: Double, val longitude: Double) {
     constructor(image: Int, name: String) : this(
         image = image,
         name = name,
@@ -15,6 +15,7 @@ data class AnimalShowcase(val image:Int, val name: String, val numberSpecies: St
         threats = "",
         whatYouCanDo = "",
         seriousLink = "",
+        favorite = false,
         latitude = 0.0,
         longitude = 0.0
     )
