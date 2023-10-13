@@ -1,6 +1,8 @@
 package com.example.ecoguardians
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -19,13 +22,19 @@ import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.properties.Delegates
 
 class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
 
     private lateinit var animalShowcaseList: ArrayList<AnimalShowcase>
     private lateinit var recycleView: RecyclerView
     private lateinit var animalAdapter : AnimalAdapter
+    private lateinit var sharedPreferences: SharedPreferences
+    private var isFav by Delegates.notNull<Boolean>()
     private var animalNames: List<String> = emptyList()
+    private val animalViewModel by viewModels<AnimalViewModel> {
+        AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +45,10 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
         val animalViewModel by viewModels<AnimalViewModel> {
             AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
         }
+        sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+
+        // Inizializzazione di isFav con il valore salvato nelle SharedPreferences
+        isFav = sharedPreferences.getBoolean("isFav", false)
 
         // Accedi all'attività
         val activity = activity as? MainActivity
@@ -96,8 +109,9 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
         recycleView = view.findViewById(R.id.recycleView)
         var linearLayoutManager : LinearLayoutManager = LinearLayoutManager(activity)
 
+        // TODO controllare il valore isFavorite passato al AnimalAdapter
         recycleView.layoutManager = linearLayoutManager
-        animalAdapter = AnimalAdapter(animalShowcaseList, this)
+        animalAdapter = AnimalAdapter(animalShowcaseList, this, this, false)
         recycleView.adapter = animalAdapter
     }
 
@@ -108,6 +122,30 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
         val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_container, fragmentDetailed)
         transaction.commit()
+    }
+
+    // TODO rivedere la funzione per piu animali
+    override fun toogleFavoriteState(btnFavorite: ImageButton, animalShowcase: AnimalShowcase) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            //Cambia l'icona del preferito
+            val iconResource = if(!animalViewModel.getFavoritesNames().contains(animalShowcase.name)) {
+                R.drawable.favorite_fill_icon
+            }else {
+                R.drawable.favorite_icon
+            }
+            if(!animalViewModel.getFavoritesNames().contains(animalShowcase.name)) {
+                animalViewModel.addFavoriteAnimal(animalShowcase.name)
+            }else {
+                animalViewModel.removeFavoriteAnimal(animalShowcase.name)
+            }
+            val favoriteDrawable = AppCompatResources.getDrawable(btnFavorite.context, iconResource)
+            btnFavorite.setImageDrawable(favoriteDrawable)
+            val favoritesNames: List<String> = animalViewModel.getFavoritesNames()
+            if (favoritesNames != null && !favoritesNames.isEmpty()) {
+                val firstFavoriteName = favoritesNames[0]
+            }else {
+            }
+        }
     }
 
 }

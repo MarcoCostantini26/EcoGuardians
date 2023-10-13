@@ -16,8 +16,8 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
     }
 
     @WorkerThread
-    suspend fun getFavoritesNames() {
-        animalDAO.getFavoritesNames()
+    suspend fun getFavoritesNames() : List<String>{
+        return animalDAO.getFavoritesNames()
     }
 
     @WorkerThread

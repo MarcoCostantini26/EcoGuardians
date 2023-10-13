@@ -63,7 +63,7 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
         }
     }
 
-    suspend fun getFavoritesNames() {
+    suspend fun getFavoritesNames() : List<String> {
         return withContext(Dispatchers.IO){
             repository.getFavoritesNames()
         }
