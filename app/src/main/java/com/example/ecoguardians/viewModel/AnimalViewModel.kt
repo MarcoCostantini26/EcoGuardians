@@ -19,6 +19,14 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
         repository.insertAnimal(item)
     }
 
+    fun addFavoriteAnimal(name: String) = viewModelScope.launch {
+        repository.addFavoriteAnimal(name)
+    }
+
+    fun removeFavoriteAnimal(name: String) = viewModelScope.launch {
+        repository.removeFavoriteAnimal(name)
+    }
+
     suspend fun getName() : List<String> {
         return withContext(Dispatchers.IO) {
             repository.getName()
@@ -102,6 +110,13 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
             repository.getLongitude(name)
         }
     }
+
+    suspend fun isAnimalFavorite(name : String) : Boolean{
+        return withContext(Dispatchers.IO){
+            repository.isAnimalFavorite(name)
+        }
+    }
+
 }
 
 class AnimalViewModelFactory(private val repository: AnimalRepository) : ViewModelProvider.Factory {

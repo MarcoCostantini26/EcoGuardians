@@ -1,6 +1,5 @@
 package com.example.ecoguardians.data
 
-import android.graphics.drawable.Drawable
 import androidx.room.*
 
 @Dao
@@ -56,9 +55,18 @@ interface AnimalDAO {
     @Query("SELECT animal FROM Animal")
     suspend fun getName(): List<String>
 
+    @Query("UPDATE Animal SET favorite = 1 WHERE :name = animal")
+    suspend fun addFavoriteAnimal(name: String)
+
+    @Query("UPDATE Animal SET favorite = 0 WHERE :name = animal")
+    suspend fun removeFavoriteAnimal(name: String)
+
     @Query("SELECT animal FROM Animal WHERE favorite = 1")
     fun getFavoritesNames(): List<String>
 
     @Query("SELECT image FROM Animal WHERE favorite = 1")
     fun getFavoritesImages(): List<Int>
+
+    @Query("SELECT COUNT(*) FROM Animal WHERE animal = :animalName AND favorite = 1")
+    suspend fun isAnimalFavorite(animalName: String): Boolean
 }
