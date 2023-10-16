@@ -11,10 +11,8 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 
 class AnimalAdapter(private val animalShowcaseList:ArrayList<AnimalShowcase>, private val itemClick : ItemClickListener,
-                    private val favoriteClick: ItemClickListener, private val isFavorite: Boolean)
+                    private val favoriteClick: ItemClickListener, private val isFavorite: ArrayList<Boolean>)
     : RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder>(){
-
-    private lateinit var btnFav: ImageButton
 
     class AnimalViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView){
         val imageView : ImageView = itemView.findViewById(R.id.imageView)
@@ -36,17 +34,15 @@ class AnimalAdapter(private val animalShowcaseList:ArrayList<AnimalShowcase>, pr
         holder.imageView.setImageResource(animal.image)
         holder.textView.text = animal.name
 
-        if(isFavorite) {
+        if(isFavorite[position]) {
             holder.favoriteView.setImageResource(R.drawable.favorite_fill_icon)
         }else {
             holder.favoriteView.setImageResource(R.drawable.favorite_icon)
         }
 
-        btnFav = holder.favoriteView
-
         // Creare un OnClickListener per il pulsante del preferito
         holder.favoriteView.setOnClickListener {
-            favoriteClick.toogleFavoriteState(btnFav, animalShowcaseList[position])
+            favoriteClick.toogleFavoriteState(holder.favoriteView, animalShowcaseList[position])
         }
 
         holder.itemView.setOnClickListener{

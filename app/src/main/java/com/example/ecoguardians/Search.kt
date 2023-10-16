@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -35,7 +36,7 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
     private lateinit var animalShowcaseList: ArrayList<AnimalShowcase>
     private lateinit var filteredItems: ArrayList<AnimalShowcase>
     private lateinit var sharedPreferences: SharedPreferences
-    private var isFav by Delegates.notNull<Boolean>()
+    private var isFav: ArrayList<Boolean> = ArrayList()
     private val animalViewModel by viewModels<AnimalViewModel> {
         AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
     }
@@ -52,15 +53,18 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
         sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
 
         // Inizializzazione di isFav con il valore salvato nelle SharedPreferences
-        isFav = sharedPreferences.getBoolean("isFav", false)
+        // isFav.add(sharedPreferences.getBoolean("isFav", false))
 
         animalShowcaseList = ArrayList()
 
         // Creo una coroutine per richiamare le query suspend getName
         CoroutineScope(Dispatchers.Main).launch {
             val name = animalViewModel.getName()[0]
-            animalShowcaseList.add(AnimalShowcase(R.drawable.eco__1_, name))
-            isFav = animalViewModel.isAnimalFavorite(name)
+            val name2 = animalViewModel.getName()[1]
+            animalShowcaseList.add(AnimalShowcase(R.drawable.koala, name))
+            animalShowcaseList.add(AnimalShowcase(R.drawable.orsopolare, name2))
+            isFav.add(animalViewModel.isAnimalFavorite(name))
+            isFav.add(animalViewModel.isAnimalFavorite(name2))
             onIsFavChanged(isFav)
             itemAdapter.notifyDataSetChanged()
         }
@@ -97,14 +101,14 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
         return view
     }
 
-    private fun onIsFavChanged(newIsFav: Boolean) {
+    private fun onIsFavChanged(newIsFav: ArrayList<Boolean>) {
         isFav = newIsFav
 
         // Aggiorno la vista con il nuovo valore di isFav
         updateAdapterWithIsFav(isFav)
     }
 
-    private fun updateAdapterWithIsFav(isFav: Boolean) {
+    private fun updateAdapterWithIsFav(isFav: ArrayList<Boolean>) {
         // Aggiorno l'adapter con il nuovo valore di isFav
         itemAdapter = AnimalAdapter(animalShowcaseList, this, this, isFav)
         recyclerView.adapter = itemAdapter

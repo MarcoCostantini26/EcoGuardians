@@ -30,7 +30,7 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
     private lateinit var recycleView: RecyclerView
     private lateinit var animalAdapter : AnimalAdapter
     private lateinit var sharedPreferences: SharedPreferences
-    private var isFav by Delegates.notNull<Boolean>()
+    private var isFav: ArrayList<Boolean> = ArrayList()
     private var animalNames: List<String> = emptyList()
     private val animalViewModel by viewModels<AnimalViewModel> {
         AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
@@ -48,7 +48,7 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
         sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
 
         // Inizializzazione di isFav con il valore salvato nelle SharedPreferences
-        isFav = sharedPreferences.getBoolean("isFav", false)
+        // isFav.add(sharedPreferences.getBoolean("isFav", false))
 
         // Accedi all'attività
         val activity = activity as? MainActivity
@@ -101,6 +101,9 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
                 animalViewModel.getWhatYouCanDo(names[1]), animalViewModel.getSeriousLink(names[1]),
                 animalViewModel.isAnimalFavorite(names[1]), animalViewModel.getLatitude(names[1]),
                 animalViewModel.getLongitude(names[1])))
+
+            isFav.add(animalViewModel.isAnimalFavorite(names[0]))
+            isFav.add(animalViewModel.isAnimalFavorite(names[1]))
         }
         animalAdapter.notifyDataSetChanged()
     }
@@ -111,7 +114,7 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
 
         // TODO controllare il valore isFavorite passato al AnimalAdapter
         recycleView.layoutManager = linearLayoutManager
-        animalAdapter = AnimalAdapter(animalShowcaseList, this, this, false)
+        animalAdapter = AnimalAdapter(animalShowcaseList, this, this, isFav)
         recycleView.adapter = animalAdapter
     }
 
