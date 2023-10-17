@@ -9,7 +9,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.example.ecoguardians.data.Animal
-import com.example.ecoguardians.ui.login.SigninFragment
 import com.example.ecoguardians.viewModel.AnimalViewModel
 import com.example.ecoguardians.viewModel.AnimalViewModelFactory
 import com.example.ecoguardians.viewModel.UserViewModel
@@ -60,9 +59,15 @@ class MainActivity : AppCompatActivity() {
             json2.getString("numberSpecies"), json2.getString("classification"), json2.getString("averageLife"),
             json2.getString("animalDescription"), json2.getString("threats"), json2.getString("whatYouCanDo"),
             json2.getString("seriousLink"), json2.getDouble("latitude"), json2.getDouble("longitude"),false))
+
+        val json3 = JSONObject(JsonAnimal().animal3)
+        animalViewModel.addAnimal(Animal(json3.getString("name"), R.drawable.tigre, json3.getString("position"),
+            json3.getString("numberSpecies"), json3.getString("classification"), json3.getString("averageLife"),
+            json3.getString("animalDescription"), json3.getString("threats"), json3.getString("whatYouCanDo"),
+            json3.getString("seriousLink"), json3.getDouble("latitude"), json3.getDouble("longitude"),false))
         // SignIn fragment
         if(!isLogged){
-            val fragmentLogIn = SigninFragment()
+            val fragmentLogIn = LoginFragment()
             val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.main_container, fragmentLogIn)
             transaction.commit()

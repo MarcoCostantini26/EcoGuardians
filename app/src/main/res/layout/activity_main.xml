@@ -38,12 +38,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:backgroundTint="@android:color/transparent">
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
             android:background="@color/green"
+            app:itemIconTint="@color/button_color_selector"
+            app:itemTextColor="@color/button_color_selector"
             app:menu="@menu/bottom_menu" />
     </com.google.android.material.bottomappbar.BottomAppBar>
 

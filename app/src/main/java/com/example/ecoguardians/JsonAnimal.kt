@@ -35,4 +35,20 @@ class JsonAnimal {
         }
     """
 
+    val animal3 = """
+        {
+            "name": "Tigre",
+            "position": "Foresta",
+            "numberSpecies": "3.900",
+            "classification": "Mammifero",
+            "averageLife": "10-15",
+            "animalDescription": "tigre description",
+            "threats": "n sacc",
+            "whatYouCanDo": "n sacc",
+            "seriousLink": "n sacc",
+            "latitude": 26.12 ,
+            "longitude": 70.309
+        }
+    """
+
 }

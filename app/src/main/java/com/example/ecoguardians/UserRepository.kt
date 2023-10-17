@@ -1,6 +1,8 @@
 package com.example.ecoguardians
 
 import androidx.annotation.WorkerThread
+import com.example.ecoguardians.data.Animal
+import com.example.ecoguardians.data.User
 import com.example.ecoguardians.data.UserDAO
 
 class UserRepository(private val userDAO: UserDAO) {
@@ -16,5 +18,10 @@ class UserRepository(private val userDAO: UserDAO) {
    suspend fun getPassword() {
        userDAO.getPassword()
    }
+
+    @WorkerThread
+    suspend fun insertUser(item : User){
+        userDAO.insert(item)
+    }
 
 }

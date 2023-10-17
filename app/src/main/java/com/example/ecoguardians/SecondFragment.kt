@@ -86,6 +86,13 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
                 animalViewModel.getDescription(names[1]), animalViewModel.getThreats(names[1]),
                 animalViewModel.getWhatYouCanDo(names[1]), animalViewModel.getSeriousLink(names[1]),
                 animalViewModel.getLatitude(names[1]), animalViewModel.getLongitude(names[1])))
+
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(names[2]),names[2],
+                animalViewModel.getNumberSpecies(names[2]), animalViewModel.getClassification(names[2]),
+                animalViewModel.getPosition(names[2]), animalViewModel.getAverageLife(names[2]),
+                animalViewModel.getDescription(names[2]), animalViewModel.getThreats(names[2]),
+                animalViewModel.getWhatYouCanDo(names[2]), animalViewModel.getSeriousLink(names[2]),
+                animalViewModel.getLatitude(names[2]), animalViewModel.getLongitude(names[2])))
         }
         animalAdapter.notifyDataSetChanged()
     }

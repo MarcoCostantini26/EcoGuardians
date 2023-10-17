@@ -3,6 +3,7 @@
     <style name="Base.Theme.EcoGuardians" parent="Theme.MaterialComponents.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
     </style>
 
     <style name="ToolbarTitle">
