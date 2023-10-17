@@ -24,4 +24,9 @@ class UserRepository(private val userDAO: UserDAO) {
         userDAO.insert(item)
     }
 
+    @WorkerThread
+    suspend fun doesUserExist(email : String) : Int{
+        return userDAO.doesUserExist(email)
+    }
+
 }

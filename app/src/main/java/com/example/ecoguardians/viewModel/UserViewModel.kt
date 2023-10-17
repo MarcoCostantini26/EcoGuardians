@@ -4,9 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.ecoguardians.UserRepository
+import com.example.ecoguardians.data.Animal
+import com.example.ecoguardians.data.User
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class UserViewModel(private val repository: UserRepository) : ViewModel()  {
+
+    fun addUser(item: User) = viewModelScope.launch {
+        repository.insertUser(item)
+    }
 
     fun getUsername() = viewModelScope.launch {
         repository.getUsername()
@@ -14,6 +22,12 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()  {
 
     fun getPassword() = viewModelScope.launch {
         repository.getPassword()
+    }
+
+    suspend fun doesUserExists(email: String) : Int {
+        return withContext(Dispatchers.IO) {
+            repository.doesUserExist(email)
+        }
     }
 
 }

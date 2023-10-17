@@ -16,4 +16,7 @@ interface UserDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(item: User)
 
+    @Query("SELECT COUNT(*) FROM User WHERE email= :email")
+    fun doesUserExist(email: String) : Int
+
 }

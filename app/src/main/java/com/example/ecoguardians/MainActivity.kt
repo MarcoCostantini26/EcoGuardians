@@ -39,10 +39,6 @@ class MainActivity : AppCompatActivity() {
         // Aggiorna il titolo della Toolbar
         findViewById<MaterialToolbar>(R.id.toolbar)?.title = "Home"
 
-        val userViewModel by viewModels<UserViewModel> {
-            UserViewModelFactory(repository = (application as EcoGuardiansApplication).userRepository)
-        }
-
         val animalViewModel by viewModels<AnimalViewModel> {
             AnimalViewModelFactory(repository = (application as EcoGuardiansApplication).animalRepository)
         }
