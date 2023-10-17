@@ -46,17 +46,21 @@ class RegisterFragment : Fragment() {
         val email = view.findViewById<EditText>(R.id.inputEmail)
         val password = view.findViewById<EditText>(R.id.inputPassword)
         //controllare se l'email è gia usata
+        view.findViewById<Button>(R.id.registerButton).setOnClickListener{
+            viewLifecycleOwner.lifecycleScope.launch {
+                try{
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            try{
-                if(userViewModel.doesUserExists(email.text.toString()) == 0){
-                    view.findViewById<Button>(R.id.registerButton).setOnClickListener{
-                        userViewModel.addUser(User(email.text.toString(), password.text.toString(), username.text.toString(), false))
+                    if(userViewModel.doesUserExists(email.text.toString()) == 0){
+
+                            userViewModel.addUser(User(email.text.toString(), password.text.toString(), username.text.toString(), false))
+
+                    }else{
+                        email.error = "Email già utilizzata"
                     }
-                }
-            }catch (_: Exception){}
-        }
 
+                }catch (_: Exception){}
+            }
+        }
 
         // Inflate the layout for this fragment
         return view
