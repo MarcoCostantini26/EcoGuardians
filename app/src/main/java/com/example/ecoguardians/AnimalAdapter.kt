@@ -49,8 +49,8 @@ class AnimalAdapter(private var animalShowcaseList:ArrayList<AnimalShowcase>, pr
         }
     }
 
-    fun filterFavorites(favoriteList: List<AnimalShowcase>) {
-        animalShowcaseList = favoriteList as ArrayList<AnimalShowcase>
+    fun filter(filteredList: List<AnimalShowcase>) {
+        animalShowcaseList = filteredList as ArrayList<AnimalShowcase>
         notifyDataSetChanged()
     }
 

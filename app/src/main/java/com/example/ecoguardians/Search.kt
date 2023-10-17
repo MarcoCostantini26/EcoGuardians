@@ -121,7 +121,7 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
     }
 
     private fun updateRecyclerView(filteredAnimals: List<AnimalShowcase>) {
-        itemAdapter.filterFavorites(filteredAnimals)
+        itemAdapter.filter(filteredAnimals)
     }
 
     private fun onIsFavChanged(newIsFav: ArrayList<Boolean>) {
