@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 
-class AnimalAdapter(private val animalShowcaseList:ArrayList<AnimalShowcase>, private val itemClick : ItemClickListener,
+class AnimalAdapter(private var animalShowcaseList:ArrayList<AnimalShowcase>, private val itemClick : ItemClickListener,
                     private val favoriteClick: ItemClickListener, private val isFavorite: ArrayList<Boolean>)
     : RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder>(){
 
@@ -48,6 +47,11 @@ class AnimalAdapter(private val animalShowcaseList:ArrayList<AnimalShowcase>, pr
         holder.itemView.setOnClickListener{
             itemClick.onItemClick(animalShowcaseList[position])
         }
+    }
+
+    fun filterFavorites(favoriteList: List<AnimalShowcase>) {
+        animalShowcaseList = favoriteList as ArrayList<AnimalShowcase>
+        notifyDataSetChanged()
     }
 
     interface ItemClickListener {
