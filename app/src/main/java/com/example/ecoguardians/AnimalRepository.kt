@@ -16,13 +16,23 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
     }
 
     @WorkerThread
-    suspend fun getFavoritesNames() {
-        animalDAO.getFavoritesNames()
+    suspend fun getFavoritesNames() : List<String>{
+        return animalDAO.getFavoritesNames()
     }
 
     @WorkerThread
     suspend fun getName() : List<String>{
         return animalDAO.getName()
+    }
+
+    @WorkerThread
+    suspend fun addFavoriteAnimal(name: String) {
+        animalDAO.addFavoriteAnimal(name)
+    }
+
+    @WorkerThread
+    suspend fun removeFavoriteAnimal(name: String) {
+        animalDAO.removeFavoriteAnimal(name)
     }
 
     @WorkerThread
@@ -73,6 +83,11 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
     @WorkerThread
     suspend fun getLongitude(name: String): Double{
         return animalDAO.getLongitude(name)
+    }
+
+    @WorkerThread
+    suspend fun isAnimalFavorite(name: String): Boolean{
+        return animalDAO.isAnimalFavorite(name)
     }
 
 }
