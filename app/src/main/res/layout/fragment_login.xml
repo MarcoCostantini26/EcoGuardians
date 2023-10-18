@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.48000002" />
 
     <EditText
-        android:id="@+id/inputEmail"
+        android:id="@+id/inputEmailLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -29,7 +29,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Email"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/loginTV" />
 
     <EditText
-        android:id="@+id/inputPassword"
+        android:id="@+id/inputPasswordLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -48,14 +48,14 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/inputEmailLogin" />
 
     <Button
         android:id="@+id/loginButton"
@@ -66,7 +66,7 @@
         android:text="Accedi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/inputPasswordLogin" />
 
     <TextView
         android:id="@+id/donthaveaccount"

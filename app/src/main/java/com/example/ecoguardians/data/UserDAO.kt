@@ -19,4 +19,16 @@ interface UserDAO {
     @Query("SELECT COUNT(*) FROM User WHERE email= :email")
     fun doesUserExist(email: String) : Int
 
+    @Query("SELECT COUNT(*) FROM User WHERE email= :email and password= :password")
+    fun isPasswordCorrect(email: String, password: String) : Int
+
+    @Query("UPDATE User" +
+            " SET isInSession = 1" +
+            " WHERE email= :email")
+    fun setSessionTrue(email: String)
+
+    @Query("UPDATE User" +
+            " SET isInSession = 0" +
+            " WHERE email= :email")
+    fun setSessionFalse(email: String)
 }

@@ -30,6 +30,22 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()  {
         }
     }
 
+    suspend fun isPasswordCorrect(email: String, password: String) : Int {
+        return withContext(Dispatchers.IO) {
+            repository.isPasswordCorrect(email, password)
+        }
+    }
+
+    fun setSessionTrue(email: String) = viewModelScope.launch {
+        withContext(Dispatchers.IO) {
+            repository.setSessionTrue(email)
+        }
+    }
+
+    fun setSessionFalse(email: String) = viewModelScope.launch {
+        repository.setSessionFalse(email)
+    }
+
 }
 
 class UserViewModelFactory(private val repository: UserRepository) : ViewModelProvider.Factory {
