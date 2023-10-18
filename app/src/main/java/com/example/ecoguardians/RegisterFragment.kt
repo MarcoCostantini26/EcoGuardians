@@ -1,6 +1,8 @@
 package com.example.ecoguardians
 
 import android.os.Bundle
+import android.text.InputType
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,19 +47,32 @@ class RegisterFragment : Fragment() {
         val username = view.findViewById<EditText>(R.id.inputUsername)
         val email = view.findViewById<EditText>(R.id.inputEmail)
         val password = view.findViewById<EditText>(R.id.inputPassword)
-        //controllare se l'email è gia usata
         view.findViewById<Button>(R.id.registerButton).setOnClickListener{
             viewLifecycleOwner.lifecycleScope.launch {
                 try{
-
-                    if(userViewModel.doesUserExists(email.text.toString()) == 0){
+                    if(!TextUtils.isEmpty(username.text) && !TextUtils.isEmpty(email.text) &&
+                        !TextUtils.isEmpty(password.text)){
+                        if(userViewModel.doesUserExists(email.text.toString()) == 0){
 
                             userViewModel.addUser(User(email.text.toString(), password.text.toString(), username.text.toString(), false))
-
+                            val fragmentLogin = LoginFragment()
+                            val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+                            transaction.replace(R.id.main_container, fragmentLogin)
+                            transaction.commit()
+                        }else{
+                            email.error = "Email già utilizzata"
+                        }
                     }else{
-                        email.error = "Email già utilizzata"
+                        if(TextUtils.isEmpty(username.text)){
+                            username.error = "Campo necessario"
+                        }
+                        if(TextUtils.isEmpty(email.text)){
+                            email.error = "Campo necessario"
+                        }
+                        if(TextUtils.isEmpty(password.text)){
+                            password.error = "Campo necessario"
+                        }
                     }
-
                 }catch (_: Exception){}
             }
         }
