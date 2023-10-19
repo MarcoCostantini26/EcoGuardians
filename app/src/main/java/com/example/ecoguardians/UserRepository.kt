@@ -33,6 +33,10 @@ class UserRepository(private val userDAO: UserDAO) {
     suspend fun isPasswordCorrect(email : String, password: String) : Int{
         return userDAO.isPasswordCorrect(email, password)
     }
+
+    suspend fun countUserInSession() : Int{
+        return userDAO.countUserInSession()
+    }
     @WorkerThread
     suspend fun setSessionTrue(email : String){
         userDAO.setSessionTrue(email)

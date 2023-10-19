@@ -46,6 +46,12 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()  {
         repository.setSessionFalse(email)
     }
 
+    suspend fun countUserInSession():Int{
+        return withContext(Dispatchers.IO) {
+            repository.countUserInSession()
+        }
+    }
+
 }
 
 class UserViewModelFactory(private val repository: UserRepository) : ViewModelProvider.Factory {

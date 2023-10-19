@@ -22,10 +22,12 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.single.PermissionListener
 import org.json.JSONObject
 import android.provider.Settings
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
+import kotlinx.coroutines.launch
 
-var isLogged : Boolean = false
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,6 +43,10 @@ class MainActivity : AppCompatActivity() {
 
         val animalViewModel by viewModels<AnimalViewModel> {
             AnimalViewModelFactory(repository = (application as EcoGuardiansApplication).animalRepository)
+        }
+
+        val userViewModel by viewModels<UserViewModel> {
+            UserViewModelFactory(repository = (application as EcoGuardiansApplication).userRepository)
         }
 
         //animal db population
@@ -62,12 +68,21 @@ class MainActivity : AppCompatActivity() {
             json3.getString("animalDescription"), json3.getString("threats"), json3.getString("whatYouCanDo"),
             json3.getString("seriousLink"), json3.getDouble("latitude"), json3.getDouble("longitude"),false))
         // SignIn fragment
-        if(!isLogged){
-            val fragmentLogIn = LoginFragment()
-            val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.main_container, fragmentLogIn)
-            transaction.commit()
+
+        lifecycleScope.launch{
+            if(userViewModel.countUserInSession() == 0){
+                val fragmentLogIn = LoginFragment()
+                val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.main_container, fragmentLogIn)
+                transaction.commit()
+            }else{
+                val fragmentHome = Home()
+                val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.main_container, fragmentHome)
+                transaction.commit()
+            }
         }
+
 
 
         // Transaction to the list of animals
