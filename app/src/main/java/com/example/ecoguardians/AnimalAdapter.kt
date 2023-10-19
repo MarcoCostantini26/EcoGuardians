@@ -1,5 +1,6 @@
 package com.example.ecoguardians
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class AnimalAdapter(private var animalShowcaseList:ArrayList<AnimalShowcase>, private val itemClick : ItemClickListener,
-                    private val favoriteClick: ItemClickListener, private val isFavorite: ArrayList<Boolean>)
+                    private val favoriteClick: ItemClickListener, private var isFavorite: ArrayList<Boolean>)
     : RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder>(){
+
+    private var favoriteIcon : ArrayList<Boolean> = isFavorite
 
     class AnimalViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView){
         val imageView : ImageView = itemView.findViewById(R.id.imageView)
@@ -33,7 +36,7 @@ class AnimalAdapter(private var animalShowcaseList:ArrayList<AnimalShowcase>, pr
         holder.imageView.setImageResource(animal.image)
         holder.textView.text = animal.name
 
-        if(isFavorite[position]) {
+        if(favoriteIcon[position]) {
             holder.favoriteView.setImageResource(R.drawable.favorite_fill_icon)
         }else {
             holder.favoriteView.setImageResource(R.drawable.favorite_icon)
@@ -47,11 +50,18 @@ class AnimalAdapter(private var animalShowcaseList:ArrayList<AnimalShowcase>, pr
         holder.itemView.setOnClickListener{
             itemClick.onItemClick(animalShowcaseList[position])
         }
+
     }
 
-    fun filter(filteredList: List<AnimalShowcase>) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun filter(filteredList: List<AnimalShowcase>, updatedFavorites: List<Boolean>) {
         animalShowcaseList = filteredList as ArrayList<AnimalShowcase>
+        favoriteIcon = updatedFavorites as ArrayList<Boolean>
         notifyDataSetChanged()
+    }
+
+    fun updateFavorites(updatedFavorites: List<Boolean>) {
+        favoriteIcon = updatedFavorites as ArrayList<Boolean>
     }
 
     interface ItemClickListener {

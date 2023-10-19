@@ -111,6 +111,7 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
 
             isFav.add(animalViewModel.isAnimalFavorite(names[0]))
             isFav.add(animalViewModel.isAnimalFavorite(names[1]))
+            isFav.add(animalViewModel.isAnimalFavorite(names[2]))
         }
         animalAdapter.notifyDataSetChanged()
     }
