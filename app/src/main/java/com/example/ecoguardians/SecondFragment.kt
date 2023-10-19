@@ -83,7 +83,6 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    //provare a mettere qua le query
     private suspend fun handleAnimalNames(names: List<String>, animalViewModel : AnimalViewModel) {
         if (names.isNotEmpty()) {
             animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(names[0]),names[0],
