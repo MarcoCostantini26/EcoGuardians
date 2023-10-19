@@ -16,6 +16,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -57,15 +58,17 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
         sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
 
         animalShowcaseList = ArrayList()
-
         // Creo una coroutine per richiamare le query suspend getName
         CoroutineScope(Dispatchers.Main).launch {
             val name = animalViewModel.getName()[0]
             val name2 = animalViewModel.getName()[1]
-            animalShowcaseList.add(AnimalShowcase(R.drawable.koala, name))
-            animalShowcaseList.add(AnimalShowcase(R.drawable.orsopolare, name2))
+            val tigre = animalViewModel.getName()[2]
+            animalShowcaseList.add(AnimalShowcase(R.drawable.koala, name, animalViewModel.isAnimalFavorite(name)))
+            animalShowcaseList.add(AnimalShowcase(R.drawable.orsopolare, name2, animalViewModel.isAnimalFavorite(name)))
+            animalShowcaseList.add(AnimalShowcase(R.drawable.tigre, tigre, animalViewModel.isAnimalFavorite(name)))
             isFav.add(animalViewModel.isAnimalFavorite(name))
             isFav.add(animalViewModel.isAnimalFavorite(name2))
+            isFav.add(animalViewModel.isAnimalFavorite(tigre))
             onIsFavChanged(isFav)
             itemAdapter.notifyDataSetChanged()
         }
@@ -120,8 +123,16 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
         return view
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun updateRecyclerView(filteredAnimals: List<AnimalShowcase>) {
-        itemAdapter.filter(filteredAnimals)
+        val filteredFavorite = ArrayList<Boolean>()
+        viewLifecycleOwner.lifecycleScope.launch {
+            for (i in filteredAnimals) {
+                filteredFavorite.add(animalViewModel.isAnimalFavorite(i.name))    // legge sempre falso
+            }
+            itemAdapter.filter(filteredAnimals, filteredFavorite)
+            itemAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun onIsFavChanged(newIsFav: ArrayList<Boolean>) {
@@ -156,6 +167,7 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
         transaction.commit()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun toogleFavoriteState(btnFavorite: ImageButton, animalShowcase: AnimalShowcase) {
         viewLifecycleOwner.lifecycleScope.launch {
             //Cambia l'icona del preferito
@@ -166,16 +178,24 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
             }
             if(!animalViewModel.getFavoritesNames().contains(animalShowcase.name)) {
                 animalViewModel.addFavoriteAnimal(animalShowcase.name)
+                isFav.add(animalViewModel.isAnimalFavorite(animalShowcase.name))
             }else {
                 animalViewModel.removeFavoriteAnimal(animalShowcase.name)
+                isFav.remove(animalViewModel.isAnimalFavorite(animalShowcase.name))
             }
+
             val favoriteDrawable = AppCompatResources.getDrawable(btnFavorite.context, iconResource)
             btnFavorite.setImageDrawable(favoriteDrawable)
-            val favoritesNames: List<String> = animalViewModel.getFavoritesNames()
-            if (favoritesNames != null && !favoritesNames.isEmpty()) {
-                val firstFavoriteName = favoritesNames[0]
-            }else {
-            }
+
+            // Aggiorna l'elenco dei preferiti nell'adapter e notifica il cambiamento
+            isFav.clear()
+            val name = animalViewModel.getName()[0]
+            val name2 = animalViewModel.getName()[1]
+            val tigre = animalViewModel.getName()[2]
+            isFav.add(animalViewModel.isAnimalFavorite(name))
+            isFav.add(animalViewModel.isAnimalFavorite(name2))
+            isFav.add(animalViewModel.isAnimalFavorite(tigre))
+            itemAdapter.updateFavorites(isFav)
         }
     }
 
