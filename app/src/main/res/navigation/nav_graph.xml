@@ -26,6 +26,5 @@
     <fragment
         android:id="@+id/userProfile"
         android:name="com.example.ecoguardians.UserProfile"
-        android:label="fragment_user_profile"
-        tools:layout="@layout/fragment_user_profile" />
+        android:label="fragment_user_profile"/>
 </navigation>

@@ -8,10 +8,11 @@
     tools:context=".UserProfile">
 
     <TextView
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Edit Profile Data"
+        android:text="username"
         android:textAlignment="center"
         android:textColor="@android:color/holo_green_light"
         android:textSize="26sp" />

@@ -16,8 +16,10 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()  {
         repository.insertUser(item)
     }
 
-    fun getUsername() = viewModelScope.launch {
-        repository.getUsername()
+    suspend fun getUsername() : String {
+        return withContext(Dispatchers.IO) {
+            repository.getUsername()
+        }
     }
 
     fun getPassword() = viewModelScope.launch {

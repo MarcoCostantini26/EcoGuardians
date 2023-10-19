@@ -10,6 +10,9 @@ interface UserDAO {
     @Query("SELECT email FROM User WHERE isInSession = 1")
     fun getEmail(): String
 
+    @Query("SELECT username FROM User WHERE isInSession = 1")
+    fun getUsername(): String
+
     @Query("SELECT password FROM User WHERE isInSession = 1")
     fun getPassword(): String
 
