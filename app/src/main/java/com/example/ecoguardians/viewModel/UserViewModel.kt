@@ -16,6 +16,12 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()  {
         repository.insertUser(item)
     }
 
+    suspend fun getUsername() : String {
+        return withContext(Dispatchers.IO) {
+            repository.getUsername()
+        }
+    }
+
     fun getPassword() = viewModelScope.launch {
         repository.getPassword()
     }
@@ -48,8 +54,8 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()  {
         }
     }
 
-    suspend fun getEmail() : String{
-        return withContext(Dispatchers.IO){
+    suspend fun getEmail(): String{
+        return withContext(Dispatchers.IO) {
             repository.getEmail()
         }
     }

@@ -10,9 +10,13 @@ class UserRepository(private val userDAO: UserDAO) {
    //@WorkerThread Denotes that the annotated method should only be called on a worker thread.
    //By default Room runs suspend queries off the main thread
    @WorkerThread
-   suspend fun getEmail() : String{
-       return userDAO.getEmail()
+   suspend fun getUsername() : String {
+       return userDAO.getUsername()
    }
+    @WorkerThread
+    suspend fun getEmail() : String{
+        return userDAO.getEmail()
+    }
 
    @WorkerThread
    suspend fun getPassword() {
