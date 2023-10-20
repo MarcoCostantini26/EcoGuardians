@@ -63,6 +63,7 @@ val room_version = "2.5.1"
 dependencies {
     // variables for storage data in a local database
     implementation("androidx.room:room-runtime:$room_version")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
     //annotationProcessor("androidx.room:room-compiler:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
 

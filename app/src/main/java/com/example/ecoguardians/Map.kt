@@ -86,7 +86,7 @@ class Map : Fragment(), OnMapReadyCallback {
         super.onSaveInstanceState(outState)
         mapView?.onSaveInstanceState(outState)
     }
-    private fun checkMyPosition(){
+    fun checkMyPosition(){
         Dexter.withContext(requireContext()).withPermission(Manifest.permission.ACCESS_FINE_LOCATION).withListener(object :
             PermissionListener {
             override fun onPermissionGranted(permissionGrantedResponse: PermissionGrantedResponse) {
