@@ -54,6 +54,12 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()  {
         }
     }
 
+    suspend fun getEmail(): String{
+        return withContext(Dispatchers.IO) {
+            repository.getEmail()
+        }
+    }
+
 }
 
 class UserViewModelFactory(private val repository: UserRepository) : ViewModelProvider.Factory {

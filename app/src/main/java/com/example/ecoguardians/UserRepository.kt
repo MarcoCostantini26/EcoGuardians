@@ -13,6 +13,10 @@ class UserRepository(private val userDAO: UserDAO) {
    suspend fun getUsername() : String {
        return userDAO.getUsername()
    }
+    @WorkerThread
+    suspend fun getEmail() : String{
+        return userDAO.getEmail()
+    }
 
    @WorkerThread
    suspend fun getPassword() {

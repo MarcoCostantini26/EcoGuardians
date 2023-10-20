@@ -5,7 +5,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Animal")
+@Entity(tableName = "Animal", foreignKeys = [androidx.room.ForeignKey(
+    entity = com.example.ecoguardians.data.User::class,
+    parentColumns = ["email"],
+    childColumns = ["email"]
+)])
 data class Animal (
     @PrimaryKey
     val animal: String,
@@ -20,5 +24,7 @@ data class Animal (
     val seriousLink: String,
     val latitude : Double,
     val longitude : Double,
-    val favorite: Boolean
+    val favorite: Boolean,
+    val isVisited: Boolean,
+    val email: String
 )
