@@ -16,10 +16,6 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()  {
         repository.insertUser(item)
     }
 
-    fun getUsername() = viewModelScope.launch {
-        repository.getUsername()
-    }
-
     fun getPassword() = viewModelScope.launch {
         repository.getPassword()
     }
@@ -49,6 +45,12 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()  {
     suspend fun countUserInSession():Int{
         return withContext(Dispatchers.IO) {
             repository.countUserInSession()
+        }
+    }
+
+    suspend fun getEmail() : String{
+        return withContext(Dispatchers.IO){
+            repository.getEmail()
         }
     }
 

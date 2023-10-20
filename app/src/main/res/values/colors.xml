@@ -7,8 +7,8 @@
     <color name="green">#8BC34A</color>
     <color name="darkgrey">#ff424242</color>
     <color name="lavander">#8692f7</color>
-    <color name="listOfAnimalColor">#8692f7</color>
+    <color name="listOfAnimalColor">#55B1E2</color>
     <color name="logInSignInColor">#37BFB3</color>
-    <color name="selectedColor">#FF0000</color>
-    <color name="unselectedColor">#8692f7</color>
+    <color name="selectedColor">#142385</color>
+    <color name="unselectedColor">#04000C</color>
 </resources>

@@ -4,9 +4,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 
 @Dao
 interface UserDAO {
+    @Transaction
+    @Query("SELECT * FROM User WHERE email= :email")
+    fun getUserBadges(email : String): UserBadge
+
     @Query("SELECT email FROM User WHERE isInSession = 1")
     fun getEmail(): String
 

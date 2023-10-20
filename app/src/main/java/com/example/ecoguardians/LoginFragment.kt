@@ -63,7 +63,7 @@ class LoginFragment : Fragment() {
                             transaction.replace(R.id.main_container, fragmentHome)
                             transaction.commit()
                         }else{
-                            email.error = "Password errata"
+                            password.error = "Password errata"
                         }
                     }else{
                         if(TextUtils.isEmpty(email.text)){

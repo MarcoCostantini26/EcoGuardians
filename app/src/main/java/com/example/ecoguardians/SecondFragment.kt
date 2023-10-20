@@ -120,7 +120,6 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
         recycleView = view.findViewById(R.id.recycleView)
         var linearLayoutManager : LinearLayoutManager = LinearLayoutManager(activity)
 
-        // TODO controllare il valore isFavorite passato al AnimalAdapter
         recycleView.layoutManager = linearLayoutManager
         animalAdapter = AnimalAdapter(animalShowcaseList, this, this, isFav)
         recycleView.adapter = animalAdapter
@@ -135,7 +134,6 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
         transaction.commit()
     }
 
-    // TODO rivedere la funzione per piu animali
     override fun toogleFavoriteState(btnFavorite: ImageButton, animalShowcase: AnimalShowcase) {
         viewLifecycleOwner.lifecycleScope.launch {
             //Cambia l'icona del preferito
@@ -151,11 +149,6 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
             }
             val favoriteDrawable = AppCompatResources.getDrawable(btnFavorite.context, iconResource)
             btnFavorite.setImageDrawable(favoriteDrawable)
-            val favoritesNames: List<String> = animalViewModel.getFavoritesNames()
-            if (favoritesNames != null && !favoritesNames.isEmpty()) {
-                val firstFavoriteName = favoritesNames[0]
-            }else {
-            }
         }
     }
 

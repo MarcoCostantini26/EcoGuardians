@@ -10,3 +10,5 @@ data class User(
     val username: String,
     val isInSession: Boolean
 )
+
+
