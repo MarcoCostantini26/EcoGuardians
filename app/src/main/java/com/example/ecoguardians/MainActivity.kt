@@ -22,6 +22,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.single.PermissionListener
 import org.json.JSONObject
 import android.provider.Settings
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.karumi.dexter.PermissionToken
@@ -48,30 +49,7 @@ class MainActivity : AppCompatActivity() {
         val userViewModel by viewModels<UserViewModel> {
             UserViewModelFactory(repository = (application as EcoGuardiansApplication).userRepository)
         }
-        lifecycleScope.launch{
-            //animal db population
-            val json = JSONObject(JsonAnimal().animal1)
-            animalViewModel.addAnimal(Animal(json.getString("name"), R.drawable.koala, json.getString("position"),
-                json.getString("numberSpecies"), json.getString("classification"), json.getString("averageLife"),
-                json.getString("animalDescription"), json.getString("threats"), json.getString("whatYouCanDo"),
-                json.getString("seriousLink"), json.getDouble("latitude"), json.getDouble("longitude"),false, false,
-                userViewModel.getEmail()))
 
-            val json2 = JSONObject(JsonAnimal().animal2)
-            animalViewModel.addAnimal(Animal(json2.getString("name"), R.drawable.orsopolare, json2.getString("position"),
-                json2.getString("numberSpecies"), json2.getString("classification"), json2.getString("averageLife"),
-                json2.getString("animalDescription"), json2.getString("threats"), json2.getString("whatYouCanDo"),
-                json2.getString("seriousLink"), json2.getDouble("latitude"), json2.getDouble("longitude"),false, false,
-                userViewModel.getEmail()))
-
-            val json3 = JSONObject(JsonAnimal().animal3)
-            animalViewModel.addAnimal(Animal(json3.getString("name"), R.drawable.tigre, json3.getString("position"),
-                json3.getString("numberSpecies"), json3.getString("classification"), json3.getString("averageLife"),
-                json3.getString("animalDescription"), json3.getString("threats"), json3.getString("whatYouCanDo"),
-                json3.getString("seriousLink"), json3.getDouble("latitude"), json3.getDouble("longitude"),false, false,
-                userViewModel.getEmail()))
-
-        }
         // SignIn fragment
         lifecycleScope.launch{
             if(userViewModel.countUserInSession() == 0){

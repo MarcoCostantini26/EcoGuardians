@@ -11,8 +11,7 @@ import androidx.room.PrimaryKey
     childColumns = ["email"]
 )])
 data class Animal (
-    @PrimaryKey
-    val animal: String,
+    @PrimaryKey val animal: String,
     val image: Int,
     val position: String,
     val numberSpecies: String,
