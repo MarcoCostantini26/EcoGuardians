@@ -7,4 +7,5 @@ class EcoGuardiansApplication : Application(){
     private val database by lazy { EcoGuardiansDatabase.getDatabase(this) }
     val userRepository by lazy { UserRepository(database.UserDAO()) }
     val animalRepository by lazy { AnimalRepository(database.AnimalDAO()) }
+    val badgeRepository by lazy { BadgeRepository(database.BadgeDAO()) }
 }

@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +19,8 @@ import com.example.ecoguardians.viewModel.UserViewModel
 import com.example.ecoguardians.viewModel.UserViewModelFactory
 import kotlinx.coroutines.launch
 import com.example.ecoguardians.Map
+import com.example.ecoguardians.viewModel.BadgeViewModel
+import com.example.ecoguardians.viewModel.BadgeViewModelFactory
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.karumi.dexter.Dexter
@@ -47,6 +51,10 @@ class UserProfile : Fragment() {
             UserViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).userRepository)
         }
 
+        val badgeViewModel by requireActivity().viewModels<BadgeViewModel> {
+            BadgeViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).badgeRepository)
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             val username = userViewModel.getUsername()
             val usernameView = view.findViewById<TextView>(R.id.username)
@@ -55,6 +63,17 @@ class UserProfile : Fragment() {
 
         userPosition.setOnClickListener {
             checkLocationPermissionAndOpenMap()
+        }
+
+        val progressBarObiettivo1 = view.findViewById<ProgressBar>(R.id.progressBarObiettivo1)
+        val textViewObiettivo1 = view.findViewById<TextView>(R.id.textViewObiettivo1)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            val isCompleted = badgeViewModel.isCompleted(userViewModel.getEmail())
+            if(isCompleted){
+                progressBarObiettivo1.progress = 100
+                textViewObiettivo1.text = "1/1"
+            }
         }
 
         return view
