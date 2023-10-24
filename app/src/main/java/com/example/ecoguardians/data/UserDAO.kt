@@ -1,5 +1,6 @@
 package com.example.ecoguardians.data
 
+import android.net.Uri
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -17,6 +18,9 @@ interface UserDAO {
 
     @Query("SELECT username FROM User WHERE isInSession = 1")
     fun getUsername(): String
+
+    @Query("SELECT profilePicture FROM User WHERE isInSession = 1")
+    fun getProfilePicture(): Uri
 
     @Query("SELECT password FROM User WHERE isInSession = 1")
     fun getPassword(): String
@@ -42,4 +46,9 @@ interface UserDAO {
             " SET isInSession = 0" +
             " WHERE email= :email")
     fun setSessionFalse(email: String)
+
+    @Query("UPDATE User" +
+            " SET profilePicture = :imageOfProfile" +
+            " WHERE isInSession = 1")
+    fun updateProfilePicture(imageOfProfile: Uri)
 }

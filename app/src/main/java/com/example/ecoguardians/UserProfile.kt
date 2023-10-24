@@ -3,14 +3,21 @@ package com.example.ecoguardians
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
@@ -21,19 +28,26 @@ import kotlinx.coroutines.launch
 import com.example.ecoguardians.Map
 import com.example.ecoguardians.viewModel.BadgeViewModel
 import com.example.ecoguardians.viewModel.BadgeViewModelFactory
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 class UserProfile : Fragment() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    val userViewModel by viewModels<UserViewModel> {
+        UserViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).userRepository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +61,28 @@ class UserProfile : Fragment() {
         val view = inflater.inflate(R.layout.fragment_user_profile, container, false)
         val userPosition : ImageButton = view.findViewById(R.id.userLocation)
 
-        val userViewModel by viewModels<UserViewModel> {
-            UserViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).userRepository)
-        }
+
 
         val badgeViewModel by requireActivity().viewModels<BadgeViewModel> {
             BadgeViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).badgeRepository)
+        }
+
+
+        val profilePictureIV = view.findViewById<ImageView>(R.id.setting_profile_image)
+        viewLifecycleOwner.lifecycleScope.launch {
+            profilePictureIV.setImageURI(userViewModel.getProfilePicture())
+        }
+
+        val changeProfilePicture = view.findViewById<FloatingActionButton>(R.id.changeProfilePicture)
+
+        changeProfilePicture.setOnClickListener{
+            ImagePicker.with(this)
+                .compress(1024)         //Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)  //Final image resolution will be less than 1080 x 1080(Optional)
+                .createIntent { intent ->
+                    startForProfileImageResult.launch(intent)
+                }
+
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -78,6 +108,26 @@ class UserProfile : Fragment() {
 
         return view
     }
+
+    private val startForProfileImageResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val resultCode = result.resultCode
+            val data = result.data
+
+            if (resultCode == Activity.RESULT_OK) {
+                //Image Uri will not be null for RESULT_OK
+                val uri = data?.data!!
+                viewLifecycleOwner.lifecycleScope.launch{
+                    userViewModel.updateProfilePicture(uri)
+                }
+
+            } else if (resultCode == ImagePicker.RESULT_ERROR) {
+                Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     private fun checkLocationPermissionAndOpenMap() {
         // Check for location permission
         Dexter.withContext(requireContext()).withPermission(Manifest.permission.ACCESS_FINE_LOCATION)

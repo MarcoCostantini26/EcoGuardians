@@ -19,7 +19,7 @@
             android:layout_width="201dp"
             android:layout_height="39dp"
             android:layout_marginStart="164dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="1dp"
             android:text="username"
@@ -64,7 +64,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/username"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/setting_profile_image"
             android:layout_width="130dp"
             android:layout_height="130dp"
@@ -78,6 +78,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/changeProfilePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="70dp"
+            android:clickable="true"
+            app:fabSize="mini"
+            android:src="@drawable/gallery"
+            app:layout_constraintStart_toStartOf="@+id/setting_profile_image"
+            app:layout_constraintTop_toTopOf="@+id/username"
+            tools:ignore="MissingConstraints" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
