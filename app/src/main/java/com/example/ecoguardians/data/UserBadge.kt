@@ -7,7 +7,7 @@ data class UserBadge (
     @Embedded val email : User,
     @Relation(
         parentColumn = "email",
-        entityColumn = "email"
+        entityColumn = "emailUser"
     )
     val badges: List<Badge>
 )

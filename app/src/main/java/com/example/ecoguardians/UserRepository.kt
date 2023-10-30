@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.annotation.WorkerThread
 import com.example.ecoguardians.data.Animal
 import com.example.ecoguardians.data.User
+import com.example.ecoguardians.data.UserBadge
 import com.example.ecoguardians.data.UserDAO
 
 class UserRepository(private val userDAO: UserDAO) {
@@ -28,6 +29,16 @@ class UserRepository(private val userDAO: UserDAO) {
    suspend fun getPassword() {
        userDAO.getPassword()
    }
+
+    @WorkerThread
+    suspend fun getUserBadges(email : String) : List<UserBadge> {
+        return userDAO.getUserBadges(email)
+    }
+
+    @WorkerThread
+    suspend fun getUsers() : List<User> {
+        return userDAO.getUsers()
+    }
 
     @WorkerThread
     suspend fun insertUser(item : User){

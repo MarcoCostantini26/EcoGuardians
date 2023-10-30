@@ -7,6 +7,7 @@ import com.example.ecoguardians.AnimalRepository
 import com.example.ecoguardians.BadgeRepository
 import com.example.ecoguardians.data.Animal
 import com.example.ecoguardians.data.Badge
+import com.example.ecoguardians.data.UserBadge
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -19,12 +20,39 @@ class BadgeViewModel (private val repository: BadgeRepository): ViewModel() {
         repository.insertBadge(item)
     }
 
-    suspend fun isCompleted(email : String) : Boolean{
-        return withContext(Dispatchers.IO){
-            repository.isCompleted(email)
+    fun updateBadge(item: Badge) = viewModelScope.launch {
+        repository.updateBadge(item)
+    }
+
+    suspend fun getBadgesForUser(email : String) : List<Badge> {
+        return withContext(Dispatchers.IO) {
+            repository.getBadgesForUser(email)
         }
     }
 
+    suspend fun isCompleted(email : String, id : Int) : Boolean{
+        return withContext(Dispatchers.IO){
+            repository.isCompleted(email, id)
+        }
+    }
+
+    fun setCompletedTrue(email: String, id : Int) = viewModelScope.launch {
+        withContext(Dispatchers.IO) {
+            repository.setCompletedTrue(email, id)
+        }
+    }
+
+    fun updateEmail(email: String, id : Int) = viewModelScope.launch {
+        withContext(Dispatchers.IO) {
+            repository.updateEmail(email, id)
+        }
+    }
+
+    fun updateIsCompleted(email: String, id : Int, isCompleted : Boolean) = viewModelScope.launch {
+        withContext(Dispatchers.IO) {
+            repository.updateIsCompleted(email, id, isCompleted)
+        }
+    }
 
 }
 

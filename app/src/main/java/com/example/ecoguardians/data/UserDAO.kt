@@ -10,8 +10,15 @@ import androidx.room.Transaction
 @Dao
 interface UserDAO {
     @Transaction
-    @Query("SELECT * FROM User WHERE email= :email")
-    fun getUserBadges(email : String): UserBadge
+    @Query("SELECT * FROM User WHERE email = :email")
+    fun getUserBadges(email : String): List<UserBadge>
+
+    @Query("SELECT * FROM User")
+    fun getUsers(): List<User>
+
+    // Effettua l'aggiornamento nella tabella Badge
+    @Query("UPDATE Badge SET isCompleted = :isCompleted WHERE id = :badgeId")
+    suspend fun updateBadge(badgeId: Int, isCompleted: Boolean)
 
     @Query("SELECT email FROM User WHERE isInSession = 1")
     fun getEmail(): String

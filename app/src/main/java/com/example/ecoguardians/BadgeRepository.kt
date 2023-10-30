@@ -12,8 +12,32 @@ class BadgeRepository (private val badgeDAO: BadgeDAO) {
     }
 
     @WorkerThread
-    suspend fun isCompleted(email : String) : Boolean{
-        return badgeDAO.isCompleted(email)
+    suspend fun updateBadge(item : Badge){
+        badgeDAO.updateBadge(item)
     }
 
+    @WorkerThread
+    suspend fun getBadgesForUser(email : String) : List<Badge>{
+        return badgeDAO.getBadgesForUser(email)
+    }
+
+    @WorkerThread
+    suspend fun isCompleted(email : String, id : Int) : Boolean{
+        return badgeDAO.isCompleted(email, id)
+    }
+
+    @WorkerThread
+    suspend fun setCompletedTrue(email : String, id : Int){
+        badgeDAO.setCompletedTrue(email, id)
+    }
+
+    @WorkerThread
+    suspend fun updateEmail(email : String, id : Int){
+        badgeDAO.updateEmail(email, id)
+    }
+
+    @WorkerThread
+    suspend fun updateIsCompleted(email : String, id : Int, isCompleted : Boolean){
+        badgeDAO.updateEmail(email, id, isCompleted)
+    }
 }

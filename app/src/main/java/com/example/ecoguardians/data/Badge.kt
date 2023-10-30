@@ -6,10 +6,10 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Badge", foreignKeys = [ForeignKey(entity = User::class, parentColumns = ["email"], childColumns = ["email"])])
+@Entity(tableName = "Badge", primaryKeys = ["id","emailUser"])
 data class Badge (
-    @PrimaryKey val id: Int,
-    val isCompleted: Boolean,
+    val id: Int,
+    var isCompleted: Boolean,
     val description: String,
-    val email: String
+    val emailUser: String
 )

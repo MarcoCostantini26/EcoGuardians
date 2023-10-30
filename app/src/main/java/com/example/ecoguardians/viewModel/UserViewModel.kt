@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.ecoguardians.UserRepository
 import com.example.ecoguardians.data.Animal
 import com.example.ecoguardians.data.User
+import com.example.ecoguardians.data.UserBadge
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,6 +21,18 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()  {
     suspend fun getUsername() : String {
         return withContext(Dispatchers.IO) {
             repository.getUsername()
+        }
+    }
+
+    suspend fun getUserBadges(email : String) : List<UserBadge> {
+        return withContext(Dispatchers.IO) {
+            repository.getUserBadges(email)
+        }
+    }
+
+    suspend fun getUsers() : List<User> {
+        return withContext(Dispatchers.IO) {
+            repository.getUsers()
         }
     }
 

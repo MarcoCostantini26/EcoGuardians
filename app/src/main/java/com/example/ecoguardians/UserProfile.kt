@@ -27,6 +27,9 @@ import com.example.ecoguardians.viewModel.UserViewModel
 import com.example.ecoguardians.viewModel.UserViewModelFactory
 import kotlinx.coroutines.launch
 import com.example.ecoguardians.Map
+import com.example.ecoguardians.data.Badge
+import com.example.ecoguardians.data.User
+import com.example.ecoguardians.data.UserBadge
 import com.example.ecoguardians.viewModel.BadgeViewModel
 import com.example.ecoguardians.viewModel.BadgeViewModelFactory
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -46,8 +49,12 @@ class UserProfile : Fragment() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    val userViewModel by viewModels<UserViewModel> {
+    private val userViewModel by viewModels<UserViewModel> {
         UserViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).userRepository)
+    }
+
+    private val badgeViewModel by viewModels<BadgeViewModel> {
+        BadgeViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).badgeRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,13 +69,6 @@ class UserProfile : Fragment() {
         val view = inflater.inflate(R.layout.fragment_user_profile, container, false)
         val userPosition : ImageButton = view.findViewById(R.id.userLocation)
 
-
-
-        val badgeViewModel by requireActivity().viewModels<BadgeViewModel> {
-            BadgeViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).badgeRepository)
-        }
-
-
         val profilePictureIV = view.findViewById<ImageView>(R.id.setting_profile_image)
         viewLifecycleOwner.lifecycleScope.launch {
             profilePictureIV.setImageURI(userViewModel.getProfilePicture())
@@ -82,6 +82,9 @@ class UserProfile : Fragment() {
                 .compress(1024)			//Final image size will be less than 1 MB(Optional)
                 .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
                 .start()
+            viewLifecycleOwner.lifecycleScope.launch{
+                badgeViewModel.setCompletedTrue(userViewModel.getEmail(), 2)
+            }
 
         }
 
@@ -99,10 +102,20 @@ class UserProfile : Fragment() {
         val textViewObiettivo1 = view.findViewById<TextView>(R.id.textViewObiettivo1)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            val isCompleted = badgeViewModel.isCompleted(userViewModel.getEmail())
+            val isCompleted = badgeViewModel.isCompleted(userViewModel.getEmail(), 1)
             if(isCompleted){
                 progressBarObiettivo1.progress = 100
                 textViewObiettivo1.text = "1/1"
+            }
+        }
+
+        val progressBarObiettivo2 = view.findViewById<ProgressBar>(R.id.progressBarObiettivo2)
+        val textViewObiettivo2 = view.findViewById<TextView>(R.id.textViewObiettivo2)
+        viewLifecycleOwner.lifecycleScope.launch {
+            val isCompleted = badgeViewModel.isCompleted(userViewModel.getEmail(), 2)
+            if(isCompleted){
+                progressBarObiettivo2.progress = 100
+                textViewObiettivo2.text = "1/1"
             }
         }
 
@@ -120,6 +133,8 @@ class UserProfile : Fragment() {
             // Use Uri object instead of File to avoid storage permissions
             viewLifecycleOwner.lifecycleScope.launch{
                 userViewModel.updateProfilePicture(uri)
+
+
             }
             val fragmentUser = UserProfile()
             val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()

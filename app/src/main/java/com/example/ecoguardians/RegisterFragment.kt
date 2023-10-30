@@ -16,7 +16,10 @@ import androidx.activity.viewModels
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.ecoguardians.data.Badge
 import com.example.ecoguardians.data.User
+import com.example.ecoguardians.viewModel.BadgeViewModel
+import com.example.ecoguardians.viewModel.BadgeViewModelFactory
 import com.example.ecoguardians.viewModel.UserViewModel
 import com.example.ecoguardians.viewModel.UserViewModelFactory
 import kotlinx.coroutines.launch
@@ -46,6 +49,10 @@ class RegisterFragment : Fragment() {
             transaction2.commit()
         }
 
+        val badgeViewModel by requireActivity().viewModels<BadgeViewModel> {
+            BadgeViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).badgeRepository)
+        }
+
         val username = view.findViewById<EditText>(R.id.inputUsername)
         val email = view.findViewById<EditText>(R.id.inputEmail)
         val password = view.findViewById<EditText>(R.id.inputPassword)
@@ -61,6 +68,13 @@ class RegisterFragment : Fragment() {
                                 "://" + resources.getResourcePackageName(profilePictureDrawable) +
                                     "/" + resources.getResourceTypeName(profilePictureDrawable)
                                         + '/' + resources.getResourceEntryName(profilePictureDrawable))))
+                            //badge db population
+                            badgeViewModel.addBadge(
+                                Badge(1, true, "Benvenuto Guardiano!", email.text.toString())
+                            )
+                            badgeViewModel.addBadge(
+                                Badge(2, false, "Guardiano della natura", email.text.toString())
+                            )
                             val fragmentLogin = LoginFragment()
                             val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
                             transaction.replace(R.id.main_container, fragmentLogin)
