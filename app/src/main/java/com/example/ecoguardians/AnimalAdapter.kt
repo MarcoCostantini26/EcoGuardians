@@ -1,7 +1,6 @@
 package com.example.ecoguardians
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class AnimalAdapter(private var animalShowcaseList:ArrayList<AnimalShowcase>, private val itemClick : ItemClickListener,
-                    private val favoriteClick: ItemClickListener, private var isFavorite: ArrayList<Boolean>)
+                    private val favoriteClick: ItemClickListener, isFavorite: ArrayList<Boolean>)
     : RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder>(){
 
     private var favoriteIcon : ArrayList<Boolean> = isFavorite
@@ -42,7 +41,6 @@ class AnimalAdapter(private var animalShowcaseList:ArrayList<AnimalShowcase>, pr
             holder.favoriteView.setImageResource(R.drawable.favorite_icon)
         }
 
-        // Creare un OnClickListener per il pulsante del preferito
         holder.favoriteView.setOnClickListener {
             favoriteClick.toogleFavoriteState(holder.favoriteView, animalShowcaseList[position])
         }

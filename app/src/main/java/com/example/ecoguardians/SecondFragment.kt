@@ -1,15 +1,13 @@
 package com.example.ecoguardians
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.annotation.RequiresApi
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
@@ -24,8 +22,6 @@ import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.properties.Delegates
-import kotlin.streams.toList
 
 class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
 
@@ -44,12 +40,13 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
         )
     }
 
+    @RequiresApi(34)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        var view : View = inflater.inflate(R.layout.fragment_second, container, false)
+        val view : View = inflater.inflate(R.layout.fragment_second, container, false)
         val animalViewModel by viewModels<AnimalViewModel> {
             AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
         }
@@ -57,23 +54,23 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
         // Accedi all'attività
         val activity = activity as? MainActivity
 
-        // Applica lo stile al titolo della Toolbar
+        // Apply the style to the Toolbar title
         activity?.findViewById<MaterialToolbar>(R.id.toolbar)?.setTitleTextAppearance(requireContext(), R.style.ToolbarTitle)
 
-        // Aggiorna il titolo della Toolbar
+        // Update the Toolbar title
         activity?.findViewById<MaterialToolbar>(R.id.toolbar)?.title = "List of animals"
 
         animalShowcaseList =ArrayList()
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                // Avvia la richiesta asincrona
+                // Start the asynchronous request
                 animalNames = withContext(Dispatchers.IO) {
                     animalViewModel.getName()
                 }
-                animalNames = animalNames.stream().distinct().toList()
+                animalNames = animalNames.distinct()
                 withContext(Dispatchers.Main) {
-                    if (view != null && isAdded) {
+                    if (isAdded) {
                         handleAnimalNames(animalNames, animalViewModel)
                     }
                 }
@@ -123,7 +120,7 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
 
     private fun initRecyclerView(view : View){
         recycleView = view.findViewById(R.id.recycleView)
-        var linearLayoutManager : LinearLayoutManager = LinearLayoutManager(activity)
+        val linearLayoutManager : LinearLayoutManager = LinearLayoutManager(activity)
 
         recycleView.layoutManager = linearLayoutManager
         animalAdapter = AnimalAdapter(animalShowcaseList, this, this, isFav)
@@ -141,7 +138,7 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
 
     override fun toogleFavoriteState(btnFavorite: ImageButton, animalShowcase: AnimalShowcase) {
         viewLifecycleOwner.lifecycleScope.launch {
-            //Cambia l'icona del preferito
+            // Change the bookmark icon
             val iconResource = if(!animalViewModel.getFavoritesNames(userViewModel.getEmail()).contains(animalShowcase.name)) {
                 R.drawable.favorite_fill_icon
             }else {

@@ -8,15 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.ecoguardians.data.Animal
 import com.example.ecoguardians.data.Badge
-import com.example.ecoguardians.viewModel.AnimalViewModel
-import com.example.ecoguardians.viewModel.AnimalViewModelFactory
 import com.example.ecoguardians.viewModel.BadgeViewModel
 import com.example.ecoguardians.viewModel.BadgeViewModelFactory
 import com.example.ecoguardians.viewModel.UserViewModel
 import com.example.ecoguardians.viewModel.UserViewModelFactory
 import kotlinx.coroutines.launch
 import org.json.JSONObject
-import android.util.Log
+import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 
 class Home : Fragment() {
@@ -39,13 +37,9 @@ class Home : Fragment() {
                 animalRepository = (requireActivity().application as EcoGuardiansApplication).animalRepository
             )
         }.value
-        
-        val animalViewModel by requireActivity().viewModels<AnimalViewModel> {
-            AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
-        }
 
         val userViewModel by requireActivity().viewModels<UserViewModel> {
-            UserViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).userRepository)
+            UserViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).userRepository, animalRepository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
         }
 
         val badgeViewModel by requireActivity().viewModels<BadgeViewModel> {

@@ -1,7 +1,5 @@
 package com.example.ecoguardians.data
 
-import android.graphics.drawable.Drawable
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey

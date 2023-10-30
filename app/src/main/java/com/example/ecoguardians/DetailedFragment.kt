@@ -109,9 +109,7 @@ class DetailedFragment : Fragment() {
             val mapFragment = Map.newInstance(arguments?.getDouble(ARG_PARAM11)!!,
                 arguments?.getDouble(ARG_PARAM12)!!)
             val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-            if (mapFragment != null) {
-                transaction.replace(R.id.main_container, mapFragment)
-            }
+            transaction.replace(R.id.main_container, mapFragment)
             transaction.commit()
         }
 
@@ -266,5 +264,3 @@ class DetailedFragment : Fragment() {
         }
     }
 }
-
-

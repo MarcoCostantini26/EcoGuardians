@@ -53,11 +53,9 @@ interface UserDAO {
     @Query("UPDATE Animal SET email = :newEmail")
     suspend fun updateEmail(newEmail: String)
 
-    // query per ottenere l'utente in base all'email
     @Query("SELECT * FROM User WHERE email = :email")
     suspend fun getUserByEmail(email: String): User
 
-    // calcolo quanti user sono registrati
     @Query("SELECT COUNT(*) FROM User")
     suspend fun countUsers(): Int
 

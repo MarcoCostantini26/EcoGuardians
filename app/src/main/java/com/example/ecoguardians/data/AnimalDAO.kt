@@ -4,20 +4,8 @@ import androidx.room.*
 
 @Dao
 interface AnimalDAO {
-    //@Query("SELECT * FROM list_animals WHERE animal IN (:animal)")
-    //fun getAnimal(animal: String): String
-
-/*    @Query("SELECT * FROM list_animals")
-    fun getAllAnimals(): List<ListAnimal>*/
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: Animal)
-
-    /*@Delete
-    suspend fun delete(item: ListAnimal)*/
-
-    /*@Query("DELETE FROM list_animals")
-    suspend fun deleteAll()*/
 
     @Query("SELECT image FROM Animal WHERE :name = animal")
     fun getImage(name : String): Int
@@ -82,7 +70,6 @@ interface AnimalDAO {
     @Query("SELECT isVisited FROM Animal WHERE animal = :name")
     suspend fun isVisited(name: String): Boolean
 
-    // query per ottenere una lista di animali in base all'email
     @Query("SELECT * FROM Animal WHERE email = :userEmail")
     suspend fun getAnimalsByUser(userEmail: String): List<Animal>
 

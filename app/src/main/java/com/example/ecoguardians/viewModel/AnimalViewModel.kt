@@ -1,15 +1,11 @@
 package com.example.ecoguardians.viewModel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.ecoguardians.AnimalRepository
 import com.example.ecoguardians.data.Animal
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -70,12 +66,6 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
             repository.getFavoritesNames(email)
         }
     }
-
-    suspend fun getFavoritesImage() {
-        return withContext(Dispatchers.IO){
-            repository.getFavoritesImage()
-        }
-    }
     
     suspend fun getDescription(name : String) : String{
         return withContext(Dispatchers.IO){
@@ -119,31 +109,10 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
         }
     }
 
-    fun updateFavorite(name: String, fav: Boolean) = viewModelScope.launch {
-        repository.updateFavorite(name, fav)
-    }
-
-
-    suspend fun getFavoritesByEmail(email: String) : List<String>{
-        return withContext(Dispatchers.IO){
-            repository.getFavoritesByEmail(email)
-        }
-    }
-
-    suspend fun getAnimalInSession(email: String) : List<String>{
-        return withContext(Dispatchers.IO){
-            repository.getAnimalInSession(email)
-        }
-    }
-
     suspend fun isVisited(animalName: String) : Boolean {
         return withContext(Dispatchers.IO){
             repository.isVisited(animalName)
         }
-    }
-
-    suspend fun countAnimals() : Int {
-        return repository.countAnimals()
     }
 
 }
