@@ -5,10 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Animal::class, User::class, Badge::class], version = 4, exportSchema = true)
+@Database(entities = [Animal::class, User::class, Badge::class], version = 8, exportSchema = true)
 abstract class EcoGuardiansDatabase : RoomDatabase() {
 
     abstract fun AnimalDAO(): AnimalDAO
+
     abstract fun UserDAO(): UserDAO
 
     abstract fun BadgeDAO(): BadgeDAO

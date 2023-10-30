@@ -1,16 +1,34 @@
 package com.example.ecoguardians.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.ecoguardians.AnimalRepository
 import com.example.ecoguardians.UserRepository
 import com.example.ecoguardians.data.Animal
 import com.example.ecoguardians.data.User
+import com.example.ecoguardians.data.UserAnimal
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class UserViewModel(private val repository: UserRepository) : ViewModel()  {
+class UserViewModel(private val repository: UserRepository, private val animalRepository: AnimalRepository) : ViewModel()  {
+
+    fun addAnimal(item: Animal) = viewModelScope.launch {
+        animalRepository.insertAnimal(item)
+    }
+
+    suspend fun isAnimalFavorite(name : String, email: String) : Boolean{
+        return withContext(Dispatchers.IO){
+            animalRepository.isAnimalFavorite(name, email)
+        }
+    }
+
+    suspend fun countAnimals() : Int {
+        return animalRepository.countAnimals()
+    }
 
     fun addUser(item: User) = viewModelScope.launch {
         repository.insertUser(item)
@@ -45,12 +63,20 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()  {
     }
 
     fun setSessionFalse(email: String) = viewModelScope.launch {
-        repository.setSessionFalse(email)
+        withContext(Dispatchers.IO) {
+            repository.setSessionFalse(email)
+        }
     }
 
     suspend fun countUserInSession():Int{
         return withContext(Dispatchers.IO) {
             repository.countUserInSession()
+        }
+    }
+
+    suspend fun userInSession(email: String): Boolean{
+        return withContext(Dispatchers.IO) {
+            repository.userInSession(email)
         }
     }
 
@@ -60,14 +86,30 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()  {
         }
     }
 
+    fun updateEmail(email: String) = viewModelScope.launch {
+        repository.updateEmail(email)
+    }
+
+    // query per prendere gli animali in base all'utente in sessione
+    suspend fun getUserWithAnimals(email: String): UserAnimal {
+        val user = repository.getUserByEmail(email)
+        val animals = animalRepository.getAnimalsByUser(email)
+        return UserAnimal(user, animals)
+    }
+
+    suspend fun countUsers() : Int {
+        return repository.countUsers()
+    }
+
 }
 
-class UserViewModelFactory(private val repository: UserRepository) : ViewModelProvider.Factory {
-override fun <T : ViewModel> create(modelClass: Class<T>): T {
-    if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
-        @Suppress("UNCHECKED_CAST")
-        return UserViewModel(repository) as T
+class UserViewModelFactory(private val repository: UserRepository, private val animalRepository: AnimalRepository) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return UserViewModel(repository, animalRepository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
-    throw IllegalArgumentException("Unknown ViewModel class")
-}
 }

@@ -24,6 +24,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecoguardians.viewModel.AnimalViewModel
 import com.example.ecoguardians.viewModel.AnimalViewModelFactory
+import com.example.ecoguardians.viewModel.UserViewModel
+import com.example.ecoguardians.viewModel.UserViewModelFactory
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
@@ -38,37 +40,45 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
     private lateinit var itemAdapter: AnimalAdapter
     private lateinit var animalShowcaseList: ArrayList<AnimalShowcase>
     private lateinit var filteredItems: ArrayList<AnimalShowcase>
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var favoriteOption: TextView
     private lateinit var allAnimalOption: Button
-    private var isFav: ArrayList<Boolean> = ArrayList()
+    private lateinit var isFav: ArrayList<Boolean>
     private val animalViewModel by viewModels<AnimalViewModel> {
         AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
     }
-
+    private val userViewModel by viewModels<UserViewModel> {
+        UserViewModelFactory(
+            repository = (requireActivity().application as EcoGuardiansApplication).userRepository,
+            animalRepository = (requireActivity().application as EcoGuardiansApplication).animalRepository
+        )
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isFav = ArrayList()
+    }
         @SuppressLint("NotifyDataSetChanged")
         override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
-        val animalViewModel by viewModels<AnimalViewModel> {
-            AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
-        }
-        sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-
         animalShowcaseList = ArrayList()
-        // Creo una coroutine per richiamare le query suspend getName
+
+        // Creo una coroutine per richiamare le query suspend
         CoroutineScope(Dispatchers.Main).launch {
-            val name = animalViewModel.getName()[0]
-            val name2 = animalViewModel.getName()[1]
-            val tigre = animalViewModel.getName()[2]
-            animalShowcaseList.add(AnimalShowcase(R.drawable.koala, name, animalViewModel.isAnimalFavorite(name)))
-            animalShowcaseList.add(AnimalShowcase(R.drawable.orsopolare, name2, animalViewModel.isAnimalFavorite(name)))
-            animalShowcaseList.add(AnimalShowcase(R.drawable.tigre, tigre, animalViewModel.isAnimalFavorite(name)))
-            isFav.add(animalViewModel.isAnimalFavorite(name))
-            isFav.add(animalViewModel.isAnimalFavorite(name2))
-            isFav.add(animalViewModel.isAnimalFavorite(tigre))
+            val animalsByUser = userViewModel.getUserWithAnimals(userViewModel.getEmail())
+            val countUser = userViewModel.countUsers()
+
+            val name = animalsByUser.animals[0].animal
+            val orsoPolare = animalsByUser.animals[1].animal
+            val tigre = animalsByUser.animals[2].animal
+            animalShowcaseList.add(AnimalShowcase(R.drawable.koala, name, animalsByUser.animals[0].favorite))
+            animalShowcaseList.add(AnimalShowcase(R.drawable.orsopolare, orsoPolare, animalsByUser.animals[1].favorite))
+            animalShowcaseList.add(AnimalShowcase(R.drawable.tigre, tigre, animalsByUser.animals[2].favorite))
+            isFav.add(animalsByUser.animals[0].favorite)
+            isFav.add(animalsByUser.animals[1].favorite)
+            isFav.add(animalsByUser.animals[2].favorite)
+
             onIsFavChanged(isFav)
             itemAdapter.notifyDataSetChanged()
         }
@@ -99,15 +109,16 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
             }
         })
 
-         // Aggiungi un listener per il cambio di stato della tastiera
+        // Aggiungi un listener per il cambio di stato della tastiera
         editTextSearch.setOnFocusChangeListener { _, hasFocus ->
             updateBottomAppBarAndFabVisibility(hasFocus)
         }
 
+        // Filtri
         favoriteOption.setOnClickListener {
             // Applica il filtro e aggiorna la visualizzazione del RecyclerView
             viewLifecycleOwner.lifecycleScope.launch {
-                val filteredList = animalShowcaseList.filter { animalViewModel.getFavoritesNames().contains(it.name) }
+                val filteredList = animalShowcaseList.filter { animalViewModel.getFavoritesNames(userViewModel.getEmail()).contains(it.name) }
                 updateRecyclerView(filteredList)
             }
         }
@@ -128,7 +139,7 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
         val filteredFavorite = ArrayList<Boolean>()
         viewLifecycleOwner.lifecycleScope.launch {
             for (i in filteredAnimals) {
-                filteredFavorite.add(animalViewModel.isAnimalFavorite(i.name))    // legge sempre falso
+                filteredFavorite.add(animalViewModel.isAnimalFavorite(i.name, userViewModel.getEmail()))
             }
             itemAdapter.filter(filteredAnimals, filteredFavorite)
             itemAdapter.notifyDataSetChanged()
@@ -137,8 +148,6 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
 
     private fun onIsFavChanged(newIsFav: ArrayList<Boolean>) {
         isFav = newIsFav
-
-        // Aggiorno la vista con il nuovo valore di isFav
         updateAdapterWithIsFav(isFav)
     }
 
@@ -146,6 +155,7 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
         // Aggiorno l'adapter con il nuovo valore di isFav
         itemAdapter = AnimalAdapter(animalShowcaseList, this, this, isFav)
         recyclerView.adapter = itemAdapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
     // Quando esce la tastiera per la ricerca "nascondo" la bottomAppBar e il floatingActionBar
@@ -171,30 +181,25 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
     override fun toogleFavoriteState(btnFavorite: ImageButton, animalShowcase: AnimalShowcase) {
         viewLifecycleOwner.lifecycleScope.launch {
             //Cambia l'icona del preferito
-            val iconResource = if(!animalViewModel.getFavoritesNames().contains(animalShowcase.name)) {
+            val iconResource = if(!animalViewModel.getFavoritesNames(userViewModel.getEmail()).contains(animalShowcase.name)) {
                 R.drawable.favorite_fill_icon
             }else {
                 R.drawable.favorite_icon
             }
-            if(!animalViewModel.getFavoritesNames().contains(animalShowcase.name)) {
-                animalViewModel.addFavoriteAnimal(animalShowcase.name)
-                isFav.add(animalViewModel.isAnimalFavorite(animalShowcase.name))
+            if(!animalViewModel.getFavoritesNames(userViewModel.getEmail()).contains(animalShowcase.name)) {
+                animalViewModel.addFavoriteAnimal(animalShowcase.name, userViewModel.getEmail())
             }else {
-                animalViewModel.removeFavoriteAnimal(animalShowcase.name)
-                isFav.remove(animalViewModel.isAnimalFavorite(animalShowcase.name))
+                animalViewModel.removeFavoriteAnimal(animalShowcase.name, userViewModel.getEmail())
             }
 
             val favoriteDrawable = AppCompatResources.getDrawable(btnFavorite.context, iconResource)
             btnFavorite.setImageDrawable(favoriteDrawable)
 
             // Aggiorna l'elenco dei preferiti nell'adapter e notifica il cambiamento
-            isFav.clear()
-            val name = animalViewModel.getName()[0]
-            val name2 = animalViewModel.getName()[1]
-            val tigre = animalViewModel.getName()[2]
-            isFav.add(animalViewModel.isAnimalFavorite(name))
-            isFav.add(animalViewModel.isAnimalFavorite(name2))
-            isFav.add(animalViewModel.isAnimalFavorite(tigre))
+            val newIsFav = animalShowcaseList.map { animal ->
+                animalViewModel.isAnimalFavorite(animal.name, userViewModel.getEmail())
+            } as ArrayList<Boolean>
+            onIsFavChanged(newIsFav)
             itemAdapter.updateFavorites(isFav)
         }
     }

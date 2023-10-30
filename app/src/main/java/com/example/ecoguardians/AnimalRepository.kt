@@ -16,8 +16,8 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
     }
 
     @WorkerThread
-    suspend fun getFavoritesNames() : List<String>{
-        return animalDAO.getFavoritesNames()
+    suspend fun getFavoritesNames(email: String) : List<String>{
+        return animalDAO.getFavoritesNames(email)
     }
 
     @WorkerThread
@@ -26,13 +26,18 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
     }
 
     @WorkerThread
-    suspend fun addFavoriteAnimal(name: String) {
-        animalDAO.addFavoriteAnimal(name)
+    suspend fun addFavoriteAnimal(name: String, email: String) {
+        animalDAO.addFavoriteAnimal(name, email)
     }
 
     @WorkerThread
-    suspend fun removeFavoriteAnimal(name: String) {
-        animalDAO.removeFavoriteAnimal(name)
+    suspend fun isVisited(animalName: String) : Boolean{
+        return animalDAO.isVisited(animalName)
+    }
+
+    @WorkerThread
+    suspend fun removeFavoriteAnimal(name: String, email: String) {
+        animalDAO.removeFavoriteAnimal(name, email)
     }
 
     @WorkerThread
@@ -86,8 +91,33 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
     }
 
     @WorkerThread
-    suspend fun isAnimalFavorite(name: String): Boolean{
-        return animalDAO.isAnimalFavorite(name)
+    suspend fun isAnimalFavorite(name: String, email: String): Boolean{
+        return animalDAO.isAnimalFavorite(name, email)
     }
 
+    @WorkerThread
+    suspend fun getFavoritesByEmail(email: String): List<String>{
+        return animalDAO.getFavoritesByEmail(email)
+    }
+
+    @WorkerThread
+    suspend fun getAnimalInSession(email: String): List<String>{
+        return animalDAO.getAnimalInSession(email)
+    }
+
+    @WorkerThread
+    suspend fun updateFavorite(animal: String, fav: Boolean) {
+        animalDAO.updateFavorite(animal, fav)
+    }
+
+    // query per prendere gli animali dell'user
+    @WorkerThread
+    suspend fun getAnimalsByUser(email: String) : List<Animal>{
+        return animalDAO.getAnimalsByUser(email)
+    }
+
+    @WorkerThread
+    suspend fun countAnimals() : Int {
+        return animalDAO.countAnimals()
+    }
 }

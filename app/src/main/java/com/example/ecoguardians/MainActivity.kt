@@ -47,7 +47,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         val userViewModel by viewModels<UserViewModel> {
-            UserViewModelFactory(repository = (application as EcoGuardiansApplication).userRepository)
+            UserViewModelFactory(
+                repository = (application as EcoGuardiansApplication).userRepository,
+                animalRepository = (application as EcoGuardiansApplication).animalRepository
+            )
         }
 
         // SignIn fragment

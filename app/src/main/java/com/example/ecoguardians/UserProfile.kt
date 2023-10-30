@@ -44,7 +44,10 @@ class UserProfile : Fragment() {
         val userPosition : ImageButton = view.findViewById(R.id.userLocation)
 
         val userViewModel by viewModels<UserViewModel> {
-            UserViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).userRepository)
+            UserViewModelFactory(
+                repository = (requireActivity().application as EcoGuardiansApplication).userRepository,
+                animalRepository = (requireActivity().application as EcoGuardiansApplication).animalRepository
+            )
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

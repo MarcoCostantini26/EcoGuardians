@@ -23,4 +23,13 @@
         android:track="@drawable/track"
         android:translationY="50dp" />
 
+    <TextView
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:text="Logout"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:translationY="120dp" />
+
 </FrameLayout>

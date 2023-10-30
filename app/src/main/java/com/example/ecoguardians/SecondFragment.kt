@@ -18,22 +18,30 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecoguardians.viewModel.AnimalViewModel
 import com.example.ecoguardians.viewModel.AnimalViewModelFactory
+import com.example.ecoguardians.viewModel.UserViewModelFactory
+import com.example.ecoguardians.viewModel.UserViewModel
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.properties.Delegates
+import kotlin.streams.toList
 
 class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
 
     private lateinit var animalShowcaseList: ArrayList<AnimalShowcase>
     private lateinit var recycleView: RecyclerView
     private lateinit var animalAdapter : AnimalAdapter
-    private lateinit var sharedPreferences: SharedPreferences
     private var isFav: ArrayList<Boolean> = ArrayList()
     private var animalNames: List<String> = emptyList()
     private val animalViewModel by viewModels<AnimalViewModel> {
         AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
+    }
+    private val userViewModel by viewModels<UserViewModel> {
+        UserViewModelFactory(
+            repository = (requireActivity().application as EcoGuardiansApplication).userRepository,
+            animalRepository = (requireActivity().application as EcoGuardiansApplication).animalRepository
+        )
     }
 
     override fun onCreateView(
@@ -45,10 +53,6 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
         val animalViewModel by viewModels<AnimalViewModel> {
             AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
         }
-        sharedPreferences = requireContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-
-        // Inizializzazione di isFav con il valore salvato nelle SharedPreferences
-        // isFav.add(sharedPreferences.getBoolean("isFav", false))
 
         // Accedi all'attività
         val activity = activity as? MainActivity
@@ -67,6 +71,7 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
                 animalNames = withContext(Dispatchers.IO) {
                     animalViewModel.getName()
                 }
+                animalNames = animalNames.stream().distinct().toList()
                 withContext(Dispatchers.Main) {
                     if (view != null && isAdded) {
                         handleAnimalNames(animalNames, animalViewModel)
@@ -90,7 +95,7 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
                 animalViewModel.getPosition(names[0]), animalViewModel.getAverageLife(names[0]),
                 animalViewModel.getDescription(names[0]), animalViewModel.getThreats(names[0]),
                 animalViewModel.getWhatYouCanDo(names[0]), animalViewModel.getSeriousLink(names[0]),
-                animalViewModel.isAnimalFavorite(names[0]), animalViewModel.getLatitude(names[0]),
+                animalViewModel.isAnimalFavorite(names[0], userViewModel.getEmail()), animalViewModel.getLatitude(names[0]),
                 animalViewModel.getLongitude(names[0])))
 
             animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(names[1]),names[1],
@@ -98,7 +103,7 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
                 animalViewModel.getPosition(names[1]), animalViewModel.getAverageLife(names[1]),
                 animalViewModel.getDescription(names[1]), animalViewModel.getThreats(names[1]),
                 animalViewModel.getWhatYouCanDo(names[1]), animalViewModel.getSeriousLink(names[1]),
-                animalViewModel.isAnimalFavorite(names[1]),
+                animalViewModel.isAnimalFavorite(names[1], userViewModel.getEmail()),
                 animalViewModel.getLatitude(names[1]), animalViewModel.getLongitude(names[1])))
 
             animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(names[2]),names[2],
@@ -106,12 +111,12 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
                 animalViewModel.getPosition(names[2]), animalViewModel.getAverageLife(names[2]),
                 animalViewModel.getDescription(names[2]), animalViewModel.getThreats(names[2]),
                 animalViewModel.getWhatYouCanDo(names[2]), animalViewModel.getSeriousLink(names[2]),
-                animalViewModel.isAnimalFavorite(names[2]),
+                animalViewModel.isAnimalFavorite(names[2], userViewModel.getEmail()),
                 animalViewModel.getLatitude(names[2]), animalViewModel.getLongitude(names[2])))
 
-            isFav.add(animalViewModel.isAnimalFavorite(names[0]))
-            isFav.add(animalViewModel.isAnimalFavorite(names[1]))
-            isFav.add(animalViewModel.isAnimalFavorite(names[2]))
+            isFav.add(animalViewModel.isAnimalFavorite(names[0], userViewModel.getEmail()))
+            isFav.add(animalViewModel.isAnimalFavorite(names[1], userViewModel.getEmail()))
+            isFav.add(animalViewModel.isAnimalFavorite(names[2], userViewModel.getEmail()))
         }
         animalAdapter.notifyDataSetChanged()
     }
@@ -137,15 +142,15 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
     override fun toogleFavoriteState(btnFavorite: ImageButton, animalShowcase: AnimalShowcase) {
         viewLifecycleOwner.lifecycleScope.launch {
             //Cambia l'icona del preferito
-            val iconResource = if(!animalViewModel.getFavoritesNames().contains(animalShowcase.name)) {
+            val iconResource = if(!animalViewModel.getFavoritesNames(userViewModel.getEmail()).contains(animalShowcase.name)) {
                 R.drawable.favorite_fill_icon
             }else {
                 R.drawable.favorite_icon
             }
-            if(!animalViewModel.getFavoritesNames().contains(animalShowcase.name)) {
-                animalViewModel.addFavoriteAnimal(animalShowcase.name)
+            if(!animalViewModel.getFavoritesNames(userViewModel.getEmail()).contains(animalShowcase.name)) {
+                animalViewModel.addFavoriteAnimal(animalShowcase.name, userViewModel.getEmail())
             }else {
-                animalViewModel.removeFavoriteAnimal(animalShowcase.name)
+                animalViewModel.removeFavoriteAnimal(animalShowcase.name, userViewModel.getEmail())
             }
             val favoriteDrawable = AppCompatResources.getDrawable(btnFavorite.context, iconResource)
             btnFavorite.setImageDrawable(favoriteDrawable)

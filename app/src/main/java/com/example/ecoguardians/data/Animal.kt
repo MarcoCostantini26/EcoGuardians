@@ -1,17 +1,22 @@
 package com.example.ecoguardians.data
 
-import android.graphics.drawable.Drawable
-import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.ForeignKey
+import androidx.room.Index
 
-@Entity(tableName = "Animal", foreignKeys = [androidx.room.ForeignKey(
-    entity = com.example.ecoguardians.data.User::class,
-    parentColumns = ["email"],
-    childColumns = ["email"]
-)])
+@Entity(tableName = "Animal", foreignKeys = [
+    ForeignKey(
+        entity = User::class,
+        parentColumns = ["email"],
+        childColumns = ["email"],
+        onDelete = ForeignKey.CASCADE
+    )],
+    primaryKeys = ["animal", "email"],
+    indices = [Index("email")]
+)
+
 data class Animal (
-    @PrimaryKey val animal: String,
+    val animal: String,
     val image: Int,
     val position: String,
     val numberSpecies: String,
