@@ -2,7 +2,6 @@ package com.example.ecoguardians
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,15 +12,9 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.ecoguardians.data.User
 import com.example.ecoguardians.viewModel.UserViewModel
 import com.example.ecoguardians.viewModel.UserViewModelFactory
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.w3c.dom.Text
-
 
 /**
  * A simple [Fragment] subclass.
@@ -35,7 +28,10 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val userViewModel by viewModels<UserViewModel> {
-            UserViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).userRepository)
+            UserViewModelFactory(
+                repository = (requireActivity().application as EcoGuardiansApplication).userRepository,
+                animalRepository = (requireActivity().application as EcoGuardiansApplication).animalRepository
+            )
         }
 
         val view = inflater.inflate(R.layout.fragment_login, container, false)
@@ -54,8 +50,6 @@ class LoginFragment : Fragment() {
                     if(!TextUtils.isEmpty(email.text) && !TextUtils.isEmpty(password.text)){
 
                         if(userViewModel.isPasswordCorrect(email.text.toString(), password.text.toString()) == 1){
-
-
                             userViewModel.setSessionTrue(email.text.toString())
 
                             val fragmentHome = Home()

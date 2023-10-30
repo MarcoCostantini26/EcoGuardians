@@ -5,26 +5,24 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.ecoguardians.AnimalRepository
 import com.example.ecoguardians.data.Animal
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
 
-    //val allItems = repository.allAnimals
-
     fun addAnimal(item: Animal) = viewModelScope.launch {
         repository.insertAnimal(item)
     }
 
-    fun addFavoriteAnimal(name: String) = viewModelScope.launch {
-        repository.addFavoriteAnimal(name)
+    suspend fun addFavoriteAnimal(name: String, email: String) {
+        withContext(Dispatchers.IO) {
+            repository.addFavoriteAnimal(name, email)
+        }
     }
 
-    fun removeFavoriteAnimal(name: String) = viewModelScope.launch {
-        repository.removeFavoriteAnimal(name)
+    fun removeFavoriteAnimal(name: String, email: String) = viewModelScope.launch {
+        repository.removeFavoriteAnimal(name, email)
     }
 
     suspend fun getName() : List<String> {
@@ -63,15 +61,9 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
         }
     }
 
-    suspend fun getFavoritesNames() : List<String> {
+    suspend fun getFavoritesNames(email: String) : List<String> {
         return withContext(Dispatchers.IO){
-            repository.getFavoritesNames()
-        }
-    }
-
-    suspend fun getFavoritesImage() {
-        return withContext(Dispatchers.IO){
-            repository.getFavoritesImage()
+            repository.getFavoritesNames(email)
         }
     }
     
@@ -111,9 +103,15 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
         }
     }
 
-    suspend fun isAnimalFavorite(name : String) : Boolean{
+    suspend fun isAnimalFavorite(name : String, email: String) : Boolean{
         return withContext(Dispatchers.IO){
-            repository.isAnimalFavorite(name)
+            repository.isAnimalFavorite(name, email)
+        }
+    }
+
+    suspend fun isVisited(animalName: String) : Boolean {
+        return withContext(Dispatchers.IO){
+            repository.isVisited(animalName)
         }
     }
 

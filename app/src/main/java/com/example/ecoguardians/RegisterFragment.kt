@@ -31,14 +31,15 @@ import kotlinx.coroutines.launch
  */
 class RegisterFragment : Fragment() {
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val userViewModel by viewModels<UserViewModel> {
-            UserViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).userRepository)
+            UserViewModelFactory(
+                repository = (requireActivity().application as EcoGuardiansApplication).userRepository,
+                animalRepository = (requireActivity().application as EcoGuardiansApplication).animalRepository
+            )
         }
 
         val view = inflater.inflate(R.layout.fragment_register, container, false)

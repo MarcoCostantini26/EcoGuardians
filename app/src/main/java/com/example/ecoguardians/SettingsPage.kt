@@ -7,14 +7,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.example.ecoguardians.viewModel.UserViewModel
+import com.example.ecoguardians.viewModel.UserViewModelFactory
+import kotlinx.coroutines.launch
 
 class SettingsPage : Fragment() {
 
     private lateinit var switchMode : SwitchCompat
-    private lateinit var  editor : SharedPreferences.Editor
+    private lateinit var editor : SharedPreferences.Editor
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
@@ -30,6 +36,24 @@ class SettingsPage : Fragment() {
         switchMode = view.findViewById(R.id.switchMode)
         sharedPreferences = requireContext().getSharedPreferences("MODE", Context.MODE_PRIVATE)
         val isNightMode = sharedPreferences.getBoolean("night_mode", false)
+        val logout = requireActivity().findViewById<TextView>(R.id.logout)
+
+        val userViewModel by viewModels<UserViewModel> {
+            UserViewModelFactory(
+                repository = (requireActivity().application as EcoGuardiansApplication).userRepository,
+                animalRepository = (requireActivity().application as EcoGuardiansApplication).animalRepository
+            )
+        }
+
+        logout.setOnClickListener() {
+            viewLifecycleOwner.lifecycleScope.launch {
+                userViewModel.setSessionFalse(userViewModel.getEmail())
+                val login = LoginFragment()
+                val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.main_container, login)
+                transaction.commit()
+            }
+        }
 
         switchMode.isChecked = isNightMode
         switchMode.setOnCheckedChangeListener{_,isChecked ->

@@ -1,34 +1,16 @@
 package com.example.ecoguardians
 
-import android.Manifest
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
-import com.example.ecoguardians.data.Animal
-import com.example.ecoguardians.viewModel.AnimalViewModel
-import com.example.ecoguardians.viewModel.AnimalViewModelFactory
 import com.example.ecoguardians.viewModel.UserViewModel
 import com.example.ecoguardians.viewModel.UserViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.single.PermissionListener
-import org.json.JSONObject
-import android.provider.Settings
-import android.util.Log
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
 import kotlinx.coroutines.launch
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,18 +18,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Applica lo stile al titolo della Toolbar
         findViewById<MaterialToolbar>(R.id.toolbar)?.setTitleTextAppearance(application, R.style.ToolbarTitle)
-
-        // Aggiorna il titolo della Toolbar
         findViewById<MaterialToolbar>(R.id.toolbar)?.title = "Home"
 
-        val animalViewModel by viewModels<AnimalViewModel> {
-            AnimalViewModelFactory(repository = (application as EcoGuardiansApplication).animalRepository)
-        }
-
         val userViewModel by viewModels<UserViewModel> {
-            UserViewModelFactory(repository = (application as EcoGuardiansApplication).userRepository)
+            UserViewModelFactory(
+                repository = (application as EcoGuardiansApplication).userRepository,
+                animalRepository = (application as EcoGuardiansApplication).animalRepository
+            )
         }
 
         // SignIn fragment
@@ -106,4 +84,3 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
-

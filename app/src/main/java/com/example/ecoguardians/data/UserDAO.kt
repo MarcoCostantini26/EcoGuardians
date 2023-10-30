@@ -44,6 +44,9 @@ interface UserDAO {
     @Query("SELECT COUNT(*) FROM User WHERE isInSession=1")
     fun countUserInSession(): Int
 
+    @Query("SELECT isInSession FROM User WHERE isInSession=1 and email = :email")
+    fun userInSession(email: String): Boolean
+
     @Query("UPDATE User" +
             " SET isInSession = 1" +
             " WHERE email= :email")
@@ -53,6 +56,15 @@ interface UserDAO {
             " SET isInSession = 0" +
             " WHERE email= :email")
     fun setSessionFalse(email: String)
+
+    @Query("UPDATE Animal SET email = :newEmail")
+    suspend fun updateEmail(newEmail: String)
+
+    @Query("SELECT * FROM User WHERE email = :email")
+    suspend fun getUserByEmail(email: String): User
+
+    @Query("SELECT COUNT(*) FROM User")
+    suspend fun countUsers(): Int
 
     @Query("UPDATE User" +
             " SET profilePicture = :imageOfProfile" +

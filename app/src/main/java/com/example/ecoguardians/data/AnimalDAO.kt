@@ -4,20 +4,8 @@ import androidx.room.*
 
 @Dao
 interface AnimalDAO {
-    //@Query("SELECT * FROM list_animals WHERE animal IN (:animal)")
-    //fun getAnimal(animal: String): String
-
-/*    @Query("SELECT * FROM list_animals")
-    fun getAllAnimals(): List<ListAnimal>*/
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: Animal)
-
-    /*@Delete
-    suspend fun delete(item: ListAnimal)*/
-
-    /*@Query("DELETE FROM list_animals")
-    suspend fun deleteAll()*/
 
     @Query("SELECT image FROM Animal WHERE :name = animal")
     fun getImage(name : String): Int
@@ -55,18 +43,37 @@ interface AnimalDAO {
     @Query("SELECT animal FROM Animal")
     suspend fun getName(): List<String>
 
-    @Query("UPDATE Animal SET favorite = 1 WHERE :name = animal")
-    suspend fun addFavoriteAnimal(name: String)
+    @Query("UPDATE Animal SET favorite = 1 WHERE :name = animal AND :email = email")
+    suspend fun addFavoriteAnimal(name: String, email: String)
 
-    @Query("UPDATE Animal SET favorite = 0 WHERE :name = animal")
-    suspend fun removeFavoriteAnimal(name: String)
+    @Query("UPDATE Animal SET favorite = 0 WHERE :name = animal AND :email = email")
+    suspend fun removeFavoriteAnimal(name: String, email: String)
 
-    @Query("SELECT animal FROM Animal WHERE favorite = 1")
-    fun getFavoritesNames(): List<String>
+    @Query("UPDATE Animal SET favorite = :fav WHERE :name = animal")
+    suspend fun updateFavorite(name: String, fav: Boolean)
+
+    @Query("SELECT animal FROM Animal WHERE favorite = 1 AND email =:email")
+    fun getFavoritesNames(email: String): List<String>
 
     @Query("SELECT image FROM Animal WHERE favorite = 1")
     fun getFavoritesImages(): List<Int>
 
-    @Query("SELECT COUNT(*) FROM Animal WHERE animal = :animalName AND favorite = 1")
-    suspend fun isAnimalFavorite(animalName: String): Boolean
+    @Query("SELECT favorite FROM Animal WHERE animal = :animalName AND email = :email")
+    suspend fun isAnimalFavorite(animalName: String, email: String): Boolean
+
+    @Query("SELECT animal FROM Animal WHERE email = :email AND favorite = 1")
+    suspend fun getFavoritesByEmail(email: String): List<String>
+
+    @Query("SELECT animal FROM Animal WHERE email = :email")
+    suspend fun getAnimalInSession(email: String): List<String>
+
+    @Query("SELECT isVisited FROM Animal WHERE animal = :name")
+    suspend fun isVisited(name: String): Boolean
+
+    @Query("SELECT * FROM Animal WHERE email = :userEmail")
+    suspend fun getAnimalsByUser(userEmail: String): List<Animal>
+
+    @Query("SELECT COUNT(*) FROM Animal")
+    suspend fun countAnimals(): Int
+
 }
