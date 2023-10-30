@@ -19,7 +19,7 @@
             android:layout_width="201dp"
             android:layout_height="39dp"
             android:layout_marginStart="164dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="1dp"
             android:text="username"
@@ -64,7 +64,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/username"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/setting_profile_image"
             android:layout_width="130dp"
             android:layout_height="130dp"
@@ -72,13 +72,163 @@
             android:layout_marginTop="50dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="481dp"
-            android:src="@drawable/user"
+            android:src="@drawable/profilepicture"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/username"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/changeProfilePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="70dp"
+            android:clickable="true"
+            app:fabSize="mini"
+            android:src="@drawable/gallery"
+            app:layout_constraintStart_toStartOf="@+id/setting_profile_image"
+            app:layout_constraintTop_toTopOf="@+id/username"
+            tools:ignore="MissingConstraints" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/titoloObiettivo1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Benvenuto Guardiano"
+        android:textColor="@color/unselectedColor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:translationX="15dp"
+        android:translationY="260dp"
+        app:layout_constraintBottom_toBottomOf="@id/CardViewObiettivo1"
+        app:layout_constraintEnd_toEndOf="@id/CardViewObiettivo1"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="@id/CardViewObiettivo1"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CardViewObiettivo1"
+        android:layout_width="175dp"
+        android:layout_height="96dp"
+
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="16dp"
+        android:layout_marginTop="266dp"
+        android:translationY="270dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewObiettivo1"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/obiettivo1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBarObiettivo1"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                app:layout_constraintStart_toEndOf="@+id/imageViewObiettivo1"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textViewObiettivo1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                android:text="0/1"
+                android:textColor="@color/unselectedColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageViewObiettivo1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="175dp"
+        android:layout_height="96dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/CardViewObiettivo1"
+        android:translationY="270dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewObiettivo2"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/obiettivo1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBarObiettivo2"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                app:layout_constraintStart_toEndOf="@+id/imageViewObiettivo2"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textViewObiettivo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                android:text="0/1"
+                android:textColor="@color/unselectedColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageViewObiettivo2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
 
 </RelativeLayout>

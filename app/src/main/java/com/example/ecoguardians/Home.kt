@@ -7,6 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.ecoguardians.data.Animal
+import com.example.ecoguardians.data.Badge
+import com.example.ecoguardians.viewModel.AnimalViewModel
+import com.example.ecoguardians.viewModel.AnimalViewModelFactory
+import com.example.ecoguardians.viewModel.BadgeViewModel
+import com.example.ecoguardians.viewModel.BadgeViewModelFactory
 import com.example.ecoguardians.viewModel.UserViewModel
 import com.example.ecoguardians.viewModel.UserViewModelFactory
 import kotlinx.coroutines.launch
@@ -35,7 +40,24 @@ class Home : Fragment() {
             )
         }.value
         
+        val animalViewModel by requireActivity().viewModels<AnimalViewModel> {
+            AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
+        }
+
+        val userViewModel by requireActivity().viewModels<UserViewModel> {
+            UserViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).userRepository)
+        }
+
+        val badgeViewModel by requireActivity().viewModels<BadgeViewModel> {
+            BadgeViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).badgeRepository)
+        }
+
         lifecycleScope.launch{
+            //badge db population
+            badgeViewModel.addBadge(
+                Badge(1, true, "Benvenuto Guardiano!", userViewModel.getEmail())
+            )
+
             //animal db population
             val json = JSONObject(JsonAnimal().animal1)
             val newAnimal = Animal(

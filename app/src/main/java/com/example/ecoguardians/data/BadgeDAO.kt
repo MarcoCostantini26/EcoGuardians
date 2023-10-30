@@ -8,5 +8,10 @@ import androidx.room.Transaction
 
 @Dao
 interface BadgeDAO {
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(item: Badge)
+
+    @Query("SELECT isCompleted FROM Badge WHERE :email = email")
+    fun isCompleted(email : String): Boolean
 
 }

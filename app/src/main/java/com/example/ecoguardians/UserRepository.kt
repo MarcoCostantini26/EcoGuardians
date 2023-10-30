@@ -1,5 +1,6 @@
 package com.example.ecoguardians
 
+import android.net.Uri
 import androidx.annotation.WorkerThread
 import androidx.room.Query
 import com.example.ecoguardians.data.Animal
@@ -17,6 +18,11 @@ class UserRepository(private val userDAO: UserDAO) {
     @WorkerThread
     suspend fun getEmail() : String{
         return userDAO.getEmail()
+    }
+
+    @WorkerThread
+    suspend fun getProfilePicture() : Uri{
+        return userDAO.getProfilePicture()
     }
 
    @WorkerThread
@@ -69,5 +75,8 @@ class UserRepository(private val userDAO: UserDAO) {
     @WorkerThread
     suspend fun countUsers() : Int {
         return userDAO.countUsers()
+    @WorkerThread
+    suspend fun updateProfilePicture(imageOfProfile : Uri){
+        userDAO.updateProfilePicture(imageOfProfile)
     }
 }

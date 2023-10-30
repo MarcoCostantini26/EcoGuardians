@@ -1,5 +1,6 @@
 package com.example.ecoguardians.data
 
+import android.net.Uri
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -8,7 +9,8 @@ data class User(
     @PrimaryKey val email: String,
     val password: String,
     val username: String,
-    val isInSession: Boolean
+    val isInSession: Boolean,
+    val profilePicture: Uri
 )
 
 

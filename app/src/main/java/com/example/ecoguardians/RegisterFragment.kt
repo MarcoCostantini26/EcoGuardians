@@ -1,5 +1,7 @@
 package com.example.ecoguardians
 
+import android.content.ContentResolver
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.text.TextUtils
@@ -56,8 +58,12 @@ class RegisterFragment : Fragment() {
                     if(!TextUtils.isEmpty(username.text) && !TextUtils.isEmpty(email.text) &&
                         !TextUtils.isEmpty(password.text)){
                         if(userViewModel.doesUserExists(email.text.toString()) == 0){
-
-                            userViewModel.addUser(User(email.text.toString(), password.text.toString(), username.text.toString(), false))
+                            val profilePictureDrawable = R.drawable.profilepicture
+                            userViewModel.addUser(User(email.text.toString(), password.text.toString(), username.text.toString(), false,
+                                Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                                "://" + resources.getResourcePackageName(profilePictureDrawable) +
+                                    "/" + resources.getResourceTypeName(profilePictureDrawable)
+                                        + '/' + resources.getResourceEntryName(profilePictureDrawable))))
                             val fragmentLogin = LoginFragment()
                             val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
                             transaction.replace(R.id.main_container, fragmentLogin)

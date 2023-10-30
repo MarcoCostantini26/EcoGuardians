@@ -1,6 +1,6 @@
 package com.example.ecoguardians.viewModel
 
-import android.util.Log
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -68,6 +68,13 @@ class UserViewModel(private val repository: UserRepository, private val animalRe
         }
     }
 
+    fun updateProfilePicture(imageOfProfile: Uri) = viewModelScope.launch {
+        withContext(Dispatchers.IO){
+            repository.updateProfilePicture(imageOfProfile)
+        }
+
+    }
+
     suspend fun countUserInSession():Int{
         return withContext(Dispatchers.IO) {
             repository.countUserInSession()
@@ -86,6 +93,7 @@ class UserViewModel(private val repository: UserRepository, private val animalRe
         }
     }
 
+<<<<<<< HEAD
     fun updateEmail(email: String) = viewModelScope.launch {
         repository.updateEmail(email)
     }
@@ -96,6 +104,15 @@ class UserViewModel(private val repository: UserRepository, private val animalRe
         val animals = animalRepository.getAnimalsByUser(email)
         return UserAnimal(user, animals)
     }
+=======
+    suspend fun getProfilePicture(): Uri {
+        return withContext(Dispatchers.IO) {
+            repository.getProfilePicture()
+        }
+    }
+
+}
+>>>>>>> d8710248a21364594d962c737ded1c21f749989f
 
     suspend fun countUsers() : Int {
         return repository.countUsers()
