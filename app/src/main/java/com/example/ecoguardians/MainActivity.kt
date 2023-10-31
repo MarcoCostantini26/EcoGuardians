@@ -1,8 +1,11 @@
 package com.example.ecoguardians
 
 import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.ecoguardians.viewModel.UserViewModel
 import com.example.ecoguardians.viewModel.UserViewModelFactory
@@ -17,6 +20,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
+        findViewById<MaterialToolbar>(R.id.toolbar)?.logo = ContextCompat.getDrawable(this, R.drawable.logotoolbar)
+        val logoImageView = toolbar.getChildAt(0) as ImageView
+
+        val yOffset = resources.getDimensionPixelSize(R.dimen.fragment_vertical_margin)
+
+        val layoutParams = logoImageView.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.topMargin = yOffset
+        logoImageView.layoutParams = layoutParams
 
 
         val userViewModel by viewModels<UserViewModel> {
