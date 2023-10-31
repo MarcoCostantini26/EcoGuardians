@@ -18,8 +18,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<MaterialToolbar>(R.id.toolbar)?.setTitleTextAppearance(application, R.style.ToolbarTitle)
-        findViewById<MaterialToolbar>(R.id.toolbar)?.title = "Home"
 
         val userViewModel by viewModels<UserViewModel> {
             UserViewModelFactory(
