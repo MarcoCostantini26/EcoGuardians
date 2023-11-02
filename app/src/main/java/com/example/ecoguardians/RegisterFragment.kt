@@ -77,10 +77,10 @@ class RegisterFragment : Fragment() {
                                 Badge(2, false, false, "Guardiano della natura", email.text.toString())
                             )
                             badgeViewModel.addBadge(
-                                Badge(3, false, "Compagno ideale", email.text.toString())
+                                Badge(3, false, false, "Compagno ideale", email.text.toString())
                             )
                             badgeViewModel.addBadge(
-                                Badge(4, false, "Salvatore di specie", email.text.toString())
+                                Badge(4, false, false,"Salvatore di specie", email.text.toString())
                             )
                             val fragmentLogin = LoginFragment()
                             val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
