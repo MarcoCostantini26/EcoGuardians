@@ -49,7 +49,7 @@ class Home : Fragment() {
         lifecycleScope.launch{
             //badge db population
             badgeViewModel.addBadge(
-                Badge(1, true, "Benvenuto Guardiano!", userViewModel.getEmail())
+                Badge(1, true, false,"Benvenuto Guardiano!", userViewModel.getEmail())
             )
 
             //animal db population

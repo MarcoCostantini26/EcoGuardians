@@ -4,7 +4,10 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.Manifest
 import android.app.Activity
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +19,9 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -100,13 +106,45 @@ class UserProfile : Fragment() {
             if(isCompleted){
                 progressBarObiettivo1.progress = 100
                 textViewObiettivo1.text = "1/1"
+
+                if(!badgeViewModel.firstComplete(1, userViewModel.getEmail())) {
+                    // Send notification when badge is completed
+                    badgeViewModel.setFirstComplete(1, userViewModel.getEmail())
+                    sendBadgeNotificationCompleted(1, badgeViewModel)
+                }
             }
         }
 
         return view
     }
 
+    private fun sendBadgeNotificationCompleted(badgeId: Int, badgeViewModel: BadgeViewModel) {
+        val notificationId = 1 // A unique identifier for the notification
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            val badgeDescription = badgeViewModel.getDescription(badgeId)
+
+            // Build the notification
+            val notification = NotificationCompat.Builder(requireActivity().applicationContext, MainActivity.CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_stat_name)
+                .setContentTitle("EcoGuardians")
+                .setContentText("Missione completata: $badgeDescription")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .build()
+
+            // Send the notification
+            with(NotificationManagerCompat.from(requireContext())) {
+                // notificationId is a unique int for each notification that you must define.
+                if (ActivityCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.POST_NOTIFICATIONS
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {  }
+                notify(notificationId, notification)
+            }
+        }
+
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

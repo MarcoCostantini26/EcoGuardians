@@ -22,9 +22,18 @@ interface BadgeDAO {
     @Query("SELECT isCompleted FROM Badge WHERE :email = emailUser AND id = :id")
     fun isCompleted(email : String, id : Int): Boolean
 
+    @Query("SELECT firstComplete FROM Badge WHERE :email = emailUser AND id = :id")
+    fun firstComplete(id : Int, email : String): Boolean
+
+    @Query("UPDATE Badge SET firstComplete = 1 WHERE :email = emailUser AND id = :id")
+    fun setFirstComplete(id : Int, email : String)
+
+    @Query("SELECT description FROM Badge WHERE id = :id")
+    fun getDescription(id : Int): String
     @Query("UPDATE Badge" +
             " SET isCompleted = 1" +
             " WHERE emailUser= :email AND id = :id")
+
     fun setCompletedTrue(email : String, id : Int)
 
     @Query("UPDATE Badge" +

@@ -1,5 +1,9 @@
 package com.example.ecoguardians
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,12 +18,19 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        const val CHANNEL_ID = "BadgeChannel"  // A unique identifier for the notification channel
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         findViewById<MaterialToolbar>(R.id.toolbar)?.setTitleTextAppearance(application, R.style.ToolbarTitle)
         findViewById<MaterialToolbar>(R.id.toolbar)?.title = "Home"
+
+        // Create a notification channel
+        createNotificationChannel()
 
         val userViewModel by viewModels<UserViewModel> {
             UserViewModelFactory(
@@ -42,8 +53,6 @@ class MainActivity : AppCompatActivity() {
                 transaction.commit()
             }
         }
-
-
 
         // Transaction to the list of animals
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener(){
@@ -81,6 +90,21 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "BadgeChannel"
+            val descriptionText = "Canale per le notifiche di completamento badge"
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 
 }

@@ -27,6 +27,19 @@ class BadgeRepository (private val badgeDAO: BadgeDAO) {
     }
 
     @WorkerThread
+    fun firstComplete(id : Int, email : String) : Boolean{
+        return badgeDAO.firstComplete(id, email)
+    }
+
+    fun setFirstComplete(id : Int, email : String) {
+        badgeDAO.setFirstComplete(id, email)
+    }
+
+    fun getDescription(id : Int) : String{
+        return badgeDAO.getDescription(id)
+    }
+
+    @WorkerThread
     suspend fun setCompletedTrue(email : String, id : Int){
         badgeDAO.setCompletedTrue(email, id)
     }

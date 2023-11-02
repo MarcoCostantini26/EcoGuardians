@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 data class Badge (
     val id: Int,
     var isCompleted: Boolean,
+    var firstComplete: Boolean,
     val description: String,
     val emailUser: String
 )

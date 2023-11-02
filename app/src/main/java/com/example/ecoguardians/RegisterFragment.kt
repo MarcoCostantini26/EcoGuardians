@@ -71,10 +71,10 @@ class RegisterFragment : Fragment() {
                                         + '/' + resources.getResourceEntryName(profilePictureDrawable))))
                             //badge db population
                             badgeViewModel.addBadge(
-                                Badge(1, true, "Benvenuto Guardiano!", email.text.toString())
+                                Badge(1, true, false, "Benvenuto Guardiano!", email.text.toString())
                             )
                             badgeViewModel.addBadge(
-                                Badge(2, false, "Guardiano della natura", email.text.toString())
+                                Badge(2, false, false, "Guardiano della natura", email.text.toString())
                             )
                             val fragmentLogin = LoginFragment()
                             val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()

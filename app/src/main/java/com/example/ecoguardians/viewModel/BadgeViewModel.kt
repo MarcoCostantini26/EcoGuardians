@@ -36,6 +36,24 @@ class BadgeViewModel (private val repository: BadgeRepository): ViewModel() {
         }
     }
 
+    suspend fun firstComplete(id : Int, email: String) : Boolean{
+        return withContext(Dispatchers.IO){
+            repository.firstComplete(id, email)
+        }
+    }
+
+    suspend fun setFirstComplete(id : Int, email: String) {
+        withContext(Dispatchers.IO){
+            repository.setFirstComplete(id, email)
+        }
+    }
+
+    suspend fun getDescription(id : Int) : String {
+        return withContext(Dispatchers.IO) {
+            repository.getDescription(id)
+        }
+    }
+
     fun setCompletedTrue(email: String, id : Int) = viewModelScope.launch {
         withContext(Dispatchers.IO) {
             repository.setCompletedTrue(email, id)
