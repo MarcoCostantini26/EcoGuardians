@@ -5,8 +5,11 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.ecoguardians.viewModel.UserViewModel
 import com.example.ecoguardians.viewModel.UserViewModelFactory
@@ -26,8 +29,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<MaterialToolbar>(R.id.toolbar)?.setTitleTextAppearance(application, R.style.ToolbarTitle)
-        findViewById<MaterialToolbar>(R.id.toolbar)?.title = "Home"
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
+        findViewById<MaterialToolbar>(R.id.toolbar)?.logo = ContextCompat.getDrawable(this, R.drawable.logotoolbar)
+        val logoImageView = toolbar.getChildAt(0) as ImageView
+
+        val yOffset = resources.getDimensionPixelSize(R.dimen.fragment_vertical_margin)
+
+        val layoutParams = logoImageView.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.topMargin = yOffset
+        logoImageView.layoutParams = layoutParams
+
 
         // Create a notification channel
         createNotificationChannel()

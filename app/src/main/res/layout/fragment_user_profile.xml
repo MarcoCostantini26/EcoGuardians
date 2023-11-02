@@ -121,7 +121,7 @@
         android:id="@+id/titoloObiettivo2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Guardiano della natura"
+        android:text="Guardiano degli animali"
         android:textColor="@color/unselectedColor"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -131,6 +131,38 @@
         app:layout_constraintEnd_toEndOf="@id/CardViewObiettivo1"
         app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toStartOf="@id/CardViewObiettivo1"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/titoloObiettivo3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Compagno ideale"
+        android:textColor="@color/unselectedColor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:translationX="15dp"
+        android:translationY="400dp"
+        app:layout_constraintBottom_toBottomOf="@id/CardViewObiettivo3"
+        app:layout_constraintEnd_toEndOf="@id/CardViewObiettivo3"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="@id/CardViewObiettivo3"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/titoloObiettivo4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salvatore di specie"
+        android:textColor="@color/unselectedColor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:translationX="210dp"
+        android:translationY="400dp"
+        app:layout_constraintBottom_toBottomOf="@id/CardViewObiettivo4"
+        app:layout_constraintEnd_toEndOf="@id/CardViewObiettivo4"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="@id/CardViewObiettivo4"
         tools:ignore="MissingConstraints" />
 
     <androidx.cardview.widget.CardView
@@ -240,6 +272,120 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/imageViewObiettivo2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CardViewObiettivo3"
+        android:layout_width="175dp"
+        android:layout_height="96dp"
+
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="16dp"
+        android:layout_marginTop="266dp"
+        android:translationY="410dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewObiettivo3"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/obiettivo3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBarObiettivo3"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                app:layout_constraintStart_toEndOf="@+id/imageViewObiettivo3"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textViewObiettivo3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                android:text="0/1"
+                android:textColor="@color/unselectedColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageViewObiettivo3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CardViewObiettivo4"
+        android:layout_width="175dp"
+        android:layout_height="96dp"
+        android:layout_toEndOf="@+id/CardViewObiettivo3"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="16dp"
+        android:layout_marginTop="266dp"
+        android:translationY="410dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewObiettivo4"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/obiettivo4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBarObiettivo4"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                app:layout_constraintStart_toEndOf="@+id/imageViewObiettivo4"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textViewObiettivo4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                android:text="0/1"
+                android:textColor="@color/unselectedColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageViewObiettivo4"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
