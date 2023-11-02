@@ -79,7 +79,9 @@ class UserProfile : Fragment() {
                 .compress(1024)			//Final image size will be less than 1 MB(Optional)
                 .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
                 .start()
-
+            viewLifecycleOwner.lifecycleScope.launch{
+                badgeViewModel.setCompletedTrue(userViewModel.getEmail(), 2)
+            }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -100,6 +102,17 @@ class UserProfile : Fragment() {
             if(isCompleted){
                 progressBarObiettivo1.progress = 100
                 textViewObiettivo1.text = "1/1"
+            }
+        }
+
+        val progressBarObiettivo2 = view.findViewById<ProgressBar>(R.id.progressBarObiettivo2)
+        val textViewObiettivo2 = view.findViewById<TextView>(R.id.textViewObiettivo2)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            val isCompleted = badgeViewModel.isCompleted(userViewModel.getEmail(), 2)
+            if(isCompleted){
+                progressBarObiettivo2.progress = 100
+                textViewObiettivo2.text = "1/1"
             }
         }
 
