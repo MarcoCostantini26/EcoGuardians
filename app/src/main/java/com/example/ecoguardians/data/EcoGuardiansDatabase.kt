@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [Animal::class, User::class, Badge::class], version = 14, exportSchema = true)
+@Database(entities = [Animal::class, User::class, Badge::class], version = 15, exportSchema = true)
 @TypeConverters(Converter::class)
 abstract class EcoGuardiansDatabase : RoomDatabase() {
 

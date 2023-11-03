@@ -137,23 +137,28 @@ class UserProfile : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             val badgeDescription = badgeViewModel.getDescription(badgeId)
 
-            // Build the notification
-            val notification = NotificationCompat.Builder(requireActivity().applicationContext, MainActivity.CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_stat_name)
-                .setContentTitle("EcoGuardians")
-                .setContentText("Missione completata: $badgeDescription")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .build()
+            if (userViewModel.notificationEnabled(userViewModel.getEmail())) {
+                // Build the notification
+                val notification = NotificationCompat.Builder(
+                    requireActivity().applicationContext,
+                    MainActivity.CHANNEL_ID
+                )
+                    .setSmallIcon(R.drawable.ic_stat_name)
+                    .setContentTitle("EcoGuardians")
+                    .setContentText("Missione completata: $badgeDescription")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .build()
 
-            // Send the notification
-            with(NotificationManagerCompat.from(requireContext())) {
-                // notificationId is a unique int for each notification that you must define.
-                if (ActivityCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.POST_NOTIFICATIONS
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {  }
-                notify(notificationId, notification)
+                // Send the notification
+                with(NotificationManagerCompat.from(requireContext())) {
+                    // notificationId is a unique int for each notification that you must define.
+                    if (ActivityCompat.checkSelfPermission(
+                            requireContext(),
+                            Manifest.permission.POST_NOTIFICATIONS
+                        ) != PackageManager.PERMISSION_GRANTED
+                    ) {  }
+                    notify(notificationId, notification)
+                }
             }
         }
 

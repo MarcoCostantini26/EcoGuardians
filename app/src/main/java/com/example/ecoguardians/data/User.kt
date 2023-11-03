@@ -10,6 +10,7 @@ data class User(
     val password: String,
     val username: String,
     val isInSession: Boolean,
+    val notification: Boolean,
     val profilePicture: Uri
 )
 

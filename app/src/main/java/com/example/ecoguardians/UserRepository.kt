@@ -63,6 +63,21 @@ class UserRepository(private val userDAO: UserDAO) {
     }
 
     @WorkerThread
+    fun notificationOn(email : String){
+        userDAO.notificationOn(email)
+    }
+
+    @WorkerThread
+    fun notificationOff(email : String){
+        userDAO.notificationOff(email)
+    }
+
+    @WorkerThread
+    suspend fun notificationEnabled(email: String) : Boolean {
+        return userDAO.notificationEnabled(email)
+    }
+
+    @WorkerThread
     suspend fun getUserByEmail(newEmail: String) : User {
         return userDAO.getUserByEmail(newEmail)
     }

@@ -59,6 +59,24 @@ class UserViewModel(private val repository: UserRepository, private val animalRe
         }
     }
 
+    fun notificationOn(email: String) = viewModelScope.launch {
+        withContext(Dispatchers.IO) {
+            repository.notificationOn(email)
+        }
+    }
+
+    fun notificationOff(email: String) = viewModelScope.launch {
+        withContext(Dispatchers.IO) {
+            repository.notificationOff(email)
+        }
+    }
+
+    suspend fun notificationEnabled(email: String): Boolean {
+        return withContext(Dispatchers.IO) {
+            repository.notificationEnabled(email)
+        }
+    }
+
     fun updateProfilePicture(imageOfProfile: Uri) = viewModelScope.launch {
         withContext(Dispatchers.IO) {
             repository.updateProfilePicture(imageOfProfile)

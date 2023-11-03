@@ -57,6 +57,19 @@ interface UserDAO {
             " WHERE email= :email")
     fun setSessionFalse(email: String)
 
+    @Query("UPDATE User" +
+            " SET notification = 1" +
+            " WHERE email= :email")
+    fun notificationOn(email: String)
+
+    @Query("UPDATE User" +
+            " SET notification = 0" +
+            " WHERE email= :email")
+    fun notificationOff(email: String)
+
+    @Query("SELECT notification FROM User WHERE email = :email")
+    suspend fun notificationEnabled(email: String): Boolean
+
     @Query("UPDATE Animal SET email = :newEmail")
     suspend fun updateEmail(newEmail: String)
 

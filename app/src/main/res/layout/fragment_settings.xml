@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,5 +32,34 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:translationY="120dp" />
+
+    <ImageButton
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_logout_24"
+        android:thumb="@drawable/thumb"
+        android:track="@drawable/track"
+        android:translationX="330dp"
+        android:translationY="110dp" />
+
+    <TextView
+        android:id="@+id/notification"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:text="Enable/Disable notification"
+        android:textStyle="bold"
+        android:translationY="180dp" />
+
+    <ToggleButton
+        android:id="@+id/changeNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        android:layout_gravity="end"
+        android:thumb="@drawable/thumb"
+        android:track="@drawable/track"
+        android:translationY="170dp"/>
+
 
 </FrameLayout>

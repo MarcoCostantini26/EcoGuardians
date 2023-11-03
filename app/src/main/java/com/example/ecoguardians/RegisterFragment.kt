@@ -64,7 +64,7 @@ class RegisterFragment : Fragment() {
                         !TextUtils.isEmpty(password.text)){
                         if(userViewModel.doesUserExists(email.text.toString()) == 0){
                             val profilePictureDrawable = R.drawable.profilepicture
-                            userViewModel.addUser(User(email.text.toString(), password.text.toString(), username.text.toString(), false,
+                            userViewModel.addUser(User(email.text.toString(), password.text.toString(), username.text.toString(), false, true,
                                 Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                                 "://" + resources.getResourcePackageName(profilePictureDrawable) +
                                     "/" + resources.getResourceTypeName(profilePictureDrawable)
