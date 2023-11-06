@@ -19,6 +19,8 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.ecoguardians.viewModel.AnimalViewModel
+import com.example.ecoguardians.viewModel.AnimalViewModelFactory
 import com.example.ecoguardians.viewModel.BadgeViewModel
 import com.example.ecoguardians.viewModel.BadgeViewModelFactory
 import com.example.ecoguardians.viewModel.UserViewModel
@@ -57,8 +59,12 @@ class DetailedFragment : Fragment() {
         )
     }
 
-    val badgeViewModel by viewModels<BadgeViewModel> {
+    private val badgeViewModel by viewModels<BadgeViewModel> {
         BadgeViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).badgeRepository)
+    }
+
+    private val animalViewModel by viewModels<AnimalViewModel> {
+        AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
     }
 
     override fun onCreateView(
@@ -98,6 +104,14 @@ class DetailedFragment : Fragment() {
         val seriousLinkTV: TextView = view.findViewById(R.id.content4)
         seriousLinkTV.text = arguments?.getString(ARG_PARAM10)
 
+        viewLifecycleOwner.lifecycleScope.launch{
+            animalViewModel.setIsVisitedTrue(textView.text.toString(), userViewModel.getEmail())
+            if(animalViewModel.countIsVisited(userViewModel.getEmail()) == 10){
+                badgeViewModel.setCompletedTrue(userViewModel.getEmail(), 6)
+            }
+        }
+
+
 
         section1.setOnClickListener {
             scrollView.scrollTo(0, view.findViewById<View>(R.id.content1).top)
@@ -118,6 +132,7 @@ class DetailedFragment : Fragment() {
         shortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
 
         val animalPositionButton : ImageButton = view.findViewById(R.id.positionButton)
+
 
 
         animalPositionButton.setOnClickListener{

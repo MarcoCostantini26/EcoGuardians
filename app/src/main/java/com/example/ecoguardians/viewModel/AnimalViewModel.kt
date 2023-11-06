@@ -25,6 +25,10 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
         repository.removeFavoriteAnimal(name, email)
     }
 
+    fun setIsVisitedTrue(name: String, email: String) = viewModelScope.launch {
+        repository.setIsVisitedTrue(name, email)
+    }
+
     suspend fun getName() : List<String> {
         return withContext(Dispatchers.IO) {
             repository.getName()
@@ -34,6 +38,12 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
     suspend fun getImage(name : String) : Int{
         return withContext(Dispatchers.IO){
             repository.getImage(name)
+        }
+    }
+
+    suspend fun countIsVisited(email: String) : Int{
+        return withContext(Dispatchers.IO){
+            repository.countIsVisited(email)
         }
     }
 
@@ -109,9 +119,9 @@ class AnimalViewModel (private val repository: AnimalRepository): ViewModel() {
         }
     }
 
-    suspend fun isVisited(animalName: String) : Boolean {
+    suspend fun isVisited(animalName: String, email : String) : Boolean {
         return withContext(Dispatchers.IO){
-            repository.isVisited(animalName)
+            repository.isVisited(animalName, email)
         }
     }
 
