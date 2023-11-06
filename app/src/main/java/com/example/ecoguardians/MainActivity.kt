@@ -19,6 +19,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
+
+var isFirstOnCreate = true
+
 class MainActivity : AppCompatActivity() {
 
     companion object {
@@ -28,6 +31,32 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val userViewModel by viewModels<UserViewModel> {
+            UserViewModelFactory(
+                repository = (application as EcoGuardiansApplication).userRepository,
+                animalRepository = (application as EcoGuardiansApplication).animalRepository
+            )
+        }
+
+        if (isFirstOnCreate) {
+            lifecycleScope.launch{
+                if(userViewModel.countUserInSession() == 0){
+                    val fragmentLogIn = LoginFragment()
+                    val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.main_container, fragmentLogIn)
+                    transaction.commit()
+                }else{
+                    val fragmentHome = Home()
+                    val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.main_container, fragmentHome)
+                    transaction.commit()
+                }
+            }
+
+            isFirstOnCreate = false
+        }
+
 
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         findViewById<MaterialToolbar>(R.id.toolbar)?.logo = ContextCompat.getDrawable(this, R.drawable.logotoolbar)
@@ -43,27 +72,6 @@ class MainActivity : AppCompatActivity() {
         // Create a notification channel
         createNotificationChannel()
 
-        val userViewModel by viewModels<UserViewModel> {
-            UserViewModelFactory(
-                repository = (application as EcoGuardiansApplication).userRepository,
-                animalRepository = (application as EcoGuardiansApplication).animalRepository
-            )
-        }
-
-        // SignIn fragment
-        lifecycleScope.launch{
-            if(userViewModel.countUserInSession() == 0){
-                val fragmentLogIn = LoginFragment()
-                val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.main_container, fragmentLogIn)
-                transaction.commit()
-            }else{
-                val fragmentHome = Home()
-                val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.main_container, fragmentHome)
-                transaction.commit()
-            }
-        }
 
         // Transaction to the list of animals
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener(){

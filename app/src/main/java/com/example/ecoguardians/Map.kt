@@ -45,7 +45,7 @@ class Map : Fragment(), OnMapReadyCallback {
             googleMap?.addMarker(MarkerOptions().position(coordinates).title("Posizione Animale"))
 
             // Zoom to the specified position
-            googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 12.0f))
+            googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, -100.0f))
         } else {
             Log.e("MapFragment", "GoogleMap is null")
         }
