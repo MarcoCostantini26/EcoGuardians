@@ -1,5 +1,7 @@
 package com.example.ecoguardians
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,9 @@ import com.example.ecoguardians.viewModel.UserViewModelFactory
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.viewModels
 
 class Home : Fragment() {
@@ -51,6 +56,12 @@ class Home : Fragment() {
             badgeViewModel.addBadge(
                 Badge(1, true, false,"Benvenuto Guardiano!", userViewModel.getEmail())
             )
+
+            if(!badgeViewModel.firstComplete(1, userViewModel.getEmail())) {
+                // Send notification when badge is completed
+                badgeViewModel.setFirstComplete(1, userViewModel.getEmail())
+                sendBadgeNotificationCompleted(1, badgeViewModel)
+            }
 
             //animal db population
             val json = JSONObject(JsonAnimal().animal1)
@@ -116,4 +127,38 @@ class Home : Fragment() {
         // Inflate the layout for this fragment
         return view
     }
+
+    private fun sendBadgeNotificationCompleted(badgeId: Int, badgeViewModel: BadgeViewModel) {
+        val notificationId = 1 // A unique identifier for the notification
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            val badgeDescription = badgeViewModel.getDescription(badgeId)
+
+            if (userViewModel.notificationEnabled(userViewModel.getEmail())) {
+                // Build the notification
+                val notification = NotificationCompat.Builder(
+                    requireActivity().applicationContext,
+                    MainActivity.CHANNEL_ID
+                )
+                    .setSmallIcon(R.drawable.ic_stat_name)
+                    .setContentTitle("EcoGuardians")
+                    .setContentText("Missione completata: $badgeDescription")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .build()
+
+                // Send the notification
+                with(NotificationManagerCompat.from(requireContext())) {
+                    // notificationId is a unique int for each notification that you must define.
+                    if (ActivityCompat.checkSelfPermission(
+                            requireContext(),
+                            Manifest.permission.POST_NOTIFICATIONS
+                        ) != PackageManager.PERMISSION_GRANTED
+                    ) {  }
+                    notify(notificationId, notification)
+                }
+            }
+        }
+
+    }
+
 }
