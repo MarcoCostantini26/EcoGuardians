@@ -14,6 +14,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.ecoguardians.viewModel.UserViewModel
 import com.example.ecoguardians.viewModel.UserViewModelFactory
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 
 /**
@@ -27,6 +29,9 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        updateBottomAppBarAndFabVisibility()
+
         val userViewModel by viewModels<UserViewModel> {
             UserViewModelFactory(
                 repository = (requireActivity().application as EcoGuardiansApplication).userRepository,
@@ -72,5 +77,13 @@ class LoginFragment : Fragment() {
         }
         // Inflate the layout for this fragment
         return view
+    }
+
+    private fun updateBottomAppBarAndFabVisibility() {
+        val bottomAppBar = requireActivity().findViewById<BottomAppBar>(R.id.bottom_menu)
+        val fab = requireActivity().findViewById<FloatingActionButton>(R.id.fab)
+
+        bottomAppBar.visibility = View.GONE
+        fab.visibility = View.GONE
     }
 }

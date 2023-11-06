@@ -21,6 +21,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.viewModels
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class Home : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +35,7 @@ class Home : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        updateBottomAppBarAndFabVisibility()
 
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
@@ -159,6 +162,14 @@ class Home : Fragment() {
             }
         }
 
+    }
+
+    private fun updateBottomAppBarAndFabVisibility() {
+        val bottomAppBar = requireActivity().findViewById<BottomAppBar>(R.id.bottom_menu)
+        val fab = requireActivity().findViewById<FloatingActionButton>(R.id.fab)
+
+        bottomAppBar.visibility = View.VISIBLE
+        fab.visibility = View.VISIBLE
     }
 
 }
