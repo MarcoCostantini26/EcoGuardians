@@ -1,6 +1,8 @@
 package com.example.ecoguardians
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,6 +16,9 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -52,7 +57,7 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
         )
     }
 
-    val badgeViewModel by viewModels<BadgeViewModel> {
+    private val badgeViewModel by viewModels<BadgeViewModel> {
         BadgeViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).badgeRepository)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -191,6 +196,11 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
             }
             if(!animalViewModel.getFavoritesNames(userViewModel.getEmail()).contains(animalShowcase.name)) {
                 animalViewModel.addFavoriteAnimal(animalShowcase.name, userViewModel.getEmail())
+                if(!badgeViewModel.firstComplete(3, userViewModel.getEmail())) {
+                    // Send notification when badge is completed
+                    badgeViewModel.setFirstComplete(3, userViewModel.getEmail())
+                    sendBadgeNotificationCompleted(3, badgeViewModel)
+                }
             }else {
                 animalViewModel.removeFavoriteAnimal(animalShowcase.name, userViewModel.getEmail())
             }
@@ -204,6 +214,38 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
             } as ArrayList<Boolean>
             onIsFavChanged(newIsFav)
             itemAdapter.updateFavorites(isFav)
+        }
+    }
+
+    private fun sendBadgeNotificationCompleted(badgeId: Int, badgeViewModel: BadgeViewModel) {
+        val notificationId = 1 // A unique identifier for the notification
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            val badgeDescription = badgeViewModel.getDescription(badgeId)
+
+            if (userViewModel.notificationEnabled(userViewModel.getEmail())) {
+                // Build the notification
+                val notification = NotificationCompat.Builder(
+                    requireActivity().applicationContext,
+                    MainActivity.CHANNEL_ID
+                )
+                    .setSmallIcon(R.drawable.ic_stat_name)
+                    .setContentTitle("EcoGuardians")
+                    .setContentText("Missione completata: $badgeDescription")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .build()
+
+                // Send the notification
+                with(NotificationManagerCompat.from(requireContext())) {
+                    // notificationId is a unique int for each notification that you must define.
+                    if (ActivityCompat.checkSelfPermission(
+                            requireContext(),
+                            Manifest.permission.POST_NOTIFICATIONS
+                        ) != PackageManager.PERMISSION_GRANTED
+                    ) {  }
+                    notify(notificationId, notification)
+                }
+            }
         }
     }
 

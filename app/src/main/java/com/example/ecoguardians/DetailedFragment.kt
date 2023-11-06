@@ -1,22 +1,21 @@
 package com.example.ecoguardians
 
+import android.Manifest
 import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
-import android.graphics.Point
-import android.graphics.Rect
-import android.graphics.RectF
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.DecelerateInterpolator
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -124,12 +123,42 @@ class DetailedFragment : Fragment() {
         animalPositionButton.setOnClickListener{
             viewLifecycleOwner.lifecycleScope.launch{
                 badgeViewModel.setCompletedTrue(userViewModel.getEmail(), 5)
+                if(!badgeViewModel.firstComplete(5, userViewModel.getEmail())) {
+                    badgeViewModel.setFirstComplete(5, userViewModel.getEmail())
+                    val notificationId = 1
+                    val badgeDescription = badgeViewModel.getDescription(5)
+
+                    if (userViewModel.notificationEnabled(userViewModel.getEmail())) {
+                        // Build the notification
+                        val notification = NotificationCompat.Builder(
+                            requireActivity().applicationContext,
+                            MainActivity.CHANNEL_ID
+                        )
+                            .setSmallIcon(R.drawable.ic_stat_name)
+                            .setContentTitle("EcoGuardians")
+                            .setContentText("Missione completata: $badgeDescription")
+                            .setPriority(NotificationCompat.PRIORITY_HIGH)
+                            .build()
+
+                        // Send the notification
+                        with(NotificationManagerCompat.from(requireContext())) {
+                            // notificationId is a unique int for each notification that you must define.
+                            if (ActivityCompat.checkSelfPermission(
+                                    requireContext(),
+                                    Manifest.permission.POST_NOTIFICATIONS
+                                ) != PackageManager.PERMISSION_GRANTED
+                            ) {  }
+                            notify(notificationId, notification)
+                        }
+                    }
+                }
+                val mapFragment = Map.newInstance(arguments?.getDouble(ARG_PARAM11)!!,
+                    arguments?.getDouble(ARG_PARAM12)!!)
+                val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.main_container, mapFragment)
+                transaction.commit()
             }
-            val mapFragment = Map.newInstance(arguments?.getDouble(ARG_PARAM11)!!,
-                arguments?.getDouble(ARG_PARAM12)!!)
-            val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.main_container, mapFragment)
-            transaction.commit()
+
         }
 
         return view
@@ -156,5 +185,13 @@ class DetailedFragment : Fragment() {
                     putDouble(ARG_PARAM12, longitude)
                 }
             }
+    }
+
+    private fun sendBadgeNotificationCompleted(badgeId: Int, badgeViewModel: BadgeViewModel) {
+        val notificationId = 1 // A unique identifier for the notification
+
+        viewLifecycleOwner.lifecycleScope.launch {
+
+        }
     }
 }

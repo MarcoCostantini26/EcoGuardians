@@ -1,6 +1,8 @@
 package com.example.ecoguardians
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +11,9 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.annotation.RequiresApi
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecoguardians.viewModel.AnimalViewModel
 import com.example.ecoguardians.viewModel.AnimalViewModelFactory
+import com.example.ecoguardians.viewModel.BadgeViewModel
+import com.example.ecoguardians.viewModel.BadgeViewModelFactory
 import com.example.ecoguardians.viewModel.UserViewModelFactory
 import com.example.ecoguardians.viewModel.UserViewModel
 import com.google.android.material.appbar.MaterialToolbar
@@ -38,6 +45,9 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
             repository = (requireActivity().application as EcoGuardiansApplication).userRepository,
             animalRepository = (requireActivity().application as EcoGuardiansApplication).animalRepository
         )
+    }
+    private val badgeViewModel by viewModels<BadgeViewModel> {
+        BadgeViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).badgeRepository)
     }
 
     @RequiresApi(34)
@@ -146,11 +156,48 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
             }
             if(!animalViewModel.getFavoritesNames(userViewModel.getEmail()).contains(animalShowcase.name)) {
                 animalViewModel.addFavoriteAnimal(animalShowcase.name, userViewModel.getEmail())
+                if(!badgeViewModel.firstComplete(2, userViewModel.getEmail())) {
+                    // Send notification when badge is completed
+                    badgeViewModel.setFirstComplete(2, userViewModel.getEmail())
+                    sendBadgeNotificationCompleted(2, badgeViewModel)
+                }
             }else {
                 animalViewModel.removeFavoriteAnimal(animalShowcase.name, userViewModel.getEmail())
             }
             val favoriteDrawable = AppCompatResources.getDrawable(btnFavorite.context, iconResource)
             btnFavorite.setImageDrawable(favoriteDrawable)
+        }
+    }
+
+    private fun sendBadgeNotificationCompleted(badgeId: Int, badgeViewModel: BadgeViewModel) {
+        val notificationId = 1 // A unique identifier for the notification
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            val badgeDescription = badgeViewModel.getDescription(badgeId)
+
+            if (userViewModel.notificationEnabled(userViewModel.getEmail())) {
+                // Build the notification
+                val notification = NotificationCompat.Builder(
+                    requireActivity().applicationContext,
+                    MainActivity.CHANNEL_ID
+                )
+                    .setSmallIcon(R.drawable.ic_stat_name)
+                    .setContentTitle("EcoGuardians")
+                    .setContentText("Missione completata: $badgeDescription")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .build()
+
+                // Send the notification
+                with(NotificationManagerCompat.from(requireContext())) {
+                    // notificationId is a unique int for each notification that you must define.
+                    if (ActivityCompat.checkSelfPermission(
+                            requireContext(),
+                            Manifest.permission.POST_NOTIFICATIONS
+                        ) != PackageManager.PERMISSION_GRANTED
+                    ) {  }
+                    notify(notificationId, notification)
+                }
+            }
         }
     }
 
