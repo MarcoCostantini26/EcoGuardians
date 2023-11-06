@@ -24,7 +24,7 @@
             android:layout_marginBottom="1dp"
             android:text="username"
             android:textAlignment="textStart"
-            android:textColor="@android:color/holo_green_light"
+            android:textColor="@android:color/darker_gray"
             android:textSize="23sp"
             app:layout_constraintBottom_toTopOf="@+id/gpsPosition"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,30 +39,31 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="580dp"
-            android:text="La tua posizione"
+            android:text="GPS"
             android:textAlignment="textStart"
-            android:textColor="@android:color/holo_green_light"
+            android:textColor="@android:color/darker_gray"
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/username" />
 
-        <ImageButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/userLocation"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="#00000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:contentDescription="userLocation"
             android:src="@drawable/animal_location"
-            android:layout_marginStart="320dp"
+            android:layout_marginStart="100dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="580dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/username"/>
+            app:layout_constraintTop_toBottomOf="@+id/username"
+            app:fabSize="mini"
+            app:backgroundTint="@color/gps" />
 
         <ImageView
             android:id="@+id/setting_profile_image"
