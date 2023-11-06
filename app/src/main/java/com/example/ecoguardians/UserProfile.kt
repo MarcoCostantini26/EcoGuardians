@@ -125,6 +125,12 @@ class UserProfile : Fragment() {
             if(isCompleted){
                 progressBarObiettivo2.progress = 100
                 textViewObiettivo2.text = "1/1"
+
+                if(!badgeViewModel.firstComplete(2, userViewModel.getEmail())) {
+                    // Send notification when badge is completed
+                    badgeViewModel.setFirstComplete(2, userViewModel.getEmail())
+                    sendBadgeNotificationCompleted(2, badgeViewModel)
+                }
             }
         }
 
