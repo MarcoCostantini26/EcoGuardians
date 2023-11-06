@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                     transaction.commit()
                 }
             }
+
             isFirstOnCreate = false
         }
 
