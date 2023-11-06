@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
@@ -20,6 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecoguardians.viewModel.AnimalViewModel
 import com.example.ecoguardians.viewModel.AnimalViewModelFactory
+import com.example.ecoguardians.viewModel.BadgeViewModel
+import com.example.ecoguardians.viewModel.BadgeViewModelFactory
 import com.example.ecoguardians.viewModel.UserViewModel
 import com.example.ecoguardians.viewModel.UserViewModelFactory
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -47,6 +50,10 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
             repository = (requireActivity().application as EcoGuardiansApplication).userRepository,
             animalRepository = (requireActivity().application as EcoGuardiansApplication).animalRepository
         )
+    }
+
+    val badgeViewModel by viewModels<BadgeViewModel> {
+        BadgeViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).badgeRepository)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -174,6 +181,8 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
     @SuppressLint("NotifyDataSetChanged")
     override fun toogleFavoriteState(btnFavorite: ImageButton, animalShowcase: AnimalShowcase) {
         viewLifecycleOwner.lifecycleScope.launch {
+
+            badgeViewModel.setCompletedTrue(userViewModel.getEmail(), 3)
             // Change the bookmark icon
             val iconResource = if(!animalViewModel.getFavoritesNames(userViewModel.getEmail()).contains(animalShowcase.name)) {
                 R.drawable.favorite_fill_icon

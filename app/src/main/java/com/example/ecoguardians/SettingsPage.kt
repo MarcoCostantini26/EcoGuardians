@@ -91,6 +91,7 @@ class SettingsPage : Fragment() {
 
         switchMode.isChecked = isNightMode
         switchMode.setOnCheckedChangeListener{_,isChecked ->
+
             if(isChecked){
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }else{
@@ -99,7 +100,6 @@ class SettingsPage : Fragment() {
             editor = sharedPreferences.edit()
             editor.putBoolean("night_mode", isChecked)
             editor.apply()
-
         }
     }
 
