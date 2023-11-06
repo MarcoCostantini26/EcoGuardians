@@ -91,6 +91,7 @@ class Home : Fragment() {
                 isVisited = animalViewModel.isVisited(json.getString("name"), userViewModel.getEmail()),
                 email = userViewModel.getEmail()
             )
+
             userViewModel.addAnimal(newAnimal)
 
             val json2 = JSONObject(JsonAnimal().animal2)
