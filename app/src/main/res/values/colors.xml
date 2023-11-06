@@ -11,4 +11,5 @@
     <color name="logInSignInColor">#37BFB3</color>
     <color name="selectedColor">#142385</color>
     <color name="unselectedColor">#04000C</color>
+    <color name="gps">#EFAB4B</color>
 </resources>
