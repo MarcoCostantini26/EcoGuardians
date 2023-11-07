@@ -51,4 +51,115 @@ class JsonAnimal {
         }
     """
 
+    val animal4 = """
+        {
+            "name": "Rinoceronte",
+            "position": "Savana",
+            "numberSpecies": "75",
+            "classification": "Mammifero",
+            "averageLife": "30",
+            "animalDescription": "rinoceronte di giava description",
+            "threats": "n sacc",
+            "whatYouCanDo": "n sacc",
+            "seriousLink": "n sacc",
+            "latitude": -6.757097 ,
+            "longitude": 105.297631
+        }
+    """
+
+    val animal5 = """
+        {
+            "name": "Elefante",
+            "position": "Foresta",
+            "numberSpecies": "2.000 - 2.500",
+            "classification": "Mammifero",
+            "averageLife": "70-80",
+            "animalDescription": "elefante description",
+            "threats": "n sacc",
+            "whatYouCanDo": "n sacc",
+            "seriousLink": "n sacc",
+            "latitude": 0.650143,
+            "longitude": 100.618004
+        }
+    """
+
+    val animal6 = """
+        {
+            "name": "Stambecco",
+            "position": "Montagna",
+            "numberSpecies": "47.000",
+            "classification": "Mammifero",
+            "averageLife": "24",
+            "animalDescription": "stampecco description",
+            "threats": "n sacc",
+            "whatYouCanDo": "n sacc",
+            "seriousLink": "n sacc",
+            "latitude": 45.518491,
+            "longitude": 7.271953
+        }
+    """
+
+    val animal7 = """
+        {
+            "name": "Orso Marsicano",
+            "position": "Bosco",
+            "numberSpecies": "60",
+            "classification": "Mammifero",
+            "averageLife": "35-40",
+            "animalDescription": "orso description",
+            "threats": "n sacc",
+            "whatYouCanDo": "n sacc",
+            "seriousLink": "n sacc",
+            "latitude": 41.849056,
+            "longitude": 13.812335
+        }
+    """
+
+    val animal8 = """
+        {
+            "name": "Saola",
+            "position": "Foresta",
+            "numberSpecies": "700",
+            "classification": "Mammifero",
+            "averageLife": "8 - 10",
+            "animalDescription": "saola description",
+            "threats": "n sacc",
+            "whatYouCanDo": "n sacc",
+            "seriousLink": "n sacc",
+            "latitude": 17.779354,
+            "longitude": 106.180219
+        }
+    """
+
+    val animal9 = """
+        {
+            "name": "Balenottera",
+            "position": "Oceano",
+            "numberSpecies": "100.000",
+            "classification": "Mammifero",
+            "averageLife": "80",
+            "animalDescription": "balenottera description",
+            "threats": "n sacc",
+            "whatYouCanDo": "n sacc",
+            "seriousLink": "n sacc",
+            "latitude": 35.729819,
+            "longitude": 19.606580
+        }
+    """
+
+    val animal10 = """
+        {
+            "name": "Foca Monaca",
+            "position": "Oceano",
+            "numberSpecies": "700",
+            "classification": "Mammifero",
+            "averageLife": "20-30",
+            "animalDescription": "foca description",
+            "threats": "n sacc",
+            "whatYouCanDo": "n sacc",
+            "seriousLink": "n sacc",
+            "latitude": 17.908548,
+            "longitude": -16.618088
+        }
+    """
 }

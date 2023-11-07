@@ -121,9 +121,72 @@ class SecondFragment : Fragment(), AnimalAdapter.ItemClickListener{
                 animalViewModel.isAnimalFavorite(names[2], userViewModel.getEmail()),
                 animalViewModel.getLatitude(names[2]), animalViewModel.getLongitude(names[2])))
 
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(names[3]),names[3],
+                animalViewModel.getNumberSpecies(names[3]), animalViewModel.getClassification(names[3]),
+                animalViewModel.getPosition(names[3]), animalViewModel.getAverageLife(names[3]),
+                animalViewModel.getDescription(names[3]), animalViewModel.getThreats(names[3]),
+                animalViewModel.getWhatYouCanDo(names[3]), animalViewModel.getSeriousLink(names[3]),
+                animalViewModel.isAnimalFavorite(names[3], userViewModel.getEmail()),
+                animalViewModel.getLatitude(names[3]), animalViewModel.getLongitude(names[3])))
+
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(names[4]),names[4],
+                animalViewModel.getNumberSpecies(names[4]), animalViewModel.getClassification(names[4]),
+                animalViewModel.getPosition(names[4]), animalViewModel.getAverageLife(names[4]),
+                animalViewModel.getDescription(names[4]), animalViewModel.getThreats(names[4]),
+                animalViewModel.getWhatYouCanDo(names[4]), animalViewModel.getSeriousLink(names[4]),
+                animalViewModel.isAnimalFavorite(names[4], userViewModel.getEmail()),
+                animalViewModel.getLatitude(names[4]), animalViewModel.getLongitude(names[4])))
+
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(names[5]),names[5],
+                animalViewModel.getNumberSpecies(names[5]), animalViewModel.getClassification(names[5]),
+                animalViewModel.getPosition(names[5]), animalViewModel.getAverageLife(names[5]),
+                animalViewModel.getDescription(names[5]), animalViewModel.getThreats(names[5]),
+                animalViewModel.getWhatYouCanDo(names[5]), animalViewModel.getSeriousLink(names[5]),
+                animalViewModel.isAnimalFavorite(names[5], userViewModel.getEmail()),
+                animalViewModel.getLatitude(names[5]), animalViewModel.getLongitude(names[5])))
+
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(names[6]),names[6],
+                animalViewModel.getNumberSpecies(names[6]), animalViewModel.getClassification(names[6]),
+                animalViewModel.getPosition(names[6]), animalViewModel.getAverageLife(names[6]),
+                animalViewModel.getDescription(names[6]), animalViewModel.getThreats(names[6]),
+                animalViewModel.getWhatYouCanDo(names[6]), animalViewModel.getSeriousLink(names[6]),
+                animalViewModel.isAnimalFavorite(names[6], userViewModel.getEmail()),
+                animalViewModel.getLatitude(names[6]), animalViewModel.getLongitude(names[6])))
+
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(names[7]),names[7],
+                animalViewModel.getNumberSpecies(names[7]), animalViewModel.getClassification(names[7]),
+                animalViewModel.getPosition(names[7]), animalViewModel.getAverageLife(names[7]),
+                animalViewModel.getDescription(names[7]), animalViewModel.getThreats(names[7]),
+                animalViewModel.getWhatYouCanDo(names[7]), animalViewModel.getSeriousLink(names[7]),
+                animalViewModel.isAnimalFavorite(names[7], userViewModel.getEmail()),
+                animalViewModel.getLatitude(names[7]), animalViewModel.getLongitude(names[7])))
+
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(names[8]),names[8],
+                animalViewModel.getNumberSpecies(names[8]), animalViewModel.getClassification(names[8]),
+                animalViewModel.getPosition(names[8]), animalViewModel.getAverageLife(names[8]),
+                animalViewModel.getDescription(names[8]), animalViewModel.getThreats(names[8]),
+                animalViewModel.getWhatYouCanDo(names[8]), animalViewModel.getSeriousLink(names[8]),
+                animalViewModel.isAnimalFavorite(names[8], userViewModel.getEmail()),
+                animalViewModel.getLatitude(names[8]), animalViewModel.getLongitude(names[8])))
+
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(names[9]),names[9],
+                animalViewModel.getNumberSpecies(names[9]), animalViewModel.getClassification(names[9]),
+                animalViewModel.getPosition(names[9]), animalViewModel.getAverageLife(names[9]),
+                animalViewModel.getDescription(names[9]), animalViewModel.getThreats(names[9]),
+                animalViewModel.getWhatYouCanDo(names[9]), animalViewModel.getSeriousLink(names[9]),
+                animalViewModel.isAnimalFavorite(names[9], userViewModel.getEmail()),
+                animalViewModel.getLatitude(names[9]), animalViewModel.getLongitude(names[9])))
+
             isFav.add(animalViewModel.isAnimalFavorite(names[0], userViewModel.getEmail()))
             isFav.add(animalViewModel.isAnimalFavorite(names[1], userViewModel.getEmail()))
             isFav.add(animalViewModel.isAnimalFavorite(names[2], userViewModel.getEmail()))
+            isFav.add(animalViewModel.isAnimalFavorite(names[3], userViewModel.getEmail()))
+            isFav.add(animalViewModel.isAnimalFavorite(names[4], userViewModel.getEmail()))
+            isFav.add(animalViewModel.isAnimalFavorite(names[5], userViewModel.getEmail()))
+            isFav.add(animalViewModel.isAnimalFavorite(names[6], userViewModel.getEmail()))
+            isFav.add(animalViewModel.isAnimalFavorite(names[7], userViewModel.getEmail()))
+            isFav.add(animalViewModel.isAnimalFavorite(names[8], userViewModel.getEmail()))
+            isFav.add(animalViewModel.isAnimalFavorite(names[9], userViewModel.getEmail()))
         }
         animalAdapter.notifyDataSetChanged()
     }

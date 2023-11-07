@@ -78,12 +78,33 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
             val name = animalsByUser.animals[0].animal
             val orsoPolare = animalsByUser.animals[1].animal
             val tigre = animalsByUser.animals[2].animal
+            val rino = animalsByUser.animals[3].animal
+            val elefante = animalsByUser.animals[4].animal
+            val stambecco = animalsByUser.animals[5].animal
+            val orsoMarsicano = animalsByUser.animals[6].animal
+            val saola = animalsByUser.animals[7].animal
+            val balenottera = animalsByUser.animals[8].animal
+            val focaMonaca = animalsByUser.animals[9].animal
             animalShowcaseList.add(AnimalShowcase(R.drawable.koala, name, animalsByUser.animals[0].favorite))
             animalShowcaseList.add(AnimalShowcase(R.drawable.orsopolare, orsoPolare, animalsByUser.animals[1].favorite))
             animalShowcaseList.add(AnimalShowcase(R.drawable.tigre, tigre, animalsByUser.animals[2].favorite))
+            animalShowcaseList.add(AnimalShowcase(R.drawable.rino_giava, rino, animalsByUser.animals[3].favorite))
+            animalShowcaseList.add(AnimalShowcase(R.drawable.elefante_sumatra, elefante, animalsByUser.animals[4].favorite))
+            animalShowcaseList.add(AnimalShowcase(R.drawable.stambecco, stambecco, animalsByUser.animals[5].favorite))
+            animalShowcaseList.add(AnimalShowcase(R.drawable.orso_marsicano, orsoMarsicano, animalsByUser.animals[6].favorite))
+            animalShowcaseList.add(AnimalShowcase(R.drawable.saola, saola, animalsByUser.animals[7].favorite))
+            animalShowcaseList.add(AnimalShowcase(R.drawable.balenottera, balenottera, animalsByUser.animals[8].favorite))
+            animalShowcaseList.add(AnimalShowcase(R.drawable.foca_monaca, focaMonaca, animalsByUser.animals[9].favorite))
             isFav.add(animalsByUser.animals[0].favorite)
             isFav.add(animalsByUser.animals[1].favorite)
             isFav.add(animalsByUser.animals[2].favorite)
+            isFav.add(animalsByUser.animals[3].favorite)
+            isFav.add(animalsByUser.animals[4].favorite)
+            isFav.add(animalsByUser.animals[5].favorite)
+            isFav.add(animalsByUser.animals[6].favorite)
+            isFav.add(animalsByUser.animals[7].favorite)
+            isFav.add(animalsByUser.animals[8].favorite)
+            isFav.add(animalsByUser.animals[9].favorite)
 
             onIsFavChanged(isFav)
             itemAdapter.notifyDataSetChanged()
