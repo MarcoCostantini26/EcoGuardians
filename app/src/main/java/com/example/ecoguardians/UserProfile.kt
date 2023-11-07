@@ -19,6 +19,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -162,6 +163,36 @@ class UserProfile : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             progressBarObiettivo6.progress = animalViewModel.countIsVisited(userViewModel.getEmail()) * 10
             textViewObiettivo6.text = "${animalViewModel.countIsVisited(userViewModel.getEmail())}" + "/10"
+        }
+
+        val cardView1 = view.findViewById<CardView>(R.id.CardViewObiettivo1);
+        cardView1.setOnClickListener{
+            Toast.makeText(requireContext(), "Registrati per completare questo obiettivo", Toast.LENGTH_SHORT).show();
+        }
+
+        val cardView2 = view.findViewById<CardView>(R.id.CardViewObiettivo2);
+        cardView2.setOnClickListener{
+            Toast.makeText(requireContext(), "Inserisci l'immagine profilo per completare questo obiettivo", Toast.LENGTH_SHORT).show();
+        }
+
+        val cardView3 = view.findViewById<CardView>(R.id.CardViewObiettivo3);
+        cardView3.setOnClickListener{
+            Toast.makeText(requireContext(), "Aggiungi un animale preferito per completare questo obiettivo", Toast.LENGTH_SHORT).show();
+        }
+
+        val cardView4 = view.findViewById<CardView>(R.id.CardViewObiettivo4);
+        cardView4.setOnClickListener{
+            Toast.makeText(requireContext(), "Visita un link per aiutare un animale per completare questo obiettivo", Toast.LENGTH_SHORT).show();
+        }
+
+        val cardView5 = view.findViewById<CardView>(R.id.CardViewObiettivo5);
+        cardView5.setOnClickListener{
+            Toast.makeText(requireContext(), "Scopri dove vive l'animale per completare questo obiettivo", Toast.LENGTH_SHORT).show();
+        }
+
+        val cardView6 = view.findViewById<CardView>(R.id.CardViewObiettivo6);
+        cardView6.setOnClickListener{
+            Toast.makeText(requireContext(), "Scopri tutti gli animali per completare questo obiettivo", Toast.LENGTH_SHORT).show();
         }
 
         return view
