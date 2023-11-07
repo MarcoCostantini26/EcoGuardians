@@ -134,6 +134,7 @@ class Home : Fragment() {
             )
             userViewModel.addAnimal(newAnimal3)
 
+
             val json4 = JSONObject(JsonAnimal().animal4)
             val rino = Animal(
                 animal = json4.getString("name"),
