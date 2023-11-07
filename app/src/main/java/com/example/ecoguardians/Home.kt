@@ -150,7 +150,7 @@ class Home : Fragment() {
                 latitude = json4.getDouble("latitude"),
                 longitude = json4.getDouble("longitude"),
                 favorite = userViewModel.isAnimalFavorite(json4.getString("name"), userViewModel.getEmail()),
-                isVisited = false,
+                isVisited = animalViewModel.isVisited(json4.getString("name"), userViewModel.getEmail()),
                 email = userViewModel.getEmail()
             )
             userViewModel.addAnimal(rino)
@@ -170,7 +170,7 @@ class Home : Fragment() {
                 latitude = json5.getDouble("latitude"),
                 longitude = json5.getDouble("longitude"),
                 favorite = userViewModel.isAnimalFavorite(json5.getString("name"), userViewModel.getEmail()),
-                isVisited = false,
+                isVisited = animalViewModel.isVisited(json5.getString("name"), userViewModel.getEmail()),
                 email = userViewModel.getEmail()
             )
             userViewModel.addAnimal(elefante)
@@ -190,7 +190,7 @@ class Home : Fragment() {
                 latitude = json6.getDouble("latitude"),
                 longitude = json6.getDouble("longitude"),
                 favorite = userViewModel.isAnimalFavorite(json6.getString("name"), userViewModel.getEmail()),
-                isVisited = false,
+                isVisited = animalViewModel.isVisited(json6.getString("name"), userViewModel.getEmail()),
                 email = userViewModel.getEmail()
             )
             userViewModel.addAnimal(stambecco)
@@ -210,7 +210,7 @@ class Home : Fragment() {
                 latitude = json7.getDouble("latitude"),
                 longitude = json7.getDouble("longitude"),
                 favorite = userViewModel.isAnimalFavorite(json7.getString("name"), userViewModel.getEmail()),
-                isVisited = false,
+                isVisited = animalViewModel.isVisited(json7.getString("name"), userViewModel.getEmail()),
                 email = userViewModel.getEmail()
             )
             userViewModel.addAnimal(orso)
@@ -230,7 +230,7 @@ class Home : Fragment() {
                 latitude = json8.getDouble("latitude"),
                 longitude = json8.getDouble("longitude"),
                 favorite = userViewModel.isAnimalFavorite(json8.getString("name"), userViewModel.getEmail()),
-                isVisited = false,
+                isVisited = animalViewModel.isVisited(json8.getString("name"), userViewModel.getEmail()),
                 email = userViewModel.getEmail()
             )
             userViewModel.addAnimal(saola)
@@ -250,7 +250,7 @@ class Home : Fragment() {
                 latitude = json9.getDouble("latitude"),
                 longitude = json9.getDouble("longitude"),
                 favorite = userViewModel.isAnimalFavorite(json9.getString("name"), userViewModel.getEmail()),
-                isVisited = false,
+                isVisited = animalViewModel.isVisited(json9.getString("name"), userViewModel.getEmail()),
                 email = userViewModel.getEmail()
             )
             userViewModel.addAnimal(balenottera)
@@ -270,7 +270,7 @@ class Home : Fragment() {
                 latitude = json10.getDouble("latitude"),
                 longitude = json10.getDouble("longitude"),
                 favorite = userViewModel.isAnimalFavorite(json10.getString("name"), userViewModel.getEmail()),
-                isVisited = false,
+                isVisited = animalViewModel.isVisited(json10.getString("name"), userViewModel.getEmail()),
                 email = userViewModel.getEmail()
             )
             userViewModel.addAnimal(foca)
