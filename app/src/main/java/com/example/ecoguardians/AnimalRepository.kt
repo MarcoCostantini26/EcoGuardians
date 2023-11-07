@@ -24,8 +24,8 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
     }
 
     @WorkerThread
-    suspend fun isVisited(animalName: String) : Boolean{
-        return animalDAO.isVisited(animalName)
+    suspend fun isVisited(animalName: String, email: String) : Boolean{
+        return animalDAO.isVisited(animalName, email)
     }
 
     @WorkerThread
@@ -40,6 +40,11 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
     @WorkerThread
     fun getImage(name : String) : Int{
         return animalDAO.getImage(name)
+    }
+
+    @WorkerThread
+    suspend fun countIsVisited(email : String): Int{
+        return animalDAO.countIsVisited(email)
     }
 
     @WorkerThread
@@ -73,6 +78,10 @@ class AnimalRepository (private val animalDAO:AnimalDAO) {
     @WorkerThread
     fun getSeriousLink(name: String): String{
         return animalDAO.getSeriousLink(name)
+    }
+    @WorkerThread
+    suspend fun setIsVisitedTrue(name: String, email: String){
+        animalDAO.setIsVisitedTrue(name, email)
     }
     @WorkerThread
     fun getLatitude(name: String): Double{

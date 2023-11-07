@@ -21,6 +21,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.viewModels
+import com.example.ecoguardians.viewModel.AnimalViewModel
+import com.example.ecoguardians.viewModel.AnimalViewModelFactory
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -30,6 +32,10 @@ class Home : Fragment() {
     }
 
     private lateinit var userViewModel: UserViewModel
+
+    private val animalViewModel by viewModels<AnimalViewModel> {
+        AnimalViewModelFactory(repository = (requireActivity().application as EcoGuardiansApplication).animalRepository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,9 +88,10 @@ class Home : Fragment() {
                 latitude = json.getDouble("latitude"),
                 longitude = json.getDouble("longitude"),
                 favorite = userViewModel.isAnimalFavorite(json.getString("name"), userViewModel.getEmail()),
-                isVisited = false,
+                isVisited = animalViewModel.isVisited(json.getString("name"), userViewModel.getEmail()),
                 email = userViewModel.getEmail()
             )
+
             userViewModel.addAnimal(newAnimal)
 
             val json2 = JSONObject(JsonAnimal().animal2)
@@ -102,7 +109,7 @@ class Home : Fragment() {
                 latitude = json2.getDouble("latitude"),
                 longitude = json2.getDouble("longitude"),
                 favorite = userViewModel.isAnimalFavorite(json2.getString("name"), userViewModel.getEmail()),
-                isVisited = false,
+                isVisited = animalViewModel.isVisited(json2.getString("name"), userViewModel.getEmail()),
                 email = userViewModel.getEmail()
             )
             userViewModel.addAnimal(newAnimal2)
@@ -122,7 +129,7 @@ class Home : Fragment() {
                 latitude = json3.getDouble("latitude"),
                 longitude = json3.getDouble("longitude"),
                 favorite = userViewModel.isAnimalFavorite(json3.getString("name"), userViewModel.getEmail()),
-                isVisited = false,
+                isVisited = animalViewModel.isVisited(json3.getString("name"), userViewModel.getEmail()),
                 email = userViewModel.getEmail()
             )
             userViewModel.addAnimal(newAnimal3)

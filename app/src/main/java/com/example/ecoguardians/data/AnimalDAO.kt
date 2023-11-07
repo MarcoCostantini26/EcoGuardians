@@ -52,6 +52,9 @@ interface AnimalDAO {
     @Query("UPDATE Animal SET favorite = :fav WHERE :name = animal")
     suspend fun updateFavorite(name: String, fav: Boolean)
 
+    @Query("UPDATE Animal SET isVisited = 1 WHERE :name = animal and email = :email")
+    suspend fun setIsVisitedTrue(name: String, email: String)
+
     @Query("SELECT animal FROM Animal WHERE favorite = 1 AND email =:email")
     fun getFavoritesNames(email: String): List<String>
 
@@ -67,13 +70,12 @@ interface AnimalDAO {
     @Query("SELECT animal FROM Animal WHERE email = :email")
     suspend fun getAnimalInSession(email: String): List<String>
 
-    @Query("SELECT isVisited FROM Animal WHERE animal = :name")
-    suspend fun isVisited(name: String): Boolean
+    @Query("SELECT isVisited FROM Animal WHERE animal = :name and email = :email")
+    suspend fun isVisited(name: String, email : String): Boolean
 
     @Query("SELECT * FROM Animal WHERE email = :userEmail")
     suspend fun getAnimalsByUser(userEmail: String): List<Animal>
 
-    @Query("SELECT COUNT(*) FROM Animal")
-    suspend fun countAnimals(): Int
-
+    @Query("SELECT COUNT(*) FROM Animal WHERE isVisited = 1  and email = :email")
+    suspend fun countIsVisited(email : String): Int
 }
