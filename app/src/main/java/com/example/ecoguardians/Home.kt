@@ -137,7 +137,7 @@ class Home : Fragment() {
             val json4 = JSONObject(JsonAnimal().animal4)
             val rino = Animal(
                 animal = json4.getString("name"),
-                image = R.drawable.rino_giava,
+                image = R.drawable.pinguino,
                 position = json4.getString("position"),
                 numberSpecies =  json4.getString("numberSpecies"),
                 classification = json4.getString("classification"),
