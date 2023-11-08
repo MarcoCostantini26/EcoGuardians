@@ -24,6 +24,13 @@ var isFirstOnCreate = true
 
 class MainActivity : AppCompatActivity() {
 
+    override fun onBackPressed() {
+        val home = Home()
+        val transactionHome : FragmentTransaction = supportFragmentManager.beginTransaction()
+        transactionHome.replace(R.id.main_container, home)
+        transactionHome.commit()
+    }
+
     companion object {
         const val CHANNEL_ID = "BadgeChannel"  // A unique identifier for the notification channel
     }
