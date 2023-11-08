@@ -146,6 +146,17 @@ class UserProfile : Fragment() {
             }
         }
 
+        val progressBarObiettivo4 = view.findViewById<ProgressBar>(R.id.progressBarObiettivo4)
+        val textViewObiettivo4 = view.findViewById<TextView>(R.id.textViewObiettivo4)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            val isCompleted = badgeViewModel.isCompleted(userViewModel.getEmail(), 4)
+            if(isCompleted){
+                progressBarObiettivo4.progress = 100
+                textViewObiettivo4.text = "1/1"
+            }
+        }
+
         val progressBarObiettivo5 = view.findViewById<ProgressBar>(R.id.progressBarObiettivo5)
         val textViewObiettivo5 = view.findViewById<TextView>(R.id.textViewObiettivo5)
 

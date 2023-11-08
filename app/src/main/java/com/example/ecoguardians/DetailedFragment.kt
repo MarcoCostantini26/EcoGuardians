@@ -176,6 +176,14 @@ class DetailedFragment : Fragment() {
 
         }
 
+        val link = view.findViewById<TextView>(R.id.content4)
+
+        link.setOnClickListener{
+            viewLifecycleOwner.lifecycleScope.launch {
+                badgeViewModel.setCompletedTrue(userViewModel.getEmail(), 4)
+            }
+        }
+
         return view
     }
 
