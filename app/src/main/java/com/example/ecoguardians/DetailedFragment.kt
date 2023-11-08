@@ -2,7 +2,9 @@ package com.example.ecoguardians
 
 import android.Manifest
 import android.animation.Animator
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -206,6 +208,11 @@ class DetailedFragment : Fragment() {
         val link = view.findViewById<TextView>(R.id.content4)
 
         link.setOnClickListener{
+            val url = Intent(Intent.ACTION_VIEW)
+
+            url.data = Uri.parse(arguments?.getString(ARG_PARAM10))
+            startActivity(url)
+
             viewLifecycleOwner.lifecycleScope.launch {
                 badgeViewModel.setCompletedTrue(userViewModel.getEmail(), 4)
                 if(!badgeViewModel.firstComplete(4, userViewModel.getEmail())) {
