@@ -108,10 +108,37 @@ class DetailedFragment : Fragment() {
             animalViewModel.setIsVisitedTrue(textView.text.toString(), userViewModel.getEmail())
             if(animalViewModel.countIsVisited(userViewModel.getEmail()) == 10){
                 badgeViewModel.setCompletedTrue(userViewModel.getEmail(), 6)
+                if(!badgeViewModel.firstComplete(6, userViewModel.getEmail())) {
+                    badgeViewModel.setFirstComplete(6, userViewModel.getEmail())
+                    val notificationId = 1
+                    val badgeDescription = badgeViewModel.getDescription(6)
+
+                    if (userViewModel.notificationEnabled(userViewModel.getEmail())) {
+                        // Build the notification
+                        val notification = NotificationCompat.Builder(
+                            requireActivity().applicationContext,
+                            MainActivity.CHANNEL_ID
+                        )
+                            .setSmallIcon(R.drawable.ic_stat_name)
+                            .setContentTitle("EcoGuardians")
+                            .setContentText("Missione completata: $badgeDescription")
+                            .setPriority(NotificationCompat.PRIORITY_HIGH)
+                            .build()
+
+                        // Send the notification
+                        with(NotificationManagerCompat.from(requireContext())) {
+                            // notificationId is a unique int for each notification that you must define.
+                            if (ActivityCompat.checkSelfPermission(
+                                    requireContext(),
+                                    Manifest.permission.POST_NOTIFICATIONS
+                                ) != PackageManager.PERMISSION_GRANTED
+                            ) {  }
+                            notify(notificationId, notification)
+                        }
+                    }
+                }
             }
         }
-
-
 
         section1.setOnClickListener {
             scrollView.scrollTo(0, view.findViewById<View>(R.id.content1).top)
@@ -181,6 +208,35 @@ class DetailedFragment : Fragment() {
         link.setOnClickListener{
             viewLifecycleOwner.lifecycleScope.launch {
                 badgeViewModel.setCompletedTrue(userViewModel.getEmail(), 4)
+                if(!badgeViewModel.firstComplete(4, userViewModel.getEmail())) {
+                    badgeViewModel.setFirstComplete(4, userViewModel.getEmail())
+                    val notificationId = 1
+                    val badgeDescription = badgeViewModel.getDescription(4)
+
+                    if (userViewModel.notificationEnabled(userViewModel.getEmail())) {
+                        // Build the notification
+                        val notification = NotificationCompat.Builder(
+                            requireActivity().applicationContext,
+                            MainActivity.CHANNEL_ID
+                        )
+                            .setSmallIcon(R.drawable.ic_stat_name)
+                            .setContentTitle("EcoGuardians")
+                            .setContentText("Missione completata: $badgeDescription")
+                            .setPriority(NotificationCompat.PRIORITY_HIGH)
+                            .build()
+
+                        // Send the notification
+                        with(NotificationManagerCompat.from(requireContext())) {
+                            // notificationId is a unique int for each notification that you must define.
+                            if (ActivityCompat.checkSelfPermission(
+                                    requireContext(),
+                                    Manifest.permission.POST_NOTIFICATIONS
+                                ) != PackageManager.PERMISSION_GRANTED
+                            ) {  }
+                            notify(notificationId, notification)
+                        }
+                    }
+                }
             }
         }
 
@@ -208,13 +264,5 @@ class DetailedFragment : Fragment() {
                     putDouble(ARG_PARAM12, longitude)
                 }
             }
-    }
-
-    private fun sendBadgeNotificationCompleted(badgeId: Int, badgeViewModel: BadgeViewModel) {
-        val notificationId = 1 // A unique identifier for the notification
-
-        viewLifecycleOwner.lifecycleScope.launch {
-
-        }
     }
 }
