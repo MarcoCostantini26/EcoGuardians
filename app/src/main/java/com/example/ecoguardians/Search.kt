@@ -85,16 +85,76 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
             val saola = animalsByUser.animals[7].animal
             val balenottera = animalsByUser.animals[8].animal
             val focaMonaca = animalsByUser.animals[9].animal
-            animalShowcaseList.add(AnimalShowcase(R.drawable.koala, name, animalsByUser.animals[0].favorite))
-            animalShowcaseList.add(AnimalShowcase(R.drawable.orsopolare, orsoPolare, animalsByUser.animals[1].favorite))
-            animalShowcaseList.add(AnimalShowcase(R.drawable.tigre, tigre, animalsByUser.animals[2].favorite))
-            animalShowcaseList.add(AnimalShowcase(R.drawable.rino_giava, rino, animalsByUser.animals[3].favorite))
-            animalShowcaseList.add(AnimalShowcase(R.drawable.elefante_sumatra, elefante, animalsByUser.animals[4].favorite))
-            animalShowcaseList.add(AnimalShowcase(R.drawable.stambecco, stambecco, animalsByUser.animals[5].favorite))
-            animalShowcaseList.add(AnimalShowcase(R.drawable.orso_marsicano, orsoMarsicano, animalsByUser.animals[6].favorite))
-            animalShowcaseList.add(AnimalShowcase(R.drawable.saola, saola, animalsByUser.animals[7].favorite))
-            animalShowcaseList.add(AnimalShowcase(R.drawable.balenottera, balenottera, animalsByUser.animals[8].favorite))
-            animalShowcaseList.add(AnimalShowcase(R.drawable.foca_monaca, focaMonaca, animalsByUser.animals[9].favorite))
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(name),name,
+                animalViewModel.getNumberSpecies(name), animalViewModel.getClassification(name),
+                animalViewModel.getPosition(name), animalViewModel.getAverageLife(name),
+                animalViewModel.getDescription(name), animalViewModel.getThreats(name),
+                animalViewModel.getWhatYouCanDo(name), animalViewModel.getSeriousLink(name),
+                animalViewModel.isAnimalFavorite(name, userViewModel.getEmail()), animalViewModel.getLatitude(name),
+                animalViewModel.getLongitude(name)))
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(orsoPolare),orsoPolare,
+                animalViewModel.getNumberSpecies(orsoPolare), animalViewModel.getClassification(orsoPolare),
+                animalViewModel.getPosition(orsoPolare), animalViewModel.getAverageLife(orsoPolare),
+                animalViewModel.getDescription(orsoPolare), animalViewModel.getThreats(orsoPolare),
+                animalViewModel.getWhatYouCanDo(orsoPolare), animalViewModel.getSeriousLink(orsoPolare),
+                animalViewModel.isAnimalFavorite(orsoPolare, userViewModel.getEmail()),
+                animalViewModel.getLatitude(orsoPolare), animalViewModel.getLongitude(orsoPolare)))
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(tigre),tigre,
+                animalViewModel.getNumberSpecies(tigre), animalViewModel.getClassification(tigre),
+                animalViewModel.getPosition(tigre), animalViewModel.getAverageLife(tigre),
+                animalViewModel.getDescription(tigre), animalViewModel.getThreats(tigre),
+                animalViewModel.getWhatYouCanDo(tigre), animalViewModel.getSeriousLink(tigre),
+                animalViewModel.isAnimalFavorite(tigre, userViewModel.getEmail()),
+                animalViewModel.getLatitude(tigre), animalViewModel.getLongitude(tigre)))
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(rino),rino,
+                animalViewModel.getNumberSpecies(rino), animalViewModel.getClassification(rino),
+                animalViewModel.getPosition(rino), animalViewModel.getAverageLife(rino),
+                animalViewModel.getDescription(rino), animalViewModel.getThreats(rino),
+                animalViewModel.getWhatYouCanDo(rino), animalViewModel.getSeriousLink(rino),
+                animalViewModel.isAnimalFavorite(rino, userViewModel.getEmail()),
+                animalViewModel.getLatitude(rino), animalViewModel.getLongitude(rino)))
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(elefante),elefante,
+                animalViewModel.getNumberSpecies(elefante), animalViewModel.getClassification(elefante),
+                animalViewModel.getPosition(elefante), animalViewModel.getAverageLife(elefante),
+                animalViewModel.getDescription(elefante), animalViewModel.getThreats(elefante),
+                animalViewModel.getWhatYouCanDo(elefante), animalViewModel.getSeriousLink(elefante),
+                animalViewModel.isAnimalFavorite(elefante, userViewModel.getEmail()),
+                animalViewModel.getLatitude(elefante), animalViewModel.getLongitude(elefante)))
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(stambecco),stambecco,
+                animalViewModel.getNumberSpecies(stambecco), animalViewModel.getClassification(stambecco),
+                animalViewModel.getPosition(stambecco), animalViewModel.getAverageLife(stambecco),
+                animalViewModel.getDescription(stambecco), animalViewModel.getThreats(stambecco),
+                animalViewModel.getWhatYouCanDo(stambecco), animalViewModel.getSeriousLink(stambecco),
+                animalViewModel.isAnimalFavorite(stambecco, userViewModel.getEmail()),
+                animalViewModel.getLatitude(stambecco), animalViewModel.getLongitude(stambecco)))
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(orsoMarsicano),orsoMarsicano,
+                animalViewModel.getNumberSpecies(orsoMarsicano), animalViewModel.getClassification(orsoMarsicano),
+                animalViewModel.getPosition(orsoMarsicano), animalViewModel.getAverageLife(orsoMarsicano),
+                animalViewModel.getDescription(orsoMarsicano), animalViewModel.getThreats(orsoMarsicano),
+                animalViewModel.getWhatYouCanDo(orsoMarsicano), animalViewModel.getSeriousLink(orsoMarsicano),
+                animalViewModel.isAnimalFavorite(orsoMarsicano, userViewModel.getEmail()),
+                animalViewModel.getLatitude(orsoMarsicano), animalViewModel.getLongitude(orsoMarsicano)))
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(saola),saola,
+                animalViewModel.getNumberSpecies(saola), animalViewModel.getClassification(saola),
+                animalViewModel.getPosition(saola), animalViewModel.getAverageLife(saola),
+                animalViewModel.getDescription(saola), animalViewModel.getThreats(saola),
+                animalViewModel.getWhatYouCanDo(saola), animalViewModel.getSeriousLink(saola),
+                animalViewModel.isAnimalFavorite(saola, userViewModel.getEmail()),
+                animalViewModel.getLatitude(saola), animalViewModel.getLongitude(saola)))
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(balenottera),balenottera,
+                animalViewModel.getNumberSpecies(balenottera), animalViewModel.getClassification(balenottera),
+                animalViewModel.getPosition(balenottera), animalViewModel.getAverageLife(balenottera),
+                animalViewModel.getDescription(balenottera), animalViewModel.getThreats(balenottera),
+                animalViewModel.getWhatYouCanDo(balenottera), animalViewModel.getSeriousLink(balenottera),
+                animalViewModel.isAnimalFavorite(balenottera, userViewModel.getEmail()),
+                animalViewModel.getLatitude(balenottera), animalViewModel.getLongitude(balenottera)))
+            animalShowcaseList.add(AnimalShowcase(animalViewModel.getImage(focaMonaca),focaMonaca,
+                animalViewModel.getNumberSpecies(focaMonaca), animalViewModel.getClassification(focaMonaca),
+                animalViewModel.getPosition(focaMonaca), animalViewModel.getAverageLife(focaMonaca),
+                animalViewModel.getDescription(focaMonaca), animalViewModel.getThreats(focaMonaca),
+                animalViewModel.getWhatYouCanDo(focaMonaca), animalViewModel.getSeriousLink(focaMonaca),
+                animalViewModel.isAnimalFavorite(focaMonaca, userViewModel.getEmail()),
+                animalViewModel.getLatitude(focaMonaca), animalViewModel.getLongitude(focaMonaca)))
             isFav.add(animalsByUser.animals[0].favorite)
             isFav.add(animalsByUser.animals[1].favorite)
             isFav.add(animalsByUser.animals[2].favorite)
@@ -117,16 +177,23 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
 
         itemAdapter = AnimalAdapter(animalShowcaseList, this, this, isFav)
         recyclerView.adapter = itemAdapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         // Add a TextWatcher for real-time search
         editTextSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 // Filter items based on entered text
-                val searchText = s.toString().lowercase()
-                filteredItems = animalShowcaseList.filter { it.name.lowercase().contains(searchText) } as ArrayList<AnimalShowcase>
-                itemAdapter = AnimalAdapter(filteredItems, this@Search, this@Search, isFav)
-                recyclerView.adapter = itemAdapter
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val searchText = s.toString().lowercase()
+                    filteredItems = animalShowcaseList.filter {
+                        it.name.lowercase().contains(searchText)
+                    } as ArrayList<AnimalShowcase>
+                    val filteredFavorite = filteredItems.map { animal ->
+                        animalViewModel.isAnimalFavorite(animal.name, userViewModel.getEmail())
+                    } as ArrayList<Boolean>
+                    itemAdapter =
+                        AnimalAdapter(filteredItems, this@Search, this@Search, filteredFavorite)
+                    recyclerView.adapter = itemAdapter
+                }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
