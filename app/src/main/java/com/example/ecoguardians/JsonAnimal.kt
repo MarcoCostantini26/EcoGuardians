@@ -6,7 +6,7 @@ class JsonAnimal {
     val animal1 = """
         {
             "name": "Koala",
-            "position": "Oceania",
+            "position": "Foresta",
             "numberSpecies": "47.000 - 85.000",
             "classification": "Mammifero",
             "averageLife": "10-12",

@@ -263,7 +263,7 @@ class Search : Fragment(), AnimalAdapter.ItemClickListener {
 
     override fun onItemClick(animalShowcase: AnimalShowcase) {
         val fragmentDetailed = DetailedFragment.newInstance(animalShowcase.image, animalShowcase.name, animalShowcase.numberSpecies,
-            animalShowcase.classification, animalShowcase.averageLife, animalShowcase.position, animalShowcase.description,
+            animalShowcase.classification, animalShowcase.position, animalShowcase.averageLife, animalShowcase.description,
             animalShowcase.threats, animalShowcase.whatYouCanDo, animalShowcase.seriousLink, animalShowcase.latitude,
             animalShowcase.longitude)
         val transaction : FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
